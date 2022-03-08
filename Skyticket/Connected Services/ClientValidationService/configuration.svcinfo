@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configurationSnapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:schemas-microsoft-com:xml-wcfconfigurationsnapshot">
+  <behaviors />
+  <bindings>
+    <binding digest="System.ServiceModel.Configuration.BasicHttpBindingElement, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089:&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;Data name=&quot;ws_valida_clientePortBinding&quot; /&gt;" bindingType="basicHttpBinding" name="ws_valida_clientePortBinding" />
+  </bindings>
+  <endpoints>
+    <endpoint normalizedDigest="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;Data address=&quot;http://104.197.8.205:8084/ws_Valida_Cliente_Termial/ws_valida_cliente&quot; binding=&quot;basicHttpBinding&quot; bindingConfiguration=&quot;ws_valida_clientePortBinding&quot; contract=&quot;ClientValidationService.ws_valida_cliente&quot; name=&quot;ws_valida_clientePort&quot; /&gt;" digest="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;Data address=&quot;http://104.197.8.205:8084/ws_Valida_Cliente_Termial/ws_valida_cliente&quot; binding=&quot;basicHttpBinding&quot; bindingConfiguration=&quot;ws_valida_clientePortBinding&quot; contract=&quot;ClientValidationService.ws_valida_cliente&quot; name=&quot;ws_valida_clientePort&quot; /&gt;" contractName="ClientValidationService.ws_valida_cliente" name="ws_valida_clientePort" />
+  </endpoints>
+</configurationSnapshot>

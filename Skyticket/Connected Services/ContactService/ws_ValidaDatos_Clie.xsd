@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://ws.tickets.com/" targetNamespace="http://ws.tickets.com/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="Actualiza" type="tns:Actualiza" />
+  <xs:element name="ActualizaResponse" type="tns:ActualizaResponse" />
+  <xs:element name="Consulta" type="tns:Consulta" />
+  <xs:element name="ConsultaResponse" type="tns:ConsultaResponse" />
+  <xs:element name="InsertaReg" type="tns:InsertaReg" />
+  <xs:element name="InsertaRegResponse" type="tns:InsertaRegResponse" />
+  <xs:complexType name="Actualiza">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="cliente" type="tns:contactsUpBeans" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="contactsUpBeans">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="dato" type="xs:string" />
+      <xs:element minOccurs="0" name="description" type="xs:string" />
+      <xs:element minOccurs="0" name="first_name" type="xs:string" />
+      <xs:element minOccurs="0" name="id_cliente" type="xs:int" />
+      <xs:element minOccurs="0" name="last_name" type="xs:string" />
+      <xs:element minOccurs="0" name="primary_address_city" type="xs:string" />
+      <xs:element minOccurs="0" name="primary_address_country" type="xs:string" />
+      <xs:element minOccurs="0" name="primary_address_postalcode" type="xs:string" />
+      <xs:element minOccurs="0" name="primary_address_state" type="xs:string" />
+      <xs:element minOccurs="0" name="primary_address_street" type="xs:string" />
+      <xs:element minOccurs="0" name="rfc" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ActualizaResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="InsertaReg">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Inserta" type="tns:contactInBeans" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="contactInBeans">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="dato" type="xs:string" />
+      <xs:element minOccurs="0" name="description" type="xs:string" />
+      <xs:element minOccurs="0" name="first_name" type="xs:string" />
+      <xs:element minOccurs="0" name="id_cliente" type="xs:int" />
+      <xs:element minOccurs="0" name="last_name" type="xs:string" />
+      <xs:element minOccurs="0" name="primary_address_city" type="xs:string" />
+      <xs:element minOccurs="0" name="primary_address_country" type="xs:string" />
+      <xs:element minOccurs="0" name="primary_address_postalcode" type="xs:string" />
+      <xs:element minOccurs="0" name="primary_address_state" type="xs:string" />
+      <xs:element minOccurs="0" name="primary_address_street" type="xs:string" />
+      <xs:element minOccurs="0" name="rfc" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="InsertaRegResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Consulta">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ticket" type="tns:ticketsValidaBeans" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ticketsValidaBeans">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="id_cliente" type="xs:string" />
+      <xs:element minOccurs="0" name="valor" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ConsultaResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:contactsBeans" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="contactsBeans">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="description" type="xs:string" />
+      <xs:element minOccurs="0" name="first_name" type="xs:string" />
+      <xs:element minOccurs="0" name="last_name" type="xs:string" />
+      <xs:element minOccurs="0" name="primary_address_city" type="xs:string" />
+      <xs:element minOccurs="0" name="primary_address_country" type="xs:string" />
+      <xs:element minOccurs="0" name="primary_address_postalcode" type="xs:string" />
+      <xs:element minOccurs="0" name="primary_address_state" type="xs:string" />
+      <xs:element minOccurs="0" name="primary_address_street" type="xs:string" />
+      <xs:element minOccurs="0" name="rfc" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Settings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <isConfigured>true</isConfigured>
+  <Language>English | en-US</Language>
+  <ActivationKey>NAV9-ATB4-UE98-FQDD</ActivationKey>
+  <OutputPath>D:\Edu\VS Projects\Print Skyticket v2\jobs</OutputPath>
+  <ListenPort>9300</ListenPort>
+  <PrinterIP>192.168.3.6</PrinterIP>
+  <PrinterName />
+  <ConnectionType>Network</ConnectionType>
+  <DocumentPrinter>false</DocumentPrinter>
+  <DocumentPrinterDPI>60</DocumentPrinterDPI>
+  <RightMargin>1</RightMargin>
+  <DrawerCommand>1B,70,00,19,FA</DrawerCommand>
+  <PrintPaperAlways>false</PrintPaperAlways>
+  <PrintCustomerInfo>false</PrintCustomerInfo>
+  <SerialPort>COM1</SerialPort>
+  <EnableBarcodes>false</EnableBarcodes>
+  <DBServer>104.197.8.205</DBServer>
+  <DBUsername>postgres</DBUsername>
+  <DBPassword>Webmaster3d</DBPassword>
+  <DBName>virtualprinter</DBName>
+  <TerminalID>22</TerminalID>
+  <ClientID>6</ClientID>
+  <PhoneSuffix>521</PhoneSuffix>
+  <PhoneDigits>10</PhoneDigits>
+  <FTPServer>ftp://104.197.8.205</FTPServer>
+  <FTPUser>ftpuser</FTPUser>
+  <FTPPassword>1Web$t3r3</FTPPassword>
+  <FTPPort>24</FTPPort>
+  <FTPTicketsFolder>virtualprinter</FTPTicketsFolder>
+  <FTPCouponsFolder>coupons</FTPCouponsFolder>
+  <CouponLoadInterval>600</CouponLoadInterval>
+  <PoweredLogoEnabled>true</PoweredLogoEnabled>
+  <ServiceEnabled>false</ServiceEnabled>
+  <ServiceUser>PruebasMx</ServiceUser>
+  <ServicePassword>1qazxd</ServicePassword>
+  <codiPanelLocation>
+    <X>114</X>
+    <Y>182</Y>
+  </codiPanelLocation>
+  <codiPaymentLocation>
+    <X>993</X>
+    <Y>235</Y>
+  </codiPaymentLocation>
+  <codiQRLocation>
+    <X>0</X>
+    <Y>0</Y>
+  </codiQRLocation>
+  <codiQRSize>
+    <Width>0</Width>
+    <Height>0</Height>
+  </codiQRSize>
+  <CodiEnabled>false</CodiEnabled>
+  <CodiWinTimer>7</CodiWinTimer>
+  <CodiProcTimer>30</CodiProcTimer>
+</Settings>

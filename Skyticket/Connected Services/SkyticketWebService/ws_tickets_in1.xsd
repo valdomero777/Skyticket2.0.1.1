@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tickets.ws/" targetNamespace="http://tickets.ws/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="ingresa_tickets" type="tns:ingresa_tickets" />
+  <xs:element name="ingresa_ticketsResponse" type="tns:ingresa_ticketsResponse" />
+  <xs:complexType name="ingresa_tickets">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ticket" type="tns:ctTicketsBeans" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ctTicketsBeans">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="email" type="xs:string" />
+      <xs:element name="id_cliente" type="xs:int" />
+      <xs:element name="id_terminal" type="xs:int" />
+      <xs:element minOccurs="0" name="imagen" type="xs:base64Binary" />
+      <xs:element minOccurs="0" name="mobilePhone" type="xs:string" />
+      <xs:element minOccurs="0" name="nombre" type="xs:string" />
+      <xs:element minOccurs="0" name="passw" type="xs:string" />
+      <xs:element minOccurs="0" name="printMethod" type="xs:string" />
+      <xs:element minOccurs="0" name="sent" type="xs:string" />
+      <xs:element minOccurs="0" name="ticket_content" type="xs:string" />
+      <xs:element minOccurs="0" name="tipo" type="xs:string" />
+      <xs:element minOccurs="0" name="usuario" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ingresa_ticketsResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

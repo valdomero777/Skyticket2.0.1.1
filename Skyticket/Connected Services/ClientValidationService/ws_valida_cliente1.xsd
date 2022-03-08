@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://servicios.tickets.com/" targetNamespace="http://servicios.tickets.com/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="respuesta" type="tns:respuesta" />
+  <xs:element name="respuestaResponse" type="tns:respuestaResponse" />
+  <xs:complexType name="respuesta">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="consulta" type="tns:ctClienteBeans" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ctClienteBeans">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="id_cliente" type="xs:int" />
+      <xs:element minOccurs="0" name="id_terminal" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="respuestaResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

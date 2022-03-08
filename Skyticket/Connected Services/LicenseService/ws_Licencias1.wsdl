@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:tns="http://servicios.tickets.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" name="ws_Licencias" targetNamespace="http://servicios.tickets.com/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xsd:schema>
+      <xsd:import schemaLocation="http://104.197.8.205:8084/ws_TicketsLicencias/ws_Licencias?xsd=1" namespace="http://servicios.tickets.com/" />
+    </xsd:schema>
+  </types>
+  <message name="licencia">
+    <part name="parameters" element="tns:licencia" />
+  </message>
+  <message name="licenciaResponse">
+    <part name="parameters" element="tns:licenciaResponse" />
+  </message>
+  <portType name="ws_Licencias">
+    <operation name="licencia">
+      <input wsam:Action="http://servicios.tickets.com/ws_Licencias/licenciaRequest" message="tns:licencia" />
+      <output wsam:Action="http://servicios.tickets.com/ws_Licencias/licenciaResponse" message="tns:licenciaResponse" />
+    </operation>
+  </portType>
+  <binding name="ws_LicenciasPortBinding" type="tns:ws_Licencias">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="licencia">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+  </binding>
+  <service name="ws_Licencias">
+    <port name="ws_LicenciasPort" binding="tns:ws_LicenciasPortBinding">
+      <soap:address location="http://104.197.8.205:8084/ws_TicketsLicencias/ws_Licencias" />
+    </port>
+  </service>
+</definitions>

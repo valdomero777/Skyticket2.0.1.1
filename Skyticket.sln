@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skyticket", "Skyticket\Skyticket.csproj", "{B54C621C-8623-4C5E-92BF-F5DCBB176D9E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SetupCustomAction", "SetupCustomAction\SetupCustomAction.csproj", "{28D8CE0E-8179-4C5F-B5DB-02B08C093394}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup-x64", "Setup-x64\Setup-x64.vdproj", "{F1CB21C2-36C9-44EA-81A5-A6A26000895A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SetupSerial", "SetupSerial\SetupSerial.csproj", "{A25E86E7-54F1-46E0-8978-E9C662C3231E}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup-x86", "Setup-x86\Setup-x86.vdproj", "{04159C93-6BB3-499C-A276-9995B5B41CD1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LicenseValidator", "LicenseValidator\LicenseValidator.csproj", "{16173845-2769-44DD-8672-C984598F8FB6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B54C621C-8623-4C5E-92BF-F5DCBB176D9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B54C621C-8623-4C5E-92BF-F5DCBB176D9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B54C621C-8623-4C5E-92BF-F5DCBB176D9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B54C621C-8623-4C5E-92BF-F5DCBB176D9E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28D8CE0E-8179-4C5F-B5DB-02B08C093394}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28D8CE0E-8179-4C5F-B5DB-02B08C093394}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28D8CE0E-8179-4C5F-B5DB-02B08C093394}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28D8CE0E-8179-4C5F-B5DB-02B08C093394}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1CB21C2-36C9-44EA-81A5-A6A26000895A}.Debug|Any CPU.ActiveCfg = Debug
+		{F1CB21C2-36C9-44EA-81A5-A6A26000895A}.Release|Any CPU.ActiveCfg = Release
+		{A25E86E7-54F1-46E0-8978-E9C662C3231E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A25E86E7-54F1-46E0-8978-E9C662C3231E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A25E86E7-54F1-46E0-8978-E9C662C3231E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A25E86E7-54F1-46E0-8978-E9C662C3231E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04159C93-6BB3-499C-A276-9995B5B41CD1}.Debug|Any CPU.ActiveCfg = Debug
+		{04159C93-6BB3-499C-A276-9995B5B41CD1}.Release|Any CPU.ActiveCfg = Release
+		{16173845-2769-44DD-8672-C984598F8FB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16173845-2769-44DD-8672-C984598F8FB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16173845-2769-44DD-8672-C984598F8FB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16173845-2769-44DD-8672-C984598F8FB6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4A5F2C0E-8033-4DA3-95D3-FB5CB4F907EC}
+	EndGlobalSection
+EndGlobal

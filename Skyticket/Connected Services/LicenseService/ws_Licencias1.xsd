@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://servicios.tickets.com/" targetNamespace="http://servicios.tickets.com/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="licencia" type="tns:licencia" />
+  <xs:element name="licenciaResponse" type="tns:licenciaResponse" />
+  <xs:complexType name="licencia">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="consulta" type="tns:ctLicenciaBeans" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ctLicenciaBeans">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="id_ciente" type="xs:int" />
+      <xs:element minOccurs="0" name="keylicencia" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="licenciaResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

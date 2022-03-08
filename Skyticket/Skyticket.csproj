@@ -1,0 +1,474 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.3.0\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B54C621C-8623-4C5E-92BF-F5DCBB176D9E}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Skyticket</RootNamespace>
+    <AssemblyName>Skyticket</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>E29391FBA1AC9DD79CA751646CBF42B22AA1DDD2</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>final certificate.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DelaySign>false</DelaySign>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.3.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.3.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Ghostscript.NET">
+      <HintPath>..\Ghostscript.NET.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.1.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Npgsql, Version=4.1.3.1, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Npgsql.4.1.3.1\lib\net461\Npgsql.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp, Version=106.11.7.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.106.11.7\lib\net452\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.SQLite, Version=1.0.113.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.Core.1.0.113.1\lib\net46\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SQLite.EF6, Version=1.0.113.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.EF6.1.0.113.0\lib\net46\System.Data.SQLite.EF6.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SQLite.Linq, Version=1.0.113.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.Linq.1.0.113.0\lib\net46\System.Data.SQLite.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.3\lib\netstandard2.0\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.5.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.6.0\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Text.Encodings.Web, Version=4.0.4.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encodings.Web.4.6.0\lib\netstandard2.0\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Json, Version=4.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Json.4.6.0\lib\net461\System.Text.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.3\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="zxing, Version=0.16.6.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZXing.Net.0.16.6\lib\net461\zxing.dll</HintPath>
+    </Reference>
+    <Reference Include="zxing.presentation, Version=0.16.6.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZXing.Net.0.16.6\lib\net461\zxing.presentation.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ActivationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ActivationForm.designer.cs">
+      <DependentUpon>ActivationForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\TicketInfo.cs" />
+    <Compile Include="Codi\CodiPayment.cs" />
+    <Compile Include="Codi\CodiPaymentType.cs" />
+    <Compile Include="Codi\QRForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Codi\QRForm.designer.cs">
+      <DependentUpon>QRForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Codi\CodiPaymentForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Codi\CodiPaymentForm.designer.cs">
+      <DependentUpon>CodiPaymentForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Codi\TransactionsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Codi\TransactionsForm.designer.cs">
+      <DependentUpon>TransactionsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\ClientValidationService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\ContactService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\LicenseService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\SkyticketWebService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Codi\CodiAPI.cs" />
+    <Compile Include="Classes\CountDownTimer.cs" />
+    <Compile Include="ESCParser\Cmd\Command.cs" />
+    <Compile Include="ESCParser\Cmd\DataCmd\BarcodeADataCommand.cs" />
+    <Compile Include="ESCParser\Cmd\DataCmd\BarcodeBDataCommand.cs" />
+    <Compile Include="ESCParser\Cmd\DataCmd\PrintBufferredDataGraphicsSubCommand.cs" />
+    <Compile Include="ESCParser\Cmd\DataCmd\StoreColumnFmtDataToPrintBufferGraphicsSubCommand.cs" />
+    <Compile Include="ESCParser\Cmd\DataCmd\StoreRasterFmtDataToPrintBufferGraphicsSubCommand.cs" />
+    <Compile Include="ESCParser\Cmd\DataCmd\TextCommand.cs" />
+    <Compile Include="ESCParser\Cmd\DataCmd\UnknownDataCommand.cs" />
+    <Compile Include="ESCParser\Cmd\DataCommand.cs" />
+    <Compile Include="ESCParser\Cmd\EscPosCommand.cs" />
+    <Compile Include="ESCParser\Cmd\Interface\IImageContainer.cs" />
+    <Compile Include="ESCParser\Cmd\Interface\IInlineFormatting.cs" />
+    <Compile Include="ESCParser\Cmd\Interface\ILineBreak.cs" />
+    <Compile Include="ESCParser\Cmd\Interface\ITextContainer.cs" />
+    <Compile Include="ESCParser\Cmd\PrintCmd\CancelCommand.cs" />
+    <Compile Include="ESCParser\Cmd\PrintCmd\CarriageReturnCommand.cs" />
+    <Compile Include="ESCParser\Cmd\PrintCmd\Code2DDataCommand.cs" />
+    <Compile Include="ESCParser\Cmd\PrintCmd\EnableDoubleStrikeCommand.cs" />
+    <Compile Include="ESCParser\Cmd\PrintCmd\EnableEmphasisCommand.cs" />
+    <Compile Include="ESCParser\Cmd\PrintCmd\EnablePanelButtonsCommand.cs" />
+    <Compile Include="ESCParser\Cmd\PrintCmd\EnableSmoothingCommand.cs" />
+    <Compile Include="ESCParser\Cmd\PrintCmd\EnableUnderlineCommand.cs" />
+    <Compile Include="ESCParser\Cmd\PrintCmd\EscPosCommandWithData.cs" />
+    <Compile Include="ESCParser\Cmd\PrintCmd\EscPosCommandWithLargeData.cs" />
+    <Compile Include="ESCParser\Cmd\PrintCmd\EscPosCommandWithOneArg.cs" />
+    <Compile Include="ESCParser\Cmd\PrintCmd\EscPosCommandWithThreeArgs.cs" />
+    <Compile Include="ESCParser\Cmd\PrintCmd\EscPosCommandWithTwoArgs.cs" />
+    <Compile Include="ESCParser\Cmd\PrintCmd\FeedAndCutCommand.cs" />
+    <Compile Include="ESCParser\Cmd\PrintCmd\FormFeedCommand.cs" />
+    <Compile Include="ESCParser\Cmd\PrintCmd\GraphicsDataCommand.cs" />
+    <Compile Include="ESCParser\Cmd\PrintCmd\GraphicsLargeDataCommand.cs" />
+    <Compile Include="ESCParser\Cmd\PrintCmd\HorizontalTabCommand.cs" />
+    <Compile Include="ESCParser\Cmd\PrintCmd\InitializeCommand.cs" />
+    <Compile Include="ESCParser\Cmd\PrintCmd\LineFeedCommand.cs" />
+    <Compile Include="ESCParser\Cmd\PrintCmd\PrintAndFeedCommand.cs" />
+    <Compile Include="ESCParser\Cmd\PrintCmd\PrintAndFeedLinesCommand.cs" />
+    <Compile Include="ESCParser\Cmd\PrintCmd\PrintAndReverseFeedLinesCommand.cs" />
+    <Compile Include="ESCParser\Cmd\PrintCmd\PrintBarcodeCommand.cs" />
+    <Compile Include="ESCParser\Cmd\PrintCmd\PrintRasterBitImageCommand.cs" />
+    <Compile Include="ESCParser\Cmd\PrintCmd\PulseCommand.cs" />
+    <Compile Include="ESCParser\Cmd\PrintCmd\RequestResponseTransmissionCommand.cs" />
+    <Compile Include="ESCParser\Cmd\PrintCmd\SelectCharacterSizeCommand.cs" />
+    <Compile Include="ESCParser\Cmd\PrintCmd\SelectCodeTableCommand.cs" />
+    <Compile Include="ESCParser\Cmd\PrintCmd\SelectDefaultLineSpacingCommand.cs" />
+    <Compile Include="ESCParser\Cmd\PrintCmd\SelectFontCommand.cs" />
+    <Compile Include="ESCParser\Cmd\PrintCmd\SelectHriPrintPosCommand.cs" />
+    <Compile Include="ESCParser\Cmd\PrintCmd\SelectInternationalCharacterSetCommand.cs" />
+    <Compile Include="ESCParser\Cmd\PrintCmd\SelectJustificationCommand.cs" />
+    <Compile Include="ESCParser\Cmd\PrintCmd\SelectLineSpacingCommand.cs" />
+    <Compile Include="ESCParser\Cmd\PrintCmd\SelectPaperEndSensorsCommand.cs" />
+    <Compile Include="ESCParser\Cmd\PrintCmd\SelectPeripheralDeviceCommand.cs" />
+    <Compile Include="ESCParser\Cmd\PrintCmd\SelectPrintColorCommand.cs" />
+    <Compile Include="ESCParser\Cmd\PrintCmd\SelectPrintModeCommand.cs" />
+    <Compile Include="ESCParser\Cmd\PrintCmd\SelectPrintStopSensorsCommand.cs" />
+    <Compile Include="ESCParser\Cmd\PrintCmd\SetAbsolutePrintPosCommand.cs" />
+    <Compile Include="ESCParser\Cmd\PrintCmd\SetBarcodeHeightCommand.cs" />
+    <Compile Include="ESCParser\Cmd\PrintCmd\UnknownEscPosCommandWithData.cs" />
+    <Compile Include="ESCParser\Cmd\PrintCmd\UnknownEscPosCommandWithOneArg.cs" />
+    <Compile Include="ESCParser\EscParser.cs" />
+    <Compile Include="ESCParser\EscParserContext.cs" />
+    <Compile Include="Classes\Converters.cs" />
+    <Compile Include="Codi\CodiInfo.cs" />
+    <Compile Include="Classes\CustomerInfo.cs" />
+    <Compile Include="Classes\DBProvider.cs" />
+    <Compile Include="Classes\FTP.cs" />
+    <Compile Include="Classes\License.cs" />
+    <Compile Include="Classes\Processors.cs" />
+    <Compile Include="Classes\Texts.cs" />
+    <Compile Include="Classes\PrintJob.cs" />
+    <Compile Include="Classes\Updater.cs" />
+    <Compile Include="FeedbackForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FeedbackForm.designer.cs">
+      <DependentUpon>FeedbackForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TicketDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TicketDialog.designer.cs">
+      <DependentUpon>TicketDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\TicketChoice.cs" />
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\PrintHelper.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Settings.cs" />
+    <Compile Include="SettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SettingsForm.designer.cs">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\Extensions.cs" />
+    <Compile Include="Classes\WindowHelper.cs" />
+    <Compile Include="Codi\CodiForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Codi\CodiForm.designer.cs">
+      <DependentUpon>CodiForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WaitingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WaitingForm.Designer.cs">
+      <DependentUpon>WaitingForm.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="ActivationForm.es-ES.resx">
+      <DependentUpon>ActivationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ActivationForm.resx">
+      <DependentUpon>ActivationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Codi\CodiForm.es-ES.resx">
+      <DependentUpon>CodiForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Codi\CodiPaymentForm.es-ES.resx">
+      <DependentUpon>CodiPaymentForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Codi\QRForm.resx">
+      <DependentUpon>QRForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Codi\CodiPaymentForm.resx">
+      <DependentUpon>CodiPaymentForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Codi\TransactionsForm.es-ES.resx">
+      <DependentUpon>TransactionsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Codi\TransactionsForm.resx">
+      <DependentUpon>TransactionsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.es-ES.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SettingsForm.es-ES.resx">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FeedbackForm.resx">
+      <DependentUpon>FeedbackForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TicketDialog.es-ES.resx">
+      <DependentUpon>TicketDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TicketDialog.resx">
+      <DependentUpon>TicketDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="SettingsForm.resx">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Codi\CodiForm.resx">
+      <DependentUpon>CodiForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WaitingForm.resx">
+      <DependentUpon>WaitingForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="Connected Services\ClientValidationService\Skyticket.ClientValidationService.respuestaResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ClientValidationService\ws_valida_cliente1.wsdl" />
+    <None Include="Connected Services\ClientValidationService\ws_valida_cliente1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\ContactService\Skyticket.ContactService.ActualizaResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ContactService\Skyticket.ContactService.ConsultaResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ContactService\Skyticket.ContactService.contactsBeans.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ContactService\Skyticket.ContactService.InsertaRegResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ContactService\ws_ValidaDatos_Clie.wsdl" />
+    <None Include="Connected Services\ContactService\ws_ValidaDatos_Clie.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\LicenseService\Skyticket.LicenseService.licenciaResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\LicenseService\ws_Licencias1.wsdl" />
+    <None Include="Connected Services\LicenseService\ws_Licencias1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\SkyticketWebService\Skyticket.SkyticketWebService.ingresa_ticketsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SkyticketWebService\ws_tickets_in1.wsdl" />
+    <None Include="Connected Services\SkyticketWebService\ws_tickets_in1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="final certificate.pfx" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\update.png" />
+    <None Include="Connected Services\SkyticketWebService\configuration91.svcinfo" />
+    <None Include="Connected Services\SkyticketWebService\configuration.svcinfo" />
+    <None Include="Connected Services\SkyticketWebService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Connected Services\ClientValidationService\configuration91.svcinfo" />
+    <None Include="Connected Services\ClientValidationService\configuration.svcinfo" />
+    <None Include="Connected Services\ClientValidationService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Connected Services\LicenseService\configuration91.svcinfo" />
+    <None Include="Connected Services\LicenseService\configuration.svcinfo" />
+    <None Include="Connected Services\LicenseService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Connected Services\ContactService\configuration91.svcinfo" />
+    <None Include="Connected Services\ContactService\configuration.svcinfo" />
+    <None Include="Connected Services\ContactService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="icon.ico" />
+    <None Include="Resources\sms.png" />
+    <None Include="Resources\telegram.png" />
+    <None Include="Resources\whatsapp.png" />
+    <None Include="Resources\email.png" />
+    <None Include="Resources\print.png" />
+    <None Include="Resources\label.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\ClientValidationService\" />
+    <WCFMetadataStorage Include="Connected Services\ContactService\" />
+    <WCFMetadataStorage Include="Connected Services\LicenseService\" />
+    <WCFMetadataStorage Include="Connected Services\SkyticketWebService\" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.3.0\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.3.0\build\EntityFramework.targets'))" />
+    <Error Condition="!Exists('..\packages\System.Data.SQLite.Core.1.0.113.1\build\net46\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Data.SQLite.Core.1.0.113.1\build\net46\System.Data.SQLite.Core.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.3.0\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.targets')" />
+  <Import Project="..\packages\System.Data.SQLite.Core.1.0.113.1\build\net46\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.113.1\build\net46\System.Data.SQLite.Core.targets')" />
+  <PropertyGroup>
+    <PostBuildEvent>if exist "$(DevEnvDir)..\tools\vsvars32.bat" (
+    call "$(DevEnvDir)..\tools\vsvars32.bat"
+    editbin /largeaddressaware "$(TargetPath)"
+)</PostBuildEvent>
+  </PropertyGroup>
+</Project>
