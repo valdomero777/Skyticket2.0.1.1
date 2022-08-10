@@ -10,6 +10,9 @@ using System.Runtime.InteropServices.ComTypes;
 using System.Text.RegularExpressions;
 using Npgsql;
 using System.Data;
+using Skyticket.Classes;
+using System.Linq;
+using RestSharp;
 
 namespace Skyticket
 {
@@ -29,6 +32,9 @@ namespace Skyticket
         static int selectedAge = 0;
         static string Gender = "";
         static string Comments = "";
+        public static string clipPhone = "";
+        public static Boolean coupon = false;
+        public static Boolean hasAlert = false;
 
         public TicketDialog()
         {
@@ -43,8 +49,12 @@ namespace Skyticket
             catch (Exception)
             {
             }
+
+            
            
         InitializeComponent();
+
+
         }
         
         //***************************************//
@@ -53,6 +63,77 @@ namespace Skyticket
             selectedAge = 0;
             Gender = "";
             Comments = "";
+            string res = "";
+            string phone = "";
+
+            try
+            {
+                
+                    clipPhone = Clipboard.GetText();
+
+                    if (clipPhone.Length < 0 || clipPhone == null)
+                    {
+                        clipPhone = "no hay nada copiado";
+                    }
+
+                    res = clipPhone.Substring(0, 1);
+                    phone = clipPhone.Substring(1, 10);
+                
+            }
+            catch (Exception ex)
+            {
+                
+            }
+
+            
+
+            if (clipPhone.Length == 11 && res == "L")
+            {
+                InputBox.Text = phone;
+                InputBox.Enabled = false;
+                PaperButton.Enabled = false;
+                SMSButton.Enabled = false;
+                EmailButton.Enabled = false;
+                BatchButton.Enabled = false;
+
+            }
+            if (coupon == true && res != "L")
+            {
+                hasAlert = true;    
+                //agregamos la alerta de cupon aplicado y no canjeado
+                var client = new RestClient("https://skyticketapi.azurewebsites.net/alert?id=" + Settings.CurrentSettings.TerminalID + "&alerta=Aplico y no canjeo");
+                client.Timeout = -1;
+                var request = new RestRequest(Method.POST);
+
+                IRestResponse response = client.Execute(request);
+                MessageBox.Show(new Form { TopMost = true }, "Se ha detectado una anomalia al aplicar el cupon, se notificara al gerente de sucursal", "Alerta Aplico", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+
+            }
+            else if (coupon == false && res == "L")
+            {
+                hasAlert= true;
+                //agregamos la alerta de cupon canjeado y no aplicado
+
+                var client = new RestClient("https://skyticketapi.azurewebsites.net/alert?id=" + Settings.CurrentSettings.TerminalID + "&alerta=Canjeo y no aplico");
+                client.Timeout = -1;
+                var request = new RestRequest(Method.POST);
+
+                IRestResponse response = client.Execute(request);
+
+                MessageBox.Show(new Form { TopMost = true }, "Se ha detectado una anomalia al aplicar el cupon, se notificara al gerente de sucursal", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+
+            }
+            if (hasAlert == false)
+            {
+                Clipboard.Clear();
+                coupon = false;
+                hasAlert = false;
+            }
+
+           
+           
 
             ThreadPool.QueueUserWorkItem(delegate
             {
@@ -435,34 +516,21 @@ namespace Skyticket
         //***************************************//
         public static bool SaveFeedback()
         {
+
+            FeedInfo feed = new FeedInfo();
+
             bool result = false;
             try
             {
-                int ticketID = DBProvider.GetLastTicketID();
+                
+                feed.id_ticket = MainForm.id_ticketr;
+                feed.age_range = selectedAge;
+                feed.gender = Gender;
+                feed.comments = Comments;
 
-                lock (DBProvider.remoteDBLock)
-                {
-                    using (NpgsqlCommand saveCmd = new NpgsqlCommand())
-                    {
-                        saveCmd.CommandType = CommandType.Text;
-                        saveCmd.Connection = DBProvider.remoteConnection;
-
-                        string query = "INSERT INTO public.feedback(" +
-                                        "\"id_ticket\", \"age_range\", \"gender\", \"comments\")" +
-                                        "VALUES(@id_ticket, @age_range, @gender, @comments)";
-
-                        saveCmd.CommandText = query;
-                        saveCmd.Parameters.AddWithValue("@id_ticket", ticketID);
-                        saveCmd.Parameters.AddWithValue("@age_range", selectedAge);
+                MainForm.FeedRequest(feed);
 
 
-                        saveCmd.Parameters.AddWithValue("@gender", Gender);
-                        saveCmd.Parameters.AddWithValue("@comments", Comments);
-
-                        int temp = saveCmd.ExecuteNonQuery();
-                        result = true;
-                    }
-                }
             }
             catch (Exception ex)
             {

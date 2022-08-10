@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace Skyticket.Classes
 {
-    class TicketInfo
+   public class Ticket
     {
+        public int id { get; set; }
         public int id_terminal { get; set; }
         public int id_client { get; set; }
         public string ticketimagepath { get; set; }
@@ -17,5 +18,10 @@ namespace Skyticket.Classes
         public bool sent { get; set; }
         public DateTime datesent { get; set; }
         public string details { get; set; }
+    }
+
+    public class TicketRes
+    {
+        public Ticket ticket { get; set; }
     }
 }

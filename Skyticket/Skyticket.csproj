@@ -45,7 +45,7 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>E29391FBA1AC9DD79CA751646CBF42B22AA1DDD2</ManifestCertificateThumbprint>
@@ -143,6 +143,7 @@
     <Compile Include="ActivationForm.designer.cs">
       <DependentUpon>ActivationForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Classes\FeedInfo.cs" />
     <Compile Include="Classes\TicketInfo.cs" />
     <Compile Include="Codi\CodiPayment.cs" />
     <Compile Include="Codi\CodiPaymentType.cs" />

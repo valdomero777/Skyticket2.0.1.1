@@ -99,6 +99,8 @@
             this.CODICheck = new System.Windows.Forms.CheckBox();
             this.MinimizeTrayBox = new System.Windows.Forms.CheckBox();
             this.CustFeedbackCheck = new System.Windows.Forms.CheckBox();
+            this.label26 = new System.Windows.Forms.Label();
+            this.cmbTypePos = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -277,6 +279,8 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.cmbTypePos);
+            this.groupBox3.Controls.Add(this.label26);
             this.groupBox3.Controls.Add(this.BarcodesCheck);
             this.groupBox3.Controls.Add(this.PortsListBox);
             this.groupBox3.Controls.Add(this.label23);
@@ -619,6 +623,22 @@
             this.CustFeedbackCheck.Name = "CustFeedbackCheck";
             this.CustFeedbackCheck.UseVisualStyleBackColor = true;
             // 
+            // label26
+            // 
+            resources.ApplyResources(this.label26, "label26");
+            this.label26.Name = "label26";
+            // 
+            // cmbTypePos
+            // 
+            this.cmbTypePos.FormattingEnabled = true;
+            this.cmbTypePos.Items.AddRange(new object[] {
+            resources.GetString("cmbTypePos.Items"),
+            resources.GetString("cmbTypePos.Items1"),
+            resources.GetString("cmbTypePos.Items2"),
+            resources.GetString("cmbTypePos.Items3")});
+            resources.ApplyResources(this.cmbTypePos, "cmbTypePos");
+            this.cmbTypePos.Name = "cmbTypePos";
+            // 
             // SettingsForm
             // 
             resources.ApplyResources(this, "$this");
@@ -732,5 +752,7 @@
         private System.Windows.Forms.NumericUpDown CodiProcTimerBox;
         private System.Windows.Forms.CheckBox MinimizeTrayBox;
         private System.Windows.Forms.CheckBox CustFeedbackCheck;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.ComboBox cmbTypePos;
     }
 }

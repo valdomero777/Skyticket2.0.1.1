@@ -32,6 +32,8 @@ using ZXing.Common;
 using SnailDev.EscPosParser;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
+using Skyticket.Classes;
+using RestSharp;
 
 namespace Skyticket
 {
@@ -63,6 +65,8 @@ namespace Skyticket
         List<byte> serialStream = new List<byte>();
         System.Timers.Timer serialProcessTimer = new System.Timers.Timer();
         private List<int> dataPort = new List<int>();
+
+        public static int id_ticketr = 0;
 
 
         CodiForm codiForm = new CodiForm();
@@ -359,6 +363,7 @@ namespace Skyticket
         //***********************************//
         private void LoadCustomHeader()
         {
+            UpdateLog("cargando header");
             string fileName = "";
             try
             {
@@ -378,10 +383,21 @@ namespace Skyticket
                         {
                             if (reader.HasRows)
                             {
+                                UpdateLog("hay header");
+
                                 if (reader.Read())
                                 {
                                     fileName = reader.GetString(0);
+                                    UpdateLog(fileName);
                                 }
+                                else
+                                {
+                                    UpdateLog("error en la lectura del archivo");
+                                }
+                            }
+                            else
+                            {
+                                UpdateLog("no hay header");
                             }
                         }
                     }
@@ -389,6 +405,7 @@ namespace Skyticket
             catch (Exception ex)
             {
                 UpdateLogBox("LoadCustomHeader(): " + ex.Message);
+                UpdateLog("LoadCustomHeader(): " + ex.Message);
 
                 if (DBProvider.remoteConnection.State != ConnectionState.Open)
                     DBProvider.InitRemoteDB();
@@ -397,19 +414,29 @@ namespace Skyticket
 
             if (fileName.Length > 0)
             {
-                string sourcePath = Settings.CurrentSettings.FTPServer + ":" + Settings.CurrentSettings.FTPPort.ToString() +
-                                        "/" + fileName;
-                string destinationFile = Path.Combine(Settings.ConfigDirectory, "headers");
-                if (!Directory.Exists(destinationFile))
-                    Directory.CreateDirectory(destinationFile);
-                destinationFile = Path.Combine(destinationFile, Path.GetFileName(fileName));
-                if (FTP.FTPDownload(sourcePath, destinationFile))
+                try
                 {
-                    customHeader = destinationFile;
+                    string sourcePath = Settings.CurrentSettings.FTPServer + ":" + Settings.CurrentSettings.FTPPort.ToString() +
+                                            "/" + fileName;
+                    string destinationFile = Path.Combine(Settings.ConfigDirectory, "headers");
+                    if (!Directory.Exists(destinationFile))
+                        Directory.CreateDirectory(destinationFile);
+                    destinationFile = Path.Combine(destinationFile, Path.GetFileName(fileName));
+                    if (FTP.FTPDownload(sourcePath, destinationFile))
+                    {
+                        customHeader = destinationFile;
+                    }
+                }catch (Exception ex)
+                {
+                    UpdateLog(ex.Message);
                 }
             }
             else
+            {
                 customHeader = "";
+                UpdateLog("no hay nada que mover");
+            }
+               
         }
         //***********************************//
         private void Start()
@@ -499,6 +526,7 @@ namespace Skyticket
             catch (Exception ex)
             {
                 UpdateLogBox("Start(): " + ex.Message);
+                UpdateLog("Start(): " + ex.Message);
             }
         }
         //***********************************//
@@ -531,6 +559,7 @@ namespace Skyticket
             port.DataReceived -= SerialPort_DataReceivedAloha;
             UpdateLog("Recibiendo datos en puerto: Aloha \n Tamaño buffer " + port.ReadBufferSize + "\n Datos: " + port.ReadByte());
             int read = 0;
+            int read2 = 0;
             //int lastRead = 0;
             bool ticketData = false;
 
@@ -574,6 +603,7 @@ namespace Skyticket
                     dumpFileStream.Flush();
                     if (read == 0x1B || read == 0x76)
                     {
+                        read2 = read;
                         read = port.ReadByte();
                         Console.WriteLine(read);
                         dumpFileStream.Write(new byte[] { (byte)read }, 0, 1);
@@ -583,7 +613,10 @@ namespace Skyticket
                             //port.Write(new byte[] { 0x00 }, 0, 1);
                         }
                         else
+                        {
                             ticketData = true;
+                            serialStream.Add((byte)read2);
+                        }
                     }
                     else
                         ticketData = true;
@@ -1099,12 +1132,18 @@ namespace Skyticket
                                     break;
                             }
 
-                            if (ticketLines[i].Replace("\r", "").Length <= 1)
+                            
+                                
+
+                                if (ticketLines[i].Replace("\r", "").Length <= 1)
                                 continue;
                             ticketLines[i] = ticketLines[i].Replace("\r", "");
                             printBytes.AddRange(Encoding.ASCII.GetBytes(ticketLines[i]));
                             printBytes.Add(0x0A);
+                            
                         }
+
+                       
                     }
                     else
                     {
@@ -1555,50 +1594,34 @@ namespace Skyticket
             bool result = false;
             try
             {
-                lock (DBProvider.remoteDBLock)
+                Ticket ti = new Ticket();
+                ti.id_terminal = Convert.ToInt32(Settings.CurrentSettings.TerminalID);
+                ti.id_client = Convert.ToInt32(Settings.CurrentSettings.ClientID);
+                ti.ticketimagepath = ticketFileName;
+                ti.printmethod = method.ToString();
+                if (target.Contains("@"))
                 {
-                    using (NpgsqlCommand saveCmd = new NpgsqlCommand())
-                    {
-                        saveCmd.CommandType = CommandType.Text;
-                        saveCmd.Connection = DBProvider.remoteConnection;
-
-                        string query = "INSERT INTO public.tickets(" +
-                                        "\"id_terminal\", \"id_client\", \"ticketimagepath\", \"printmethod\", \"email\", \"mobilephone\", \"sent\", \"datesent\")" +
-                                        "VALUES(@id_terminal, @id_client, @ticketimagepath, @printmethod, @email, @mobilephone, @sent, @datesent)";
-
-                        saveCmd.CommandText = query;
-                        saveCmd.Parameters.AddWithValue("@id_terminal", Convert.ToInt32(Settings.CurrentSettings.TerminalID));
-                        saveCmd.Parameters.AddWithValue("@id_client", Convert.ToInt32(Settings.CurrentSettings.ClientID));
-                        saveCmd.Parameters.AddWithValue("@ticketimagepath", ticketFileName);
-                        saveCmd.Parameters.AddWithValue("@printmethod", method.ToString());
-
-                        if (target.Contains("@"))
-                        {
-                            saveCmd.Parameters.AddWithValue("@email", target);
-                            saveCmd.Parameters.AddWithValue("@mobilephone", "");
-                        }
-                        else
-                        {
-                            saveCmd.Parameters.AddWithValue("@email", "");
-                            saveCmd.Parameters.AddWithValue("@mobilephone", target);
-                        }
-                        saveCmd.Parameters.AddWithValue("@sent", true);
-                        saveCmd.Parameters.AddWithValue("@datesent", DateTime.Now);
-
-
-                        int temp = saveCmd.ExecuteNonQuery();
-                        result = true;
-                    }
-                    
-                    SaveJobTextDB(jobFileName);
-
-                    if (Settings.CurrentSettings.CustomerFeedback)
-                        TicketDialog.SaveFeedback();
+                    ti.email = target;
+                    ti.mobilephone = "";
                 }
+                else
+                {
+                    ti.email = "";
+                    ti.mobilephone = target;
+                }
+
+                ti.sent = true;
+                ti.datesent = DateTime.Now;
+                ti.details = SaveJobTextDB(jobFileName);
+
+                result =  TicketRequest(ti);
+
+                if (Settings.CurrentSettings.CustomerFeedback)
+                    TicketDialog.SaveFeedback();
             }
             catch (Exception ex)
             {
-                UpdateLogBox("SaveJobRemoteDB(): " + ex.Message);
+                UpdateLog("SaveJobRemoteDB(): " + ex.Message);
 
                 if (DBProvider.remoteConnection.State != ConnectionState.Open)
                     DBProvider.InitRemoteDB();
@@ -1679,23 +1702,23 @@ namespace Skyticket
             return result;
         }
         //******************************//
-        private static bool SaveJobTextDB(string psFileName)
+        private static string SaveJobTextDB(string psFileName)
         {
-            bool retVal = false;
-            
+            string text = "";
+
             try
             {
-                string text = "";
+
                 psFileName = Path.Combine(Settings.processedDirectory, psFileName);
 
                 string psFileText = File.ReadAllText(psFileName);
                 if (psFileText.ToLower().Contains("%%targetdevice") || psFileText.ToLower().Contains("%!ps-adobe"))
-                    return false;
+                    return "";
 
                 string[] ticketLines = GetESCPOSText(psFileName);
 
                 if (ticketLines.Length <= 0)
-                    return false;
+                    return "";
 
                 foreach (string ticketLine in ticketLines)
                 {
@@ -1704,33 +1727,20 @@ namespace Skyticket
 
                 int ticketID = DBProvider.GetLastTicketID();
 
-                using (NpgsqlCommand saveCmd = new NpgsqlCommand())
-                {
-                    saveCmd.CommandType = CommandType.Text;
-                    saveCmd.Connection = DBProvider.remoteConnection;
-
-                    string query = "INSERT INTO public.tickets_detail(" +
-                                    "\"id\", \"ticket_content\")" +
-                                    "VALUES(@id, @ticket_content)";
-
-                    saveCmd.CommandText = query;
-                    saveCmd.Parameters.AddWithValue("@id", ticketID);
-                    saveCmd.Parameters.AddWithValue("@ticket_content", text);
+                
 
 
-                    int temp = saveCmd.ExecuteNonQuery();
-                    retVal = true;
-                }
+
             }
             catch (Exception ex)
             {
-                UpdateLogBox("SaveJobTextDB(): " + ex.Message);
+                UpdateLog("SaveJobTextDB(): " + ex.Message);
 
                 if (DBProvider.remoteConnection.State != ConnectionState.Open)
                     DBProvider.InitRemoteDB();
             }
 
-            return retVal;
+            return text;
         }
         //******************************//
         private void UploadJobsThreadFunction()
@@ -2707,13 +2717,17 @@ namespace Skyticket
             EscParser parser = new SnailDev.EscPosParser.EscParser();
             var commands = parser.GetCommands(filePath);
 
+           
+
             foreach (var command in commands)
             {
+               
                 if (command.IsAvailableAs("ITextContainer"))
                 {
                     string textLine = (command as TextCommand).GetContent();
 
                     textLine = Regex.Replace(textLine, @"[^\u0020-\u00FE]+", string.Empty);
+                   
 
                     if (Settings.CurrentSettings.PosType == POSTypes.Aloha)
                     {
@@ -2744,6 +2758,25 @@ namespace Skyticket
                     if (ticketLines[i].Contains((char)196))
                         ticketLines[i] = ticketLines[i].Replace((char)196, '=');
                 }
+            }
+
+            try
+            {
+                
+                 if(ticketText.Contains("10% SKY") || ticketText.Contains("15% SKY") || ticketText.Contains("20% SKY") ) {
+                    TicketDialog.coupon = true;
+                    if (ticketText.ToLower().Contains("empleado") || ticketText.ToLower().Contains("corte") || ticketText.ToLower().Contains("entrada") ||
+                        ticketText.ToLower().Contains("reimpresion") || ticketText.ToLower().Contains("ventas") || ticketText.ToLower().Contains("salida") || 
+                        ticketText.ToLower().Contains("error") || ticketText.ToLower().Contains("propinas") || ticketText.ToLower().Contains("reporte")
+                        || ticketText.ToLower().Contains("*** promociones ***") || ticketText.ToLower().Contains("ventas restaurante"))
+                    {
+                        TicketDialog.coupon = false;
+                    }
+                }
+
+            }catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message+"Mainform");    
             }
 
             return ticketLines;
@@ -2851,6 +2884,62 @@ namespace Skyticket
 
         }
 
-         
+        private static bool TicketRequest(Ticket ti)
+        {
+            bool result = false;
+            try
+            {
+                var ticket = new RestClient("https://skyticketapi.azurewebsites.net/");
+                ticket.Timeout = -1;
+                var request = new RestRequest("tickets", Method.POST);
+                request.AddJsonBody(ti);
+
+                IRestResponse response = ticket.Execute(request);
+
+                var ticketr = JsonConvert.DeserializeObject<TicketRes>(response.Content);
+
+                id_ticketr = ticketr.ticket.id;
+
+                if (id_ticketr != 0)
+                {
+                    result = true;
+                    if (TicketDialog.hasAlert)
+                    {
+
+                        var client = new RestClient("https://skyticketapi.azurewebsites.net/updateAlert?id_ticket=" + id_ticketr + "&clipBoard=" + TicketDialog.clipPhone + "&id_terminal=" + Settings.CurrentSettings.TerminalID);
+                        client.Timeout = -1;
+                        var alertRequest = new RestRequest(Method.POST);
+
+                        IRestResponse alertResponse = client.Execute(alertRequest);
+
+                        Clipboard.Clear();
+                        TicketDialog.coupon = false;
+                        TicketDialog.hasAlert = false;
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            return result;
+
+        }
+
+        public static void FeedRequest( FeedInfo feed)
+        {
+            var feedback = new RestClient("https://skyticketapi.azurewebsites.net/");
+            feedback.Timeout = -1;
+            var request = new RestRequest("feedback", Method.POST);
+            request.AddJsonBody(feed);
+
+            IRestResponse response = feedback.Execute(request);
+        }
+
+
+
+
     }
 }

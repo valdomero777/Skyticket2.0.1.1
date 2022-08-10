@@ -96,11 +96,30 @@ namespace Skyticket
 
             MinimizeTrayBox.Checked = Settings.CurrentSettings.MinimizeToTray;
             CustFeedbackCheck.Checked = Settings.CurrentSettings.CustomerFeedback;
+
+            cmbTypePos.SelectedItem = Settings.CurrentSettings.PosType.ToString();
+
         }
         //*******************************//
         private void SaveButton_Click(object sender, EventArgs e)
         {
-            Settings.CurrentSettings.OutputPath = OutputFolderBox.Text;
+            if(cmbTypePos.Text == "Aloha")
+            {
+                Settings.CurrentSettings.PosType = POSTypes.Aloha;
+            }else if(cmbTypePos.Text == "Micros")
+            {
+                Settings.CurrentSettings.PosType = POSTypes.Micros;
+            }
+            else if (cmbTypePos.Text == "Siapa")
+            {
+                Settings.CurrentSettings.PosType = POSTypes.Siapa;
+            }
+            else if (cmbTypePos.Text == "Others")
+            {
+                Settings.CurrentSettings.PosType = POSTypes.Others;
+            }
+
+                Settings.CurrentSettings.OutputPath = OutputFolderBox.Text;
 
             if (NetworkRadioButton.Checked)
                 Settings.CurrentSettings.ConnectionType = ConnectionTypes.Network;
@@ -205,6 +224,6 @@ namespace Skyticket
                 MessageBox.Show("Incorrect");
         }
         //*******************************//
-        
+
     }
 }
