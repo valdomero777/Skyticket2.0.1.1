@@ -69,25 +69,25 @@ namespace Skyticket
             try
             {
                 
-                    clipPhone = Clipboard.GetText();
+                   
 
-                    if (clipPhone.Length < 0 || clipPhone == null)
+                    if (MainForm.clipPhone.Length < 0 || MainForm.clipPhone == null)
                     {
-                        clipPhone = "no hay nada copiado";
+                    MainForm.clipPhone = "no hay nada copiado";
                     }
 
-                    res = clipPhone.Substring(0, 1);
-                    phone = clipPhone.Substring(1, 10);
+                    res = MainForm.clipPhone.Substring(0, 1);
+                    phone = MainForm.clipPhone.Substring(1, 10);
                 
             }
             catch (Exception ex)
             {
-                
+                    
             }
 
             
 
-            if (clipPhone.Length == 11 && res == "L")
+            if (MainForm.clipPhone.Length == 11 && res == "L")
             {
                 InputBox.Text = phone;
                 InputBox.Enabled = false;
@@ -97,43 +97,6 @@ namespace Skyticket
                 BatchButton.Enabled = false;
 
             }
-            if (coupon == true && res != "L")
-            {
-                hasAlert = true;    
-                //agregamos la alerta de cupon aplicado y no canjeado
-                var client = new RestClient("https://skyticketapi.azurewebsites.net/alert?id=" + Settings.CurrentSettings.TerminalID + "&alerta=Aplico y no canjeo");
-                client.Timeout = -1;
-                var request = new RestRequest(Method.POST);
-
-                IRestResponse response = client.Execute(request);
-                MessageBox.Show(new Form { TopMost = true }, "Se ha detectado una anomalia al aplicar el cupon, se notificara al gerente de sucursal", "Alerta Aplico", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-
-            }
-            else if (coupon == false && res == "L")
-            {
-                hasAlert= true;
-                //agregamos la alerta de cupon canjeado y no aplicado
-
-                var client = new RestClient("https://skyticketapi.azurewebsites.net/alert?id=" + Settings.CurrentSettings.TerminalID + "&alerta=Canjeo y no aplico");
-                client.Timeout = -1;
-                var request = new RestRequest(Method.POST);
-
-                IRestResponse response = client.Execute(request);
-
-                MessageBox.Show(new Form { TopMost = true }, "Se ha detectado una anomalia al aplicar el cupon, se notificara al gerente de sucursal", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-
-            }
-            if (hasAlert == false)
-            {
-                Clipboard.Clear();
-                coupon = false;
-                hasAlert = false;
-            }
-
-           
-           
 
             ThreadPool.QueueUserWorkItem(delegate
             {
@@ -226,6 +189,9 @@ namespace Skyticket
         //***************************************//
         public static void ClosePopup()
         {
+            
+            
+
             try
             {
                 dialog.Invoke(new Action(()=>

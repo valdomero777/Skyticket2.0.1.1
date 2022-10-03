@@ -68,6 +68,10 @@ namespace Skyticket
 
         public static int id_ticketr = 0;
 
+        public static Boolean hasAlert = false;
+        public static Boolean coupon = false;
+        public static string clipPhone = "";
+
 
         CodiForm codiForm = new CodiForm();
 
@@ -967,6 +971,15 @@ namespace Skyticket
         {
             try
             {
+                clipPhone = Clipboard.GetText();
+            }
+            catch (Exception ex)
+            {
+
+            }
+            try
+            {
+                
                 Stopwatch stopwatch = new Stopwatch();
                 stopwatch.Start();
 
@@ -978,9 +991,9 @@ namespace Skyticket
                         File.Delete(processedJobPath);
 
                     File.Move(psFilePath, processedJobPath);
-                   
 
-
+                    
+                    
                 }
 
                 ThreadPool.QueueUserWorkItem(delegate { PrintHelper.OpenCashDrawer(); });
@@ -1437,7 +1450,7 @@ namespace Skyticket
                                 trimmedImage = ImageTrimWhite(initial);
                             }
 
-                            try { File.Delete(pngFilePath); } catch (Exception) { }
+                            try { File.Delete(pngFilePath); } catch (Exception e) { UpdateLogBox("trying delete original picture" + e); }
 
                             timeStamp = DateTime.Now.ToString("yyyyMMddHHmmssfff");
                             pngfileName = timeStamp + ".png";
@@ -2510,6 +2523,7 @@ namespace Skyticket
         //***********************************//
         public static Bitmap ImageTrimWhite(Bitmap img)
         {
+            
             //get image data
             BitmapData bd = img.LockBits(new Rectangle(Point.Empty, img.Size),
             ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb);
@@ -2618,6 +2632,8 @@ namespace Skyticket
                 return null;
 
             //create new image
+            img.Dispose();
+
             Bitmap newImage = new Bitmap(width, height, PixelFormat.Format32bppArgb);
             BitmapData nbd
                 = newImage.LockBits(new Rectangle(0, 0, width, height),
@@ -2658,7 +2674,9 @@ namespace Skyticket
         //***********************************//
         private bool WriteTextToPng(string[] ticketLines, string pngFile)
         {
+            
             bool returnVal = false;
+            string ticketText = "";
 
             try
             {
@@ -2679,6 +2697,10 @@ namespace Skyticket
                 {
                     string textLine = line;
 
+                    ticketText += line;
+
+                   
+
                     if (Settings.CurrentSettings.PosType == POSTypes.Aloha)
                     {
                         if (textLine.Replace(" ", "").Length <= 1)
@@ -2687,6 +2709,8 @@ namespace Skyticket
                     graphics.DrawString(textLine, new Font("Lucida Console", 16), new SolidBrush(Color.Black), startX, startY + Offset);
                     Offset = Offset + 25;
                 }
+
+
 
                 var trimmedImage = ImageTrimWhite(ticketImage);
 
@@ -2704,6 +2728,30 @@ namespace Skyticket
             {
                 UpdateLogBox("WriteTextToPng(): " + ex.Message);
             }
+            try
+            {
+
+                if (ticketText.ToLower().Contains("10% sky") || ticketText.ToLower().Contains("15% sky") || ticketText.ToLower().Contains("20% sky"))
+                {
+                    coupon = true;
+                    
+                    UpdateLogBox("aplico cupon");
+
+                    if (ticketText.ToLower().Contains("empleado") || ticketText.ToLower().Contains("corte") || ticketText.ToLower().Contains("entrada") ||
+                        ticketText.ToLower().Contains("reimpresion") || ticketText.ToLower().Contains("ventas") || ticketText.ToLower().Contains("salida") ||
+                        ticketText.ToLower().Contains("error") || ticketText.ToLower().Contains("propinas") || ticketText.ToLower().Contains("reporte")
+                        || ticketText.ToLower().Contains("*** promociones ***") || ticketText.ToLower().Contains("ventas restaurante"))
+                    {
+                        
+                    }
+
+                }
+            }catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message+"Mainform", "validacion de proceso lealtad");    
+            }
+            alertCreation();
+
 
             return returnVal;
         }
@@ -2760,25 +2808,7 @@ namespace Skyticket
                 }
             }
 
-            try
-            {
-                
-                 if(ticketText.Contains("10% SKY") || ticketText.Contains("15% SKY") || ticketText.Contains("20% SKY") ) {
-                    TicketDialog.coupon = true;
-                    if (ticketText.ToLower().Contains("empleado") || ticketText.ToLower().Contains("corte") || ticketText.ToLower().Contains("entrada") ||
-                        ticketText.ToLower().Contains("reimpresion") || ticketText.ToLower().Contains("ventas") || ticketText.ToLower().Contains("salida") || 
-                        ticketText.ToLower().Contains("error") || ticketText.ToLower().Contains("propinas") || ticketText.ToLower().Contains("reporte")
-                        || ticketText.ToLower().Contains("*** promociones ***") || ticketText.ToLower().Contains("ventas restaurante"))
-                    {
-                        TicketDialog.coupon = false;
-                    }
-                }
-
-            }catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message+"Mainform");    
-            }
-
+            
             return ticketLines;
         }
         //***********************************//
@@ -2886,6 +2916,7 @@ namespace Skyticket
 
         private static bool TicketRequest(Ticket ti)
         {
+            UpdateLogBox("TicketReq");
             bool result = false;
             try
             {
@@ -2903,25 +2934,26 @@ namespace Skyticket
                 if (id_ticketr != 0)
                 {
                     result = true;
-                    if (TicketDialog.hasAlert)
+                    if (hasAlert)
                     {
 
-                        var client = new RestClient("https://skyticketapi.azurewebsites.net/updateAlert?id_ticket=" + id_ticketr + "&clipBoard=" + TicketDialog.clipPhone + "&id_terminal=" + Settings.CurrentSettings.TerminalID);
+                        var client = new RestClient("https://skyticketapi.azurewebsites.net/updateAlert?id_ticket=" + id_ticketr + "&clipBoard=" + clipPhone + "&id_terminal=" + Settings.CurrentSettings.TerminalID);
                         client.Timeout = -1;
                         var alertRequest = new RestRequest(Method.POST);
 
                         IRestResponse alertResponse = client.Execute(alertRequest);
 
                         Clipboard.Clear();
-                        TicketDialog.coupon = false;
-                        TicketDialog.hasAlert = false;
+                        coupon = false;
+                        hasAlert = false;
+                        clipPhone = "";
                     }
                 }
 
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                //MessageBox.Show(ex.Message, "modificacion proceso lealtad");
             }
 
             return result;
@@ -2938,6 +2970,61 @@ namespace Skyticket
             IRestResponse response = feedback.Execute(request);
         }
 
+        public static void alertCreation()
+        {
+            string res = "";
+            
+            try
+            {
+
+                
+
+                if (clipPhone.Length < 0 || clipPhone == null)
+                {
+                    clipPhone = "no hay nada copiado";
+                }
+
+                res = clipPhone.Substring(0, 1);
+
+                UpdateLogBox("clip"+clipPhone);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            if (coupon == true && res != "L")
+            {
+                hasAlert = true;
+                //agregamos la alerta de cupon aplicado y no canjeado
+                var client = new RestClient("https://skyticketapi.azurewebsites.net/alert?id=" + Settings.CurrentSettings.TerminalID + "&alerta=Aplico y no canjeo");
+                client.Timeout = -1;
+                var request = new RestRequest(Method.POST);
+
+                IRestResponse response = client.Execute(request);
+                // lealtad MessageBox.Show(new Form { TopMost = true }, "Se ha detectado una anomalia al aplicar el cupon, se notificara al gerente de sucursal", "Alerta Aplico", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+
+            }
+            else if (coupon == false && res == "L")
+            {
+                hasAlert = true;
+                //agregamos la alerta de cupon canjeado y no aplicado
+
+                var client = new RestClient("https://skyticketapi.azurewebsites.net/alert?id=" + Settings.CurrentSettings.TerminalID + "&alerta=Canjeo y no aplico");
+                client.Timeout = -1;
+                var request = new RestRequest(Method.POST);
+
+                IRestResponse response = client.Execute(request);
+
+                //MessageBox.Show(new Form { TopMost = true }, "Se ha detectado una anomalia al aplicar el cupon, se notificara al gerente de sucursal", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+
+            }
+
+            coupon = false;
+            Clipboard.Clear();
+           
+        }
 
 
 
