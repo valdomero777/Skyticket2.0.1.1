@@ -26,16 +26,16 @@
 *ContoneOnly: True
 
 *OpenUI *Resolution: PickOne
-*DefaultResolution: 600dpi
+*DefaultResolution: 203dpi
 *OrderDependency: 10 AnySetup *Resolution
-*Resolution 600dpi: "<< /HWResolution [600 600] >> setpagedevice"
+*Resolution 203dpi: "<< /HWResolution [203 203] >> setpagedevice"
 *CloseUI: *Resolution
 
 *HWMargins: 0 0 0 0
-*ParamCustomPageSize Width: 1 points 1 5670
-*ParamCustomPageSize Height: 2 points 1 5670
-*ParamCustomPageSize WidthOffset/Width Margin: 3 points 0 5670
-*ParamCustomPageSize HeightOffset/Height Margin: 4 points 0 5670
+*ParamCustomPageSize Width: 1 points 1 567
+*ParamCustomPageSize Height: 2 points 1 567
+*ParamCustomPageSize WidthOffset/Width Margin: 3 points 0 567
+*ParamCustomPageSize HeightOffset/Height Margin: 4 points 0 567
 *ParamCustomPageSize Orientation: 5 int 0 3
 *NonUIOrderDependency: 20 AnySetup *CustomPageSize
 *CustomPageSize True: "
@@ -54,41 +54,29 @@
   /ImagingBBox null def
   end setpagedevice"
 *End
-*MaxMediaWidth: "5670"
-*MaxMediaHeight: "5670"
+*MaxMediaWidth: "567"
+*MaxMediaHeight: "567"
 
 *LandscapeOrientation: Any
 
 *OpenUI *PageSize: PickOne
 *DefaultPageSize: Skyticket
 *OrderDependency: 20 AnySetup *PageSize
-*PageSize Skyticket: "<< /PageSize [612 5670] /ImagingBBox null >> setpagedevice"
-*PageSize Letter: "<< /PageSize [612 792] /ImagingBBox null >> setpagedevice"
-*PageSize Legal: "<< /PageSize [612 1008] /ImagingBBox null >> setpagedevice"
-*PageSize A4: "<< /PageSize [595 842] /ImagingBBox null >> setpagedevice"
+*PageSize Skyticket: "<< /PageSize [612 567] /ImagingBBox null >> setpagedevice"
 
 *CloseUI: *PageSize
 
 *OpenUI *PageRegion: PickOne
 *DefaultPageRegion: Skyticket
 *OrderDependency: 20 AnySetup *PageRegion
-*PageRegion Skyticket: "<< /PageSize [612 5670] /ImagingBBox null >> setpagedevice"
-*PageRegion Letter: "<< /PageSize [612 792] /ImagingBBox null >> setpagedevice"
-*PageRegion Legal: "<< /PageSize [612 1008] /ImagingBBox null >> setpagedevice"
-*PageRegion A4: "<< /PageSize [595 842] /ImagingBBox null >> setpagedevice"
+*PageRegion Skyticket: "<< /PageSize [612 567] /ImagingBBox null >> setpagedevice"
 *CloseUI: *PageRegion
 
 *DefaultImageableArea: Skyticket
-*ImageableArea Skyticket: "0 0 612 5670"
-*ImageableArea Letter: "0 0 612 792"
-*ImageableArea Legal: "0 0 612 1008"
-*ImageableArea A4: "0 0 595 842"
+*ImageableArea Skyticket: "0 0 612 567"
 
 *DefaultPaperDimension: Skyticket
-*PaperDimension Skyticket: "612 5670"
-*PaperDimension Letter: "612 792"
-*PaperDimension Legal: "612 1008"
-*PaperDimension A4: "595 842"
+*PaperDimension Skyticket: "612 567"
 
 
 *DefaultFont: Courier

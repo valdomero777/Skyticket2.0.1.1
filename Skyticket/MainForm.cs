@@ -303,29 +303,11 @@ namespace Skyticket
             string fileName = "";
             try
             {
-                lock (DBProvider.remoteDBLock)
-                    using (NpgsqlCommand Cmd = new NpgsqlCommand())
-                    {
-                        Cmd.CommandType = CommandType.Text;
-                        Cmd.Connection = DBProvider.remoteConnection;
+                var client = new RestClient("https://skyticketapi.azurewebsites.net/coupon?terminal_id=" + Settings.CurrentSettings.TerminalID + "&client_id="+ Settings.CurrentSettings.ClientID);
+                client.Timeout = -1;
+                var request = new RestRequest(Method.GET);
 
-                        string query = "SELECT \"date\", \"imagepathftp\" FROM public.ct_coupon WHERE terminalid=@terminalid AND clientid=@clientid ORDER BY \"date\" DESC";
-
-                        Cmd.CommandText = query;
-                        Cmd.Parameters.AddWithValue("@terminalid", Settings.CurrentSettings.TerminalID);
-                        Cmd.Parameters.AddWithValue("@clientid", Settings.CurrentSettings.ClientID);
-
-                        using (NpgsqlDataReader reader = Cmd.ExecuteReader())
-                        {
-                            if (reader.HasRows)
-                            {
-                                if (reader.Read())
-                                {
-                                    fileName = reader.GetString(1);
-                                }
-                            }
-                        }
-                    }
+                IRestResponse response = client.Execute(request);
             }
             catch (Exception ex)
             {
