@@ -13,6 +13,8 @@ using System.Data;
 using Skyticket.Classes;
 using System.Linq;
 using RestSharp;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.ComponentModel;
 
 namespace Skyticket
 {
@@ -28,13 +30,8 @@ namespace Skyticket
         internal static List<string> contactsInfo = new List<string>();
 
         Regex numberRgx = new Regex("[^0-9]");
-
-        static int selectedAge = 0;
-        static string Gender = "";
-        static string Comments = "";
-        public static string clipPhone = "";
-        public static Boolean coupon = false;
-        public static Boolean hasAlert = false;
+        public static bool isCopied = false;
+        public static string phone = "";
 
         public TicketDialog()
         {
@@ -60,43 +57,7 @@ namespace Skyticket
         //***************************************//
         private void TicketDialog_Load(object sender, EventArgs e)
         {
-            selectedAge = 0;
-            Gender = "";
-            Comments = "";
-            string res = "";
-            string phone = "";
-
-            try
-            {
-                
-                   
-
-                    if (MainForm.clipPhone.Length < 0 || MainForm.clipPhone == null)
-                    {
-                    MainForm.clipPhone = "no hay nada copiado";
-                    }
-
-                    res = MainForm.clipPhone.Substring(0, 1);
-                    phone = MainForm.clipPhone.Substring(1, 10);
-                
-            }
-            catch (Exception ex)
-            {
-                    
-            }
-
-            
-
-            if (MainForm.clipPhone.Length == 11 && res == "L")
-            {
-                InputBox.Text = phone;
-                InputBox.Enabled = false;
-                PaperButton.Enabled = false;
-                SMSButton.Enabled = false;
-                EmailButton.Enabled = false;
-                BatchButton.Enabled = false;
-
-            }
+         
 
             ThreadPool.QueueUserWorkItem(delegate
             {
@@ -118,16 +79,10 @@ namespace Skyticket
                         this.Focus();
                         WindowHelper.ActivateEx(this.Handle);
 
-                        TicketLabel.Location = new Point(this.Width / 2 - TicketLabel.Location.X / 2, TicketLabel.Location.Y);
+                       
 
 
-                        if (Settings.CurrentSettings.ConnectionType == ConnectionTypes.WinPrinter)
-                            if (string.IsNullOrEmpty(Settings.CurrentSettings.PrinterName))
-                                PaperButton.Enabled = false;
-
-                        if (Settings.CurrentSettings.ConnectionType == ConnectionTypes.Network)
-                            if (string.IsNullOrEmpty(Settings.CurrentSettings.PrinterIP))
-                                PaperButton.Enabled = false;
+                       
 
                         this.Height = 150;
 
@@ -141,31 +96,14 @@ namespace Skyticket
                     catch (Exception)
                     {
                     }
+                    MainForm.UsersList.ForEach(user => cmbSuc.Items.Add(user.sucursal));
                 }));
             });
 
             CountDownTimer timer = new CountDownTimer();
             timer.Start();
             timer.StepMs = 50;
-            BatchButton.Enabled = false;
-            //update label text
-            timer.TimeChanged += () =>
-            {
-                if (language.Contains("es"))
-                    BatchButton.Text = TextsSpanish.ReceivingData + " " + timer.TimeLeftStr.Replace("m","");
-                else
-                    BatchButton.Text = Texts.ReceivingData + " " + timer.TimeLeftStr.Replace("m", "");
-            };
-
-            // show messageBox on timer = 00:00.000
-            timer.CountDownFinished += () =>
-            {
-                BatchButton.Enabled = true;
-                if (language.Contains("es"))
-                    BatchButton.Text = "Corte";
-                else
-                    BatchButton.Text = "Corte";
-            };
+           
         }
         //***************************************//
         private void TicketDialog_FormClosing(object sender, FormClosingEventArgs e)
@@ -207,7 +145,7 @@ namespace Skyticket
         //***************************************//
         private void TicketDialog_KeyPress(object sender, KeyPressEventArgs e)
         {
-            switch(e.KeyChar)
+            switch('2')
             {
                 case '1':
                     e.Handled = true;
@@ -257,10 +195,10 @@ namespace Skyticket
             choice.printMethod = TicketMethod.Whatsapp;
             //InputLabel.Text = "Mobile phone:";
 
-            this.Height = 545;
+           
             this.AcceptButton = OKButton;
 
-            MethodLabel.Text = "Whatsapp";
+           
             
             InputBox.SelectionStart = InputBox.Text.Length;
             InputBox.Focus();
@@ -274,7 +212,7 @@ namespace Skyticket
             this.Height = 545;
             this.AcceptButton = OKButton;
 
-            MethodLabel.Text = "No Print";
+            
             InputBox.SelectionStart = InputBox.Text.Length;
             InputBox.Focus();
         }
@@ -288,7 +226,7 @@ namespace Skyticket
             this.Height = 545;
             this.AcceptButton = OKButton;
 
-            MethodLabel.Text = "SMS";
+            
             InputBox.SelectionStart = InputBox.Text.Length;
             InputBox.Focus();
         }
@@ -302,23 +240,13 @@ namespace Skyticket
             this.Height = 545;
             this.AcceptButton = OKButton;
 
-            MethodLabel.Text = "Email";
+           
             InputBox.Focus();
         }
         //***************************************//
         private void OKButton_Click(object sender, EventArgs e)
         {
-            if (choice.printMethod == TicketMethod.Email)
-            {
-                if (!IsValidEmail(InputBox.Text))
-                {
-                    if (language.Contains("es"))
-                        MessageBox.Show(TextsSpanish.InvalidEmail);
-                    else
-                        MessageBox.Show(Texts.InvalidEmail);
-                    return;
-                }
-            }
+            choice.printMethod = TicketMethod.Whatsapp;
 
             choice.targetInput = InputBox.Text;
 
@@ -350,13 +278,7 @@ namespace Skyticket
                 contactsInfo = CustomerInfo.LoadCustomerInfo();
             }
 
-            if (MaleButton.Checked)
-                Gender = MaleButton.Tag.ToString();
-            else if (FemaleButton.Checked)
-                Gender = FemaleButton.Tag.ToString();
-            else if (OtherButton.Checked)
-                Gender = OtherButton.Tag.ToString();
-            Comments = CommentsBox.Text;
+           
 
             this.DialogResult = DialogResult.OK;
             this.FormClosing -= TicketDialog_FormClosing;
@@ -430,84 +352,9 @@ namespace Skyticket
             return isBlackListed;
         }
         //***************************************//
-        private void AgeButton_Click(object sender, EventArgs e)
-        {
-            string name = ((Button)sender).Name.Replace("button", "");
-
-            switch (name)
-            {
-                case "1":
-                    selectedAge = 10;
-                    break;
-
-                case "2":
-                    selectedAge = 15;
-                    break;
-
-                case "3":
-                    selectedAge = 20;
-                    break;
-
-                case "4":
-                    selectedAge = 30;
-                    break;
-
-                case "5":
-                    selectedAge = 40;
-                    break;
-
-                case "6":
-                    selectedAge = 50;
-                    break;
-
-                case "7":
-                    selectedAge = 60;
-                    break;
-
-                case "8":
-                    selectedAge = 80;
-                    break;
-            }
-
-            button1.BackColor = SystemColors.Control;
-            button2.BackColor = SystemColors.Control;
-            button3.BackColor = SystemColors.Control;
-            button4.BackColor = SystemColors.Control;
-            button5.BackColor = SystemColors.Control;
-            button6.BackColor = SystemColors.Control;
-            button7.BackColor = SystemColors.Control;
-            button8.BackColor = SystemColors.Control;
-            ((Button)sender).BackColor = SystemColors.InactiveCaption;
-        }
+       
         //***************************************//
-        public static bool SaveFeedback()
-        {
-
-            FeedInfo feed = new FeedInfo();
-
-            bool result = false;
-            try
-            {
-                
-                feed.id_ticket = MainForm.id_ticketr;
-                feed.age_range = selectedAge;
-                feed.gender = Gender;
-                feed.comments = Comments;
-
-                MainForm.FeedRequest(feed);
-
-
-            }
-            catch (Exception ex)
-            {
-                MainForm.UpdateLogBox("SaveFeedback(): " + ex.Message);
-
-                if (DBProvider.remoteConnection.State != ConnectionState.Open)
-                    DBProvider.InitRemoteDB();
-            }
-
-            return result;
-        }
+        
         //***************************************//
         private void CommentsBox_Enter(object sender, EventArgs e)
         {
@@ -519,6 +366,17 @@ namespace Skyticket
         {
             this.KeyPress += TicketDialog_KeyPress;
             this.AcceptButton = OKButton;
+        }
+
+        private void cmbSuc_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int index = cmbSuc.SelectedIndex;
+            txtDestiny.Text = MainForm.UsersList[index].nombre;
+            txtPhone.Text = MainForm.UsersList[index].telefono.ToString();
+            phone = MainForm.UsersList[index].telefono.ToString();
+
+            isCopied = true;
+
         }
         //***************************************//
     }

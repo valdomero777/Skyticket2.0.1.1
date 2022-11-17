@@ -117,12 +117,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <metadata name="InputBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="InputBox.Font" type="System.Drawing.Font, System.Drawing">
     <value>Century Gothic, 10.2pt, style=Bold</value>
   </data>
   <data name="InputBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>288, 434</value>
+    <value>214, 65</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="InputBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
@@ -148,7 +151,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;InputBox.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>0</value>
   </data>
   <metadata name="InputLabel.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -159,23 +162,26 @@
   <data name="InputLabel.Font" type="System.Drawing.Font, System.Drawing">
     <value>Century Gothic, 10.2pt, style=Bold</value>
   </data>
+  <data name="InputLabel.ImageAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopLeft</value>
+  </data>
   <data name="InputLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="InputLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>17, 437</value>
+    <value>156, 25</value>
   </data>
   <data name="InputLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 0, 4, 0</value>
   </data>
   <data name="InputLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>127, 19</value>
+    <value>355, 19</value>
   </data>
   <data name="InputLabel.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
   </data>
   <data name="InputLabel.Text" xml:space="preserve">
-    <value>Mobile Phone:</value>
+    <value> Escriba el teléfono del cliente a 10 dígitos</value>
   </data>
   <data name="&gt;&gt;InputLabel.Name" xml:space="preserve">
     <value>InputLabel</value>
@@ -187,8 +193,11 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;InputLabel.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>1</value>
   </data>
+  <metadata name="OKButton.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="OKButton.Font" type="System.Drawing.Font, System.Drawing">
     <value>Century Gothic, 10.2pt, style=Bold</value>
   </data>
@@ -196,7 +205,7 @@
     <value>NoControl</value>
   </data>
   <data name="OKButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>538, 422</value>
+    <value>507, 143</value>
   </data>
   <data name="OKButton.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>
@@ -217,636 +226,133 @@
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;OKButton.Parent" xml:space="preserve">
-    <value>$this</value>
+    <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;OKButton.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>0</value>
   </data>
-  <data name="MethodLabel.AutoSize" type="System.Boolean, mscorlib">
+  <metadata name="groupBox1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
+  </metadata>
+  <metadata name="txtPhone.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="txtPhone.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
-  <data name="MethodLabel.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Century Gothic, 10.2pt, style=Bold</value>
+  <data name="txtPhone.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 12pt</value>
   </data>
-  <data name="MethodLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="txtPhone.Location" type="System.Drawing.Point, System.Drawing">
+    <value>169, 163</value>
   </data>
-  <data name="MethodLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>17, 408</value>
+  <data name="txtPhone.Size" type="System.Drawing.Size, System.Drawing">
+    <value>305, 30</value>
   </data>
-  <data name="MethodLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
-  </data>
-  <data name="MethodLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>109, 19</value>
-  </data>
-  <data name="MethodLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
-  </data>
-  <data name="MethodLabel.Text" xml:space="preserve">
-    <value>Paper Ticket</value>
-  </data>
-  <data name="&gt;&gt;MethodLabel.Name" xml:space="preserve">
-    <value>MethodLabel</value>
-  </data>
-  <data name="&gt;&gt;MethodLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;MethodLabel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;MethodLabel.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="EmailButton.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
-    <value>Flat</value>
-  </data>
-  <data name="EmailButton.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Century Gothic, 10.2pt</value>
-  </data>
-  <data name="EmailButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wwAADsMBx2+oZAAABNlJREFUWEe9V2uIVFUc3+2FlT3sRdlDK3Hde+6dcXbuY9y2pqI+FPlFndbuPXcH
-        N7P6ZPqhEIwpIaKCivogFEFU0sOlNyEqFGJZkVBEYqFB9sBM1NQ+bBD5+/3v2enOa3d2GfvBYc79P3/n
-        f/733DNdU0Ehcvp8rT7yI/WXDMyD0Mkb9UlEpesUT1sPIeERjAeDwZ7ZHJxTRh1tjPXUEejewI+dUnp4
-        kX2np+2PfW2PepF6pF4PeUV0sKFtvZ4xTfjx4YbONSjrcYwtNUPL2Nogrx+0oW2j7jhjmzStwb30I3uP
-        eewYQGpvW30yGQJePO9CN3J6BpbNv9iIWqJjBKySdUYQqZXY510o69+eVvu595h/70VW2Zg1oC0CfUPq
-        WgTcQWMjqkH/0txM6L9Css+wn7eRDOX5FfnTXa0W0g8N+rQY18HoPi9oa44R1SLQ9jIEPgzDN5tVYCB0
-        ZkC3G13+bKnUdWphKHs57B/wQuueYsma7sZqUV807zJU49cgtm83blWQQBIbOSJ72IhxqNxtXYBVbQS7
-        H/Ohuq7VFqDkryDABs6xBTfC5xCCvSWvJsrPbWAlIL8f/pvEKQUSYGzmYC7EG2FuKOx9CPCJH805l4ZC
-        QNcS8HXmajgczd8196JsOXs+7A/4kbPEqLthvxWJd/LBizNzQeCgaFIYIyBz5JKcyE0C/2IcA6vlVCYE
-        anvAC+37EHSEc5cNqNWHojCAfwX6FzgPytnZJCuKFNIEmIs5mVsIuLFzC4S/oJzPFIYsv56AJMDem/nL
-        SLBaFAm6QWjb2AK82AlB5lPRpMCYjM0czIWeu7VKgA2WW9ozE/MvEHxXPYFAOyvg+B7n0D8BuxdFIeVX
-        6xhDzgPEgd0PQWRro6+CMaH7DrZfMlfS1CkCNCosKZyJBK9jfw6nX5d8bF0FGY5n54pc2DsLPr9xlYbs
-        bvmNQB5nAsZLjJP+KDEWYzK26ICmBAxY0rWQ/+Fr62Yj4wqewwq2s4HYiIFWi1lGdj6f3VAt8mLb7R/G
-        WQFCPBfEL1Q3MRZkD+OxmzJiPAICBFgsrNGAfOahA9s3sNKffO2sKoSOw+RijMBcJQjiUy3JnqIMtvcy
-        BskmZv9hQgKEG/fmoN+Hpnm+WCyeRpkXqjuQYASy35HgHyT9EzajqNARyoPYGqAtK0ZfN87kJFgd2iJA
-        eGXrUmzJDiTcXG+HCpy3AD2xQGcuwaOUl9tBW/GBL2XN0DYBolieNQ0relUaDgeNETdADiHYoOyv0ceI
-        m2JSBAx44q1B2Q+y+YysCnmvoaMNHqvN1gpTIYDbkhqUPecHRavH8SGaz8G5NCx0+CgNGvNxMVkCfDUf
-        xd4e8ELnBh46LDNkP3NgviGROdezOfEGraNP4tocbRNAo52FlW1Ekm/5UTLilqANbflGZHTmbCNuQFsE
-        ePJhhTth80H/cM85RjwhaIt+eJ++7qC60ohrMCEBuZrjyMXqn6xM4a5PH/oyRqAzDVfycQnAMUJj4WBp
-        fcdrF4whsRDTiATNCSSsH0Pp9vPmIrIOAE3Zz5iMPfaRaiCAs346mL6NLv6Gp5t4dhCMicb8GvHfYa4a
-        AkicNcp3ecE0Ph0HY5OA5JLzIyGA/3O4YGq1nn80yOxkDubAa7o+yWmPkoD8qSSb/3kgp105AWI3lytw
-        n7izAAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="EmailButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="EmailButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>417, 301</value>
-  </data>
-  <data name="EmailButton.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="EmailButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>116, 76</value>
-  </data>
-  <data name="EmailButton.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="EmailButton.Text" xml:space="preserve">
-    <value>Email</value>
-  </data>
-  <data name="EmailButton.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
-    <value>ImageAboveText</value>
-  </data>
-  <data name="&gt;&gt;EmailButton.Name" xml:space="preserve">
-    <value>EmailButton</value>
-  </data>
-  <data name="&gt;&gt;EmailButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;EmailButton.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;EmailButton.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="SMSButton.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
-    <value>Flat</value>
-  </data>
-  <data name="SMSButton.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Century Gothic, 10.2pt</value>
-  </data>
-  <data name="SMSButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wwAADsMBx2+oZAAAA5FJREFUWEflVklrFEEY7RjXgyDidhDNISZOV/Uk2tu4zkXjhiKSIUkvRnIQBBfU
-        g6KBgCie8gO8GD2IFxWNCJ6CghcR9OQCbhAJBuOCCgoKxveqa+IkmkyQzCD4oOiqr5b3vq/qq2rj38Og
-        UeGFpunGYoMfy80TUbgW1zQ6jEma5Xdks9nJXmQe9CLZ64XigxfK+/jem5ii1vrgRuIVOcilaROsbKud
-        6UayB+QPMLChYyylfwusybXJQS5y6h7DgPEayvVs6+Lp2lQykINc5FQGJxJbGZphikqMJOLiFbkN7E+3
-        G8pDuq9scAN5mNwM/0AmsCxtLxv8ZpkmNwX8QGO+tpcN5CQ3BQyuiNLztH0I7s6UcENxw4vEc6YSTu5+
-        2tE+jS27pAZpJCksb2LMEbadKC0L56JvrxpYAHKSe3QBkXyIPWqrb6yf64RWrRdaGW2/AwFfM4FYpQYC
-        fmhtow0H6yrbIH7sRtYuzrVb5FI/SvlqYAHGIUD0Q8AW3RxCIkCcAeF5bTLorbLlBYTijRNYm1TnKCgq
-        gJcGSB6hvw/1LkaBdgrwI7meaZRpNGcvC1KLIfSZE4sdeQHq6lVREJx71o3TNbQXoqiAPDKRWQ3vjpOQ
-        txkFeGFqDQg6nVAcwPcESI5hne15AXn4LaklsLVDYC+aFYk1QVEB3OPqjdXTWKeXiMYne7c9JS+AEUH9
-        IcpLt9VcUCiAc82cOZV1v6muinNH3v9jCuBbAM+uYMH38L4P3343NFvZB29uZkJrOevJ3idnwYmtdYjE
-        hVwuVwn7VTWXWxDJ114sYo4pRNEIEBRS11o3a8QzWhjKYWEFhtqjzB3CLwGh+IYUW6jtZQM5yY0IiCcM
-        n7aXDcwkclNAJ5R0aXvZgPCfI7dhx+YinOSPfmyu1n0lhxtYa1VWgVsZvEDEON1vcXuVfCu43SB/91tm
-        OIFoYupASDc783k8CiqYin6U9sdTbNwLCPdOtTb+Df1INOt1hsNuqZmDAbzVBvkaavMw+LFIYcwteoF8
-        fzG+Ip+i9PihPGq32HP0Un+GG5j13I6R+ZtpzMyAsJM4L59RTrGtuyYW6tc8lJd1UwEeN8D2DGG8rf7v
-        Swl4dw3h2qfquONRvwjPByCgDaaRN9/EIpczKnlI4GkdDuSe5FCKLp4NPaS08APLBul3eHwXnj9yYpnV
-        XeUBwr8f5QtEtBdJw9KAL5TfVFulm/8DDOMnNnag9uME4xMAAAAASUVORK5CYII=
-</value>
-  </data>
-  <data name="SMSButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="SMSButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>284, 301</value>
-  </data>
-  <data name="SMSButton.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="SMSButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>116, 76</value>
-  </data>
-  <data name="SMSButton.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="SMSButton.Text" xml:space="preserve">
-    <value>SMS</value>
-  </data>
-  <data name="SMSButton.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
-    <value>ImageAboveText</value>
-  </data>
-  <data name="&gt;&gt;SMSButton.Name" xml:space="preserve">
-    <value>SMSButton</value>
-  </data>
-  <data name="&gt;&gt;SMSButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;SMSButton.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;SMSButton.ZOrder" xml:space="preserve">
+  <data name="txtPhone.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
   </data>
-  <data name="PaperButton.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
-    <value>Flat</value>
+  <data name="&gt;&gt;txtPhone.Name" xml:space="preserve">
+    <value>txtPhone</value>
   </data>
-  <data name="PaperButton.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Century Gothic, 10.2pt</value>
+  <data name="&gt;&gt;txtPhone.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="PaperButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wwAADsMBx2+oZAAAAnJJREFUWEftVj1vE0EQNZ8VBTSAoIAu8u2ejWXvXUJjCQmUFqETlm/jFEFIUCCg
-        iARGSpOaIh00AZSGJpFSpEmHQpVIaaBDooSfwXubMXaUs313NsRIPGnk2d2ZN28/z4WJR9jSpcDq/TzG
-        XKHJj9Dq2ybW78vz5fNZjDnMFZr8IAlm81aaw7FUOGkaRcWc3AJqVt0LYv3DWP3dWPUzi4CbjcoVxO8w
-        h7nkIBc5JWQ4AqsWkPyKftYVmG6Vr6Lg594VIBc5XUAajCLAzHuXkfvp2AQQftO/cKwCiH9PgLHeLAIf
-        0YJYreEgbTrfqhWc5J3OWHrjTWAu+fQmObtj3qyUPYCJVRvBW7DFv2RbEPRSyrsl2puxpYvSHA14iML7
-        U9edC3+mWbxGP4qiUxXxWQuT3qPvgP3a5/NZmytWust02Gq2pCV8IDC7FSz5NzzFz3kO6Iexeowt+UAf
-        4wusxZqS0hUQxP50zzIdsrDpVyV8IDCzNyj2FZwv+D3A75fA+s/A8ZE+J9NXgDRHQn2pflpW60T1YfWM
-        aRUVfS/yzvIbwZg/KiAN/guYfAF4JO6wb6wGTqFPIQB3FX3L7MNVugv/Hf0sxhzmir9MTqFPJwD39cjH
-        iC8YxtZx1zeSjGOdF5U5/T5GuQW4Zxb/dE3Tu5Fk7l8wYhiaTUCsdsOGviTNvgLqkXcOr9wTxD9NMo4x
-        hrGDBLAW4nel6QouomPbzKk2lpLG5dymj/7VvALQt+o4Dri4TW3WYJs1GfcbgfVuIeDBUdOvOwKybgFz
-        kzhZy/GlQe8W5D2EI6FXQBaMW0Cud2A8ArCvIEt+3YaYOxOTjULhF+++Fh3buLzlAAAAAElFTkSuQmCC
-</value>
+  <data name="&gt;&gt;txtPhone.Parent" xml:space="preserve">
+    <value>groupBox1</value>
   </data>
-  <data name="PaperButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="PaperButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>18, 301</value>
-  </data>
-  <data name="PaperButton.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="PaperButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>116, 76</value>
-  </data>
-  <data name="PaperButton.TabIndex" type="System.Int32, mscorlib">
+  <data name="&gt;&gt;txtPhone.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="PaperButton.Text" xml:space="preserve">
-    <value>Papel</value>
+  <metadata name="txtDestiny.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="txtDestiny.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
-  <data name="PaperButton.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
-    <value>ImageAboveText</value>
+  <data name="txtDestiny.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 12pt</value>
   </data>
-  <data name="&gt;&gt;PaperButton.Name" xml:space="preserve">
-    <value>PaperButton</value>
+  <data name="txtDestiny.Location" type="System.Drawing.Point, System.Drawing">
+    <value>169, 109</value>
   </data>
-  <data name="&gt;&gt;PaperButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="txtDestiny.Size" type="System.Drawing.Size, System.Drawing">
+    <value>305, 30</value>
   </data>
-  <data name="&gt;&gt;PaperButton.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;PaperButton.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="WhatsappButton.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
-    <value>Flat</value>
-  </data>
-  <data name="WhatsappButton.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Century Gothic, 10.2pt</value>
-  </data>
-  <data name="WhatsappButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wwAADsMBx2+oZAAABM5JREFUWEetl1toXFUUhqfe+yAiWvEGLV7aZvaZJGbmzEmCGkVQYwteyNDmnJlE
-        ffCGvvRJLFh89UJBKQjWWgrapypUEV/a1FZbpami4ENBbfFCUYuoNSolbfz+PWumJ+nJdfrDZmatvS57
-        r7X22vvk5opipXhZGOfjMAk2h1U3Wk6C42E1GNeo/3eH/FxciCVraq0jGmy7GeNvMv4pV4PfcLKdsa5c
-        K9yPs9s1/H94mvMyyEpHumZm/ugeuH4xBl8qJ+4kuxwJa251X1/fBTY9LSQTxm41Oru9Lja6B7oX2/Tc
-        0DXkbmQHX2PkaDRU6Df2vBHFhX5sHCljSzaNPTMQ7ggT9yt53Vl8rPVcqh5kSzapoU5jZ8Pv3Dt3b1Uq
-        ufON3TJkSzZle9pIKE8KlVbbcB4O56+mqD73BZi4w6K98AJQXwSRwEdmTahYlPPUEVoEbxdKn+L8bhQP
-        ML/N5hYEf5TxIV/GqkPHRRWrojFWrhS7NfDGojUrlokuDubLKJ6aNY+zIKoF93lf6SOqM8vKdhvpQb4+
-        g7fRSA947xGRHUYuGNgdkU9P1MNC4+DsegbofKRzCbk/HdaCkrE8ompbhOx4V7LyGmMtCOop8unTrdap
-        7pVuMqWq69UC8pX8RcbyiIY7lsGfKFXbA2MtCPIln2rtKr7NjO0258HOe7QA+sCFxvKnBLl9Cp+xWoJ8
-        yrfyr0tknfE9wtrKK8j1qVLiQmMp/+sZP7VyFNOQT3yP5nB0XJeJ8ZugUvcQhU1Gkn+3FoXfU8e0JWD7
-        AflWRY7rRjN+E6Wae0iF0ig4pQPZbxjvQC4SrxX4m5SCVgoyF5DbkDuPFX7BfP24gGgoaCd0f9ExX4Fs
-        aRHNBUyXAqGcFG5ThMqxu9NYuShxd8A7QQi33vvMTRcbu4kwKdzF3LeKVPdQx3XGPgupFLjRqUWYBoX3
-        GsI/FAeLVxpL12wRvR+pk4PpjiaHGD0Gn4sn2Eek/oB+XNE0kSaaRcgfnlg+r5noG156iRwxPk7vuKfa
-        fhUGPsDJGHPPWY/4kv97/PHFKdF6Ctt/InegKyl0maoHfu0Y1tSI3KRGNBW9a2+5FkNH2M3OqWGv6wdH
-        GRPI7C3EhcttykO62N+P7kfGmtyIGq0YgVU2n4lSXLiBdHyvHapVG9tDO8ZJR1aoBXT24+MFIye3Ys9I
-        3BbCscsTM8DeB5+w05/LcXbhTkW9kN149PCZWkF/xIe/gbDWvpxVnmRl9xhrWvjdJsHzGPgXw3v5fTDr
-        NAhRLX8rsseIzsvGyr6OBYTeZXdvGzkreuK2pchvUpFh8G+lBvoNOWNhr0MfZI4eE2ysVCr+hcXi6w+S
-        avCiN5IGit+h+KSRc4YuKeqjH+cbGFvZ8Q6iso3xbDrsMz7JuHyWozyhQjPWOUXqUfpL5qMU50+zusNG
-        nlOo0v3O9drWSckCAu+r4xnpobcfvPVzKczpoIKr53yGDxO9ehA64W8/38fdq1IiKqdZwFeqWPKp1/Gq
-        mZpVA5Kpn3P7NKPgMp/hDRS5XJR/hMdw9B8L+JDKfaJxkeiIspAt7IKPU3fm45TLxN9oDP9fvT39cco5
-        n9PHqQ81Vy4NY6D30RWXGvss+I7J+1GGkbfPc65yhv3XpcbneX4en+e53P+EGveagZk93AAAAABJRU5E
-        rkJggg==
-</value>
-  </data>
-  <data name="WhatsappButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="WhatsappButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>151, 301</value>
-  </data>
-  <data name="WhatsappButton.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="WhatsappButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>116, 76</value>
-  </data>
-  <data name="WhatsappButton.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="WhatsappButton.Text" xml:space="preserve">
-    <value>Whatsapp</value>
-  </data>
-  <data name="WhatsappButton.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
-    <value>ImageAboveText</value>
-  </data>
-  <data name="&gt;&gt;WhatsappButton.Name" xml:space="preserve">
-    <value>WhatsappButton</value>
-  </data>
-  <data name="&gt;&gt;WhatsappButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;WhatsappButton.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;WhatsappButton.ZOrder" xml:space="preserve">
-    <value>9</value>
-  </data>
-  <data name="BatchButton.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
-    <value>Flat</value>
-  </data>
-  <data name="BatchButton.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Century Gothic, 9pt</value>
-  </data>
-  <data name="BatchButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wwAADsMBx2+oZAAAAnJJREFUWEftVj1vE0EQNZ8VBTSAoIAu8u2ejWXvXUJjCQmUFqETlm/jFEFIUCCg
-        iARGSpOaIh00AZSGJpFSpEmHQpVIaaBDooSfwXubMXaUs313NsRIPGnk2d2ZN28/z4WJR9jSpcDq/TzG
-        XKHJj9Dq2ybW78vz5fNZjDnMFZr8IAlm81aaw7FUOGkaRcWc3AJqVt0LYv3DWP3dWPUzi4CbjcoVxO8w
-        h7nkIBc5JWQ4AqsWkPyKftYVmG6Vr6Lg594VIBc5XUAajCLAzHuXkfvp2AQQftO/cKwCiH9PgLHeLAIf
-        0YJYreEgbTrfqhWc5J3OWHrjTWAu+fQmObtj3qyUPYCJVRvBW7DFv2RbEPRSyrsl2puxpYvSHA14iML7
-        U9edC3+mWbxGP4qiUxXxWQuT3qPvgP3a5/NZmytWust02Gq2pCV8IDC7FSz5NzzFz3kO6Iexeowt+UAf
-        4wusxZqS0hUQxP50zzIdsrDpVyV8IDCzNyj2FZwv+D3A75fA+s/A8ZE+J9NXgDRHQn2pflpW60T1YfWM
-        aRUVfS/yzvIbwZg/KiAN/guYfAF4JO6wb6wGTqFPIQB3FX3L7MNVugv/Hf0sxhzmir9MTqFPJwD39cjH
-        iC8YxtZx1zeSjGOdF5U5/T5GuQW4Zxb/dE3Tu5Fk7l8wYhiaTUCsdsOGviTNvgLqkXcOr9wTxD9NMo4x
-        hrGDBLAW4nel6QouomPbzKk2lpLG5dymj/7VvALQt+o4Dri4TW3WYJs1GfcbgfVuIeDBUdOvOwKybgFz
-        kzhZy/GlQe8W5D2EI6FXQBaMW0Cud2A8ArCvIEt+3YaYOxOTjULhF+++Fh3buLzlAAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="BatchButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="BatchButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>550, 301</value>
-  </data>
-  <data name="BatchButton.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="BatchButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>116, 76</value>
-  </data>
-  <data name="BatchButton.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
-  </data>
-  <data name="BatchButton.Text" xml:space="preserve">
-    <value>Corte</value>
-  </data>
-  <data name="BatchButton.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
-    <value>ImageAboveText</value>
-  </data>
-  <data name="&gt;&gt;BatchButton.Name" xml:space="preserve">
-    <value>BatchButton</value>
-  </data>
-  <data name="&gt;&gt;BatchButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;BatchButton.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;BatchButton.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="button8.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Century Gothic, 9pt</value>
-  </data>
-  <data name="button8.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="button8.Location" type="System.Drawing.Point, System.Drawing">
-    <value>542, 65</value>
-  </data>
-  <data name="button8.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="button8.Size" type="System.Drawing.Size, System.Drawing">
-    <value>90, 35</value>
-  </data>
-  <data name="button8.TabIndex" type="System.Int32, mscorlib">
-    <value>27</value>
-  </data>
-  <data name="button8.Text" xml:space="preserve">
-    <value>8) 80+</value>
-  </data>
-  <data name="&gt;&gt;button8.Name" xml:space="preserve">
-    <value>button8</value>
-  </data>
-  <data name="&gt;&gt;button8.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;button8.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;button8.ZOrder" xml:space="preserve">
-    <value>13</value>
-  </data>
-  <data name="button7.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Century Gothic, 9pt</value>
-  </data>
-  <data name="button7.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="button7.Location" type="System.Drawing.Point, System.Drawing">
-    <value>444, 65</value>
-  </data>
-  <data name="button7.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="button7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>90, 35</value>
-  </data>
-  <data name="button7.TabIndex" type="System.Int32, mscorlib">
-    <value>26</value>
-  </data>
-  <data name="button7.Text" xml:space="preserve">
-    <value>7) 60-70</value>
-  </data>
-  <data name="&gt;&gt;button7.Name" xml:space="preserve">
-    <value>button7</value>
-  </data>
-  <data name="&gt;&gt;button7.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;button7.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;button7.ZOrder" xml:space="preserve">
-    <value>12</value>
-  </data>
-  <data name="button6.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Century Gothic, 9pt</value>
-  </data>
-  <data name="button6.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="button6.Location" type="System.Drawing.Point, System.Drawing">
-    <value>349, 65</value>
-  </data>
-  <data name="button6.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="button6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>90, 35</value>
-  </data>
-  <data name="button6.TabIndex" type="System.Int32, mscorlib">
-    <value>25</value>
-  </data>
-  <data name="button6.Text" xml:space="preserve">
-    <value>6) 50-60</value>
-  </data>
-  <data name="&gt;&gt;button6.Name" xml:space="preserve">
-    <value>button6</value>
-  </data>
-  <data name="&gt;&gt;button6.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;button6.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;button6.ZOrder" xml:space="preserve">
-    <value>11</value>
-  </data>
-  <data name="button5.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Century Gothic, 9pt</value>
-  </data>
-  <data name="button5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="button5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>251, 65</value>
-  </data>
-  <data name="button5.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="button5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>90, 35</value>
-  </data>
-  <data name="button5.TabIndex" type="System.Int32, mscorlib">
-    <value>24</value>
-  </data>
-  <data name="button5.Text" xml:space="preserve">
-    <value>5) 40-50</value>
-  </data>
-  <data name="&gt;&gt;button5.Name" xml:space="preserve">
-    <value>button5</value>
-  </data>
-  <data name="&gt;&gt;button5.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;button5.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;button5.ZOrder" xml:space="preserve">
-    <value>10</value>
-  </data>
-  <data name="button4.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Century Gothic, 9pt</value>
-  </data>
-  <data name="button4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="button4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>542, 22</value>
-  </data>
-  <data name="button4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="button4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>90, 35</value>
-  </data>
-  <data name="button4.TabIndex" type="System.Int32, mscorlib">
-    <value>23</value>
-  </data>
-  <data name="button4.Text" xml:space="preserve">
-    <value>4) 30-40</value>
-  </data>
-  <data name="&gt;&gt;button4.Name" xml:space="preserve">
-    <value>button4</value>
-  </data>
-  <data name="&gt;&gt;button4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;button4.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;button4.ZOrder" xml:space="preserve">
-    <value>14</value>
-  </data>
-  <data name="button3.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Century Gothic, 9pt</value>
-  </data>
-  <data name="button3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="button3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>444, 22</value>
-  </data>
-  <data name="button3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="button3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>90, 35</value>
-  </data>
-  <data name="button3.TabIndex" type="System.Int32, mscorlib">
-    <value>22</value>
-  </data>
-  <data name="button3.Text" xml:space="preserve">
-    <value>3) 20-30</value>
-  </data>
-  <data name="&gt;&gt;button3.Name" xml:space="preserve">
-    <value>button3</value>
-  </data>
-  <data name="&gt;&gt;button3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;button3.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;button3.ZOrder" xml:space="preserve">
-    <value>9</value>
-  </data>
-  <data name="button2.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Century Gothic, 9pt</value>
-  </data>
-  <data name="button2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="button2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>346, 22</value>
-  </data>
-  <data name="button2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="button2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>90, 35</value>
-  </data>
-  <data name="button2.TabIndex" type="System.Int32, mscorlib">
-    <value>21</value>
-  </data>
-  <data name="button2.Text" xml:space="preserve">
-    <value>2) 15-20</value>
-  </data>
-  <data name="&gt;&gt;button2.Name" xml:space="preserve">
-    <value>button2</value>
-  </data>
-  <data name="&gt;&gt;button2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;button2.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;button2.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="button1.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Century Gothic, 9pt</value>
-  </data>
-  <data name="button1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="button1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>251, 22</value>
-  </data>
-  <data name="button1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="button1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>90, 35</value>
-  </data>
-  <data name="button1.TabIndex" type="System.Int32, mscorlib">
-    <value>20</value>
-  </data>
-  <data name="button1.Text" xml:space="preserve">
-    <value>1) 10-15</value>
-  </data>
-  <data name="&gt;&gt;button1.Name" xml:space="preserve">
-    <value>button1</value>
-  </data>
-  <data name="&gt;&gt;button1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;button1.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;button1.ZOrder" xml:space="preserve">
+  <data name="txtDestiny.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
   </data>
+  <data name="&gt;&gt;txtDestiny.Name" xml:space="preserve">
+    <value>txtDestiny</value>
+  </data>
+  <data name="&gt;&gt;txtDestiny.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;txtDestiny.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;txtDestiny.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <metadata name="label2.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label2.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 12pt</value>
+  </data>
+  <data name="label2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>27, 109</value>
+  </data>
+  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>121, 25</value>
+  </data>
+  <data name="label2.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>Destinatario:</value>
+  </data>
+  <data name="&gt;&gt;label2.Name" xml:space="preserve">
+    <value>label2</value>
+  </data>
+  <data name="&gt;&gt;label2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <metadata name="label1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="label1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="label1.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Century Gothic, 10.2pt</value>
+    <value>Microsoft Sans Serif, 12pt</value>
   </data>
   <data name="label1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 29</value>
-  </data>
-  <data name="label1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+    <value>27, 168</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 21</value>
+    <value>95, 25</value>
   </data>
   <data name="label1.TabIndex" type="System.Int32, mscorlib">
-    <value>19</value>
+    <value>4</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
-    <value>Edad del cliente:</value>
+    <value>Teléfono:</value>
   </data>
   <data name="&gt;&gt;label1.Name" xml:space="preserve">
     <value>label1</value>
@@ -860,167 +366,74 @@
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
-  <data name="OtherButton.AutoSize" type="System.Boolean, mscorlib">
+  <metadata name="labelSuc.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="labelSuc.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="OtherButton.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Century Gothic, 9pt</value>
+  <data name="labelSuc.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 12pt</value>
   </data>
-  <data name="OtherButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="labelSuc.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="OtherButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>433, 114</value>
+  <data name="labelSuc.Location" type="System.Drawing.Point, System.Drawing">
+    <value>27, 52</value>
   </data>
-  <data name="OtherButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>59, 24</value>
+  <data name="labelSuc.Size" type="System.Drawing.Size, System.Drawing">
+    <value>95, 25</value>
   </data>
-  <data name="OtherButton.TabIndex" type="System.Int32, mscorlib">
-    <value>30</value>
-  </data>
-  <data name="OtherButton.Text" xml:space="preserve">
-    <value>N/A</value>
-  </data>
-  <data name="&gt;&gt;OtherButton.Name" xml:space="preserve">
-    <value>OtherButton</value>
-  </data>
-  <data name="&gt;&gt;OtherButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;OtherButton.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;OtherButton.ZOrder" xml:space="preserve">
+  <data name="labelSuc.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
-  <data name="FemaleButton.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="labelSuc.Text" xml:space="preserve">
+    <value>Sucursal:</value>
   </data>
-  <data name="FemaleButton.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Century Gothic, 9pt</value>
+  <data name="&gt;&gt;labelSuc.Name" xml:space="preserve">
+    <value>labelSuc</value>
   </data>
-  <data name="FemaleButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="&gt;&gt;labelSuc.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="FemaleButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>349, 114</value>
-  </data>
-  <data name="FemaleButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>72, 24</value>
-  </data>
-  <data name="FemaleButton.TabIndex" type="System.Int32, mscorlib">
-    <value>29</value>
-  </data>
-  <data name="FemaleButton.Text" xml:space="preserve">
-    <value>Mujer</value>
-  </data>
-  <data name="&gt;&gt;FemaleButton.Name" xml:space="preserve">
-    <value>FemaleButton</value>
-  </data>
-  <data name="&gt;&gt;FemaleButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;FemaleButton.Parent" xml:space="preserve">
+  <data name="&gt;&gt;labelSuc.Parent" xml:space="preserve">
     <value>groupBox1</value>
   </data>
-  <data name="&gt;&gt;FemaleButton.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;labelSuc.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
-  <data name="MaleButton.AutoSize" type="System.Boolean, mscorlib">
+  <metadata name="cmbSuc.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
+  </metadata>
+  <metadata name="usersResBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <data name="cmbSuc.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 12pt</value>
   </data>
-  <data name="MaleButton.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Century Gothic, 9pt</value>
+  <data name="cmbSuc.Location" type="System.Drawing.Point, System.Drawing">
+    <value>169, 49</value>
   </data>
-  <data name="MaleButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="cmbSuc.Size" type="System.Drawing.Size, System.Drawing">
+    <value>305, 33</value>
   </data>
-  <data name="MaleButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>251, 114</value>
-  </data>
-  <data name="MaleButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>88, 24</value>
-  </data>
-  <data name="MaleButton.TabIndex" type="System.Int32, mscorlib">
-    <value>28</value>
-  </data>
-  <data name="MaleButton.Text" xml:space="preserve">
-    <value>Hombre</value>
-  </data>
-  <data name="&gt;&gt;MaleButton.Name" xml:space="preserve">
-    <value>MaleButton</value>
-  </data>
-  <data name="&gt;&gt;MaleButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;MaleButton.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;MaleButton.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label2.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Century Gothic, 10.2pt</value>
-  </data>
-  <data name="label2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 113</value>
-  </data>
-  <data name="label2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
-  </data>
-  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>53, 21</value>
-  </data>
-  <data name="label2.TabIndex" type="System.Int32, mscorlib">
-    <value>31</value>
-  </data>
-  <data name="label2.Text" xml:space="preserve">
-    <value>Sexo:</value>
-  </data>
-  <data name="&gt;&gt;label2.Name" xml:space="preserve">
-    <value>label2</value>
-  </data>
-  <data name="&gt;&gt;label2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;CommentsBox.Name" xml:space="preserve">
-    <value>CommentsBox</value>
-  </data>
-  <data name="&gt;&gt;CommentsBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;CommentsBox.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;CommentsBox.ZOrder" xml:space="preserve">
+  <data name="cmbSuc.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="&gt;&gt;label3.Name" xml:space="preserve">
-    <value>label3</value>
+  <data name="&gt;&gt;cmbSuc.Name" xml:space="preserve">
+    <value>cmbSuc</value>
   </data>
-  <data name="&gt;&gt;label3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;cmbSuc.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;label3.Parent" xml:space="preserve">
+  <data name="&gt;&gt;cmbSuc.Parent" xml:space="preserve">
     <value>groupBox1</value>
   </data>
-  <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="&gt;&gt;cmbSuc.ZOrder" xml:space="preserve">
+    <value>6</value>
   </data>
   <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 12</value>
+    <value>13, 111</value>
   </data>
   <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
     <value>657, 220</value>
@@ -1029,7 +442,7 @@
     <value>32</value>
   </data>
   <data name="groupBox1.Text" xml:space="preserve">
-    <value>Feedback</value>
+    <value>Copia a:</value>
   </data>
   <data name="&gt;&gt;groupBox1.Name" xml:space="preserve">
     <value>groupBox1</value>
@@ -1041,114 +454,18 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>2</value>
   </data>
-  <data name="CommentsBox.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 10.2pt, style=Bold</value>
-  </data>
-  <data name="CommentsBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>251, 152</value>
-  </data>
-  <data name="CommentsBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="CommentsBox.MaxLength" type="System.Int32, mscorlib">
-    <value>270</value>
-  </data>
-  <data name="CommentsBox.Multiline" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="CommentsBox.ScrollBars" type="System.Windows.Forms.ScrollBars, System.Windows.Forms">
-    <value>Vertical</value>
-  </data>
-  <data name="CommentsBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>349, 61</value>
-  </data>
-  <data name="CommentsBox.TabIndex" type="System.Int32, mscorlib">
-    <value>32</value>
-  </data>
-  <data name="&gt;&gt;CommentsBox.Name" xml:space="preserve">
-    <value>CommentsBox</value>
-  </data>
-  <data name="&gt;&gt;CommentsBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;CommentsBox.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;CommentsBox.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="label3.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label3.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Century Gothic, 10.2pt</value>
-  </data>
-  <data name="label3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 164</value>
-  </data>
-  <data name="label3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
-  </data>
-  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>237, 21</value>
-  </data>
-  <data name="label3.TabIndex" type="System.Int32, mscorlib">
-    <value>33</value>
-  </data>
-  <data name="label3.Text" xml:space="preserve">
-    <value>Productos no encontrados:</value>
-  </data>
-  <data name="&gt;&gt;label3.Name" xml:space="preserve">
-    <value>label3</value>
-  </data>
-  <data name="&gt;&gt;label3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label3.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <metadata name="TicketLabel.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="usersResBindingSource1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>231, 17</value>
+  </metadata>
+  <metadata name="usersResBindingSource2.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>454, 17</value>
+  </metadata>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <data name="TicketLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="TicketLabel.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Century Gothic, 10.2pt, style=Bold</value>
-  </data>
-  <data name="TicketLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>231, 247</value>
-  </data>
-  <data name="TicketLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>235, 19</value>
-  </data>
-  <data name="TicketLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>33</value>
-  </data>
-  <data name="TicketLabel.Text" xml:space="preserve">
-    <value>¿Cómo enviamos el ticket?</value>
-  </data>
-  <data name="&gt;&gt;TicketLabel.Name" xml:space="preserve">
-    <value>TicketLabel</value>
-  </data>
-  <data name="&gt;&gt;TicketLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;TicketLabel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;TicketLabel.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="$this.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
@@ -3212,6 +2529,9 @@
         MAwAAD/8AAAP8AAAjzEAAMcDAADgBwAA4H8AAA==
 </value>
   </data>
+  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>5, 6, 5, 6</value>
   </data>
@@ -3226,6 +2546,24 @@
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Select ticket method</value>
+  </data>
+  <data name="&gt;&gt;usersResBindingSource.Name" xml:space="preserve">
+    <value>usersResBindingSource</value>
+  </data>
+  <data name="&gt;&gt;usersResBindingSource.Type" xml:space="preserve">
+    <value>System.Windows.Forms.BindingSource, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;usersResBindingSource1.Name" xml:space="preserve">
+    <value>usersResBindingSource1</value>
+  </data>
+  <data name="&gt;&gt;usersResBindingSource1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.BindingSource, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;usersResBindingSource2.Name" xml:space="preserve">
+    <value>usersResBindingSource2</value>
+  </data>
+  <data name="&gt;&gt;usersResBindingSource2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.BindingSource, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>TicketDialog</value>

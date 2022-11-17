@@ -63,6 +63,7 @@ namespace Skyticket
         //*****
         SerialPort port = new SerialPort();
         List<byte> serialStream = new List<byte>();
+        public static  List<SuperaUsers> UsersList = new List<SuperaUsers>();
         System.Timers.Timer serialProcessTimer = new System.Timers.Timer();
         private List<int> dataPort = new List<int>();
 
@@ -110,6 +111,9 @@ namespace Skyticket
             {
                 Start();
             });
+
+            GetUsers();
+           
         }
         //***********************************//
         #region Tray Icon stuff
@@ -526,6 +530,7 @@ namespace Skyticket
                     
                     //UpdateLogBox("Service started, listening on port " + Settings.CurrentSettings.ListenPort.ToString());
                 }
+                
             }
             catch (Exception ex)
             {
@@ -1629,8 +1634,7 @@ namespace Skyticket
 
                 result =  TicketRequest(ti);
 
-                if (Settings.CurrentSettings.CustomerFeedback)
-                    TicketDialog.SaveFeedback();
+                
             }
             catch (Exception ex)
             {
@@ -1787,7 +1791,12 @@ namespace Skyticket
                                 if (job.printMethod == TicketMethod.Email.ToString())
                                     remoteResult = SaveJobRemoteDB(job.ticketImage, job.jobFileName, Converters.ParseEnum<TicketMethod>(job.printMethod), job.email);
                                 else
+                                {
                                     remoteResult = SaveJobRemoteDB(job.ticketImage, job.jobFileName, Converters.ParseEnum<TicketMethod>(job.printMethod), job.mobilePhone);
+                                    if(TicketDialog.isCopied)
+                                        remoteResult = SaveJobRemoteDB(job.ticketImage, job.jobFileName, Converters.ParseEnum<TicketMethod>("Whatsapp"), TicketDialog.phone);
+                                }
+                                    
 
                                 //mark as sent in local DB
                                 if (remoteResult)
@@ -2728,29 +2737,8 @@ namespace Skyticket
             {
                 UpdateLogBox("WriteTextToPng(): " + ex.Message);
             }
-            try
-            {
-
-                if (ticketText.ToLower().Contains("10% sky") || ticketText.ToLower().Contains("15% sky") || ticketText.ToLower().Contains("20% sky"))
-                {
-                    coupon = true;
-                    
-                    UpdateLogBox("aplico cupon");
-
-                    if (ticketText.ToLower().Contains("empleado") || ticketText.ToLower().Contains("corte") || ticketText.ToLower().Contains("entrada") ||
-                        ticketText.ToLower().Contains("reimpresion") || ticketText.ToLower().Contains("ventas") || ticketText.ToLower().Contains("salida") ||
-                        ticketText.ToLower().Contains("error") || ticketText.ToLower().Contains("propinas") || ticketText.ToLower().Contains("reporte")
-                        || ticketText.ToLower().Contains("*** promociones ***") || ticketText.ToLower().Contains("ventas restaurante"))
-                    {
-                        
-                    }
-
-                }
-            }catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message+"Mainform", "validacion de proceso lealtad");    
-            }
-            alertCreation();
+           
+           
 
 
             return returnVal;
@@ -2916,10 +2904,11 @@ namespace Skyticket
 
         private static bool TicketRequest(Ticket ti)
         {
-            UpdateLogBox("TicketReq");
+            
             bool result = false;
             try
             {
+                UpdateLogBox("TicketReq1");
                 var ticket = new RestClient("https://skyticketapi.azurewebsites.net/");
                 ticket.Timeout = -1;
                 var request = new RestRequest("tickets", Method.POST);
@@ -2930,25 +2919,11 @@ namespace Skyticket
                 var ticketr = JsonConvert.DeserializeObject<TicketRes>(response.Content);
 
                 id_ticketr = ticketr.ticket.id;
+                UpdateLogBox("" + ticketr.ticket.id);
 
+                
                 if (id_ticketr != 0)
-                {
                     result = true;
-                    if (hasAlert)
-                    {
-
-                        var client = new RestClient("https://skyticketapi.azurewebsites.net/updateAlert?id_ticket=" + id_ticketr + "&clipBoard=" + clipPhone + "&id_terminal=" + Settings.CurrentSettings.TerminalID);
-                        client.Timeout = -1;
-                        var alertRequest = new RestRequest(Method.POST);
-
-                        IRestResponse alertResponse = client.Execute(alertRequest);
-
-                        Clipboard.Clear();
-                        coupon = false;
-                        hasAlert = false;
-                        clipPhone = "";
-                    }
-                }
 
             }
             catch (Exception ex)
@@ -2970,62 +2945,23 @@ namespace Skyticket
             IRestResponse response = feedback.Execute(request);
         }
 
-        public static void alertCreation()
+
+        public void GetUsers()
         {
-            string res = "";
-            
-            try
-            {
 
-                
-
-                if (clipPhone.Length < 0 || clipPhone == null)
-                {
-                    clipPhone = "no hay nada copiado";
-                }
-
-                res = clipPhone.Substring(0, 1);
-
-                UpdateLogBox("clip"+clipPhone);
-            }
-            catch (Exception ex)
-            {
-
-            }
-            if (coupon == true && res != "L")
-            {
-                hasAlert = true;
-                //agregamos la alerta de cupon aplicado y no canjeado
-                var client = new RestClient("https://skyticketapi.azurewebsites.net/alert?id=" + Settings.CurrentSettings.TerminalID + "&alerta=Aplico y no canjeo");
-                client.Timeout = -1;
-                var request = new RestRequest(Method.POST);
-
-                IRestResponse response = client.Execute(request);
-                // lealtad MessageBox.Show(new Form { TopMost = true }, "Se ha detectado una anomalia al aplicar el cupon, se notificara al gerente de sucursal", "Alerta Aplico", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            var client = new RestClient("https://skyticketapi.azurewebsites.net/supera/users");
+            client.Timeout = -1;
+            var request = new RestRequest(Method.GET);
+            IRestResponse response = client.Execute(request);
 
 
-            }
-            else if (coupon == false && res == "L")
-            {
-                hasAlert = true;
-                //agregamos la alerta de cupon canjeado y no aplicado
 
-                var client = new RestClient("https://skyticketapi.azurewebsites.net/alert?id=" + Settings.CurrentSettings.TerminalID + "&alerta=Canjeo y no aplico");
-                client.Timeout = -1;
-                var request = new RestRequest(Method.POST);
+            UsersList = JsonConvert.DeserializeObject<List<SuperaUsers>>(response.Content);
 
-                IRestResponse response = client.Execute(request);
-
-                //MessageBox.Show(new Form { TopMost = true }, "Se ha detectado una anomalia al aplicar el cupon, se notificara al gerente de sucursal", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-
-            }
-
-            coupon = false;
-            Clipboard.Clear();
            
-        }
 
+
+        }
 
 
     }

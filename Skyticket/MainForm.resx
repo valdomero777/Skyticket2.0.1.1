@@ -121,85 +121,17 @@
     <value>17, 17</value>
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="exitMenu.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAA3tJREFUOE9V
-        Uv9PU3cUvY+ipVIqNa5QUWQms1Tjkm77hWBZwIgto0JXvoyVL+IDMYO6zS3tRkZpaYGYmdSoo2wT3CQM
-        Nq2ADRKkT4ZuyOxQ2RgkhrhlWfYXDH6ynN3Kfpg3OcnLvfecdz/nXvp/5DJeJUowE2WVEZVUC8I7cVTy
-        t5Vzh7hm2mh9PrhINsZRIm2DWu05YzItD7tca6N+/9Mhp/PphfLyNZdevyzK5e12ovQ67rXEifHgBFUK
-        Ar1JlO06cECKBIPrfy4s4PdoFIvj44heuYK7gQBGHQ6cNxrXXSqV9C73vs+8E3GBKkYJqzr37YtEQyHM
-        9PdjrK0NDwYGMN/bi/vd3ZhpbkaoIB/f5eTgC50OPpks0s4cb1wAAIlKpWf87FlEenrgO34cl9xuTDFp
-        3t2GuaZGhCtsuNzRgW+KizCgVKBHIASI3BfjAsVsji8vb+lhOIye6mqUmcyoOXYM33b6cafCiluVpfis
-        wws75zrLrRjbnozBTYS+BFr8XKBMqmDveuvqVudHRhDp6sI5iwWFPOrbLDZ8pvsZuaKqCo4jBQjv1WAq
-        lXBDSRiS0z9fy9hLNrHlS1GMzQSDuOvvxEyDiL7DBTAdzEVtfT1cra34yFqE2Zc1WNhBmEsjSNsIo8kU
-        G5ZTM1WzwPmystiE1wuJnf7eVoqbpUXwOT/ES7ps1Dc0IhLowl+5GXjyIuHXXYQfNYSJrRS7voUF3uIl
-        eHNyVq82NWGsyIzr5iMI+n0QG0/gtPUN2AsP4WRzC+4F/PjbuBOPdxOi2gREXkhc5accjQtkNaakLHnS
-        03HZYECv3w97bR0+Li7EzwYtfnhdh5rD+agVG3DH58SKfgse7E3F9M7kxbCCTRzjTdQQeRy80XNqNQJ2
-        O1otZkjZ6XioJaxkEX7K18Fls2DSmofHr2nxyLgftzWb3HDwYcfPkn3QthBJfha5tDUFoR3bMKkizPJb
-        H2UQlncJWDRosGI2YEW0YVafJk0mkTaSukGmDxgsoG8jun1BENYHkxJxQ70ZUpoc9/ao8IsxG3+cFvHk
-        k/fW517ZI0UUpJ9OFeimionxOMngv1MrT/KpIHj6FElL1zI0a7cM+tisKS82X1m8et908LfpTHX7hEDa
-        KTnRSOIz6vPRxeApEvhEd/fLqHRIITsVUspOjWymkhBR5ldcG9xo/S+I/gXG05wecNty4AAAAABJRU5E
-        rkJggg==
-</value>
-  </data>
-  <data name="exitMenu.Size" type="System.Drawing.Size, System.Drawing">
-    <value>116, 26</value>
-  </data>
-  <data name="exitMenu.Text" xml:space="preserve">
-    <value>Exit</value>
-  </data>
   <data name="fileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>46, 24</value>
   </data>
   <data name="fileToolStripMenuItem.Text" xml:space="preserve">
     <value>File</value>
   </data>
-  <data name="settingsMenu.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAJ/SURBVDhPY6AR+M+Y1rGbP6n+iJS9/X4WqCDxwCppg1Ru
-        74ltrkV7jwl5r5QGGRjReNg1v/+8AlQJdmCbulbSImQlp7DVHF7J0I372d03vucK3prKHLjFw7bi6J3w
-        1lMHDbN3SUGVo4Ly6ccVImr3H+R2X9Gun72/NWPK2bfFC278T6y/8se05ORnnrj9f3gjd3Xax+/ngGpB
-        BXH1B90c8vfcEwuf/7t+/ZU/U3Y9/V+x+uH/7KUP/ofNvPtfs/rif+bE462SaWe4gAZKgLwF1YoEXNd5
-        erWf/Ny68eH/9MX3//vPevDcsOv+C4HqW/9ZCq/+Z0g5/0ay8Oz+9FnXt4TOPMMP1QUEwJAW9VolwRq0
-        LS28/tKftAX3/rtOu/lctPq6FUP9Qz/GohtfGaoe/Gcvu/mfPef8B4eOy8dCes8DAxcKQqr2SDsU7TvG
-        7rPpg33T+f9B0+/+N+u5+4Zp1ps4nrkPq3nqn/5ibH31XwIYHqzF19NEs4BeqEeK3rSOM/yZE85sE4vb
-        dUgh/9Abi86b/6Vb7v9nbn/+k2/S/d+sk779F5r44b981/3PzCW3PaDakMF/RlD0iMfs5GZPPNLBmXPu
-        P2Pxzf8MdU/+M3W+/y8y9fN/k7ln/vI33v9t03fvTsj0u65QjahAJXcbO3f8wQ7GpBN/GHNPfuauufJH
-        tufZf9W+F+8kup+1c1fc6gqccf9QzqIHilAtqMCo4KBkSPe5Q5b1Z+4xZ5zzZCm8ns5edv29RO2d/cKl
-        13llCh9x6rfcRAQeNlC96IZiZP8Fd5C3OAvPSzt03TievOjhNqOWa5JQJcQDe2BIB068JZM28y4wzrEl
-        HIoBAwMA9DUgXDn1yO0AAAAASUVORK5CYII=
-</value>
-  </data>
-  <data name="settingsMenu.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
-    <value>Transparent</value>
-  </data>
-  <data name="settingsMenu.Size" type="System.Drawing.Size, System.Drawing">
-    <value>145, 26</value>
-  </data>
-  <data name="settingsMenu.Text" xml:space="preserve">
-    <value>Settings</value>
-  </data>
-  <data name="toolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>142, 6</value>
-  </data>
-  <data name="updateMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>145, 26</value>
-  </data>
-  <data name="updateMenuItem.Text" xml:space="preserve">
-    <value>Update</value>
-  </data>
   <data name="toolsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>58, 24</value>
   </data>
   <data name="toolsToolStripMenuItem.Text" xml:space="preserve">
     <value>Tools</value>
-  </data>
-  <data name="LicenseMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>140, 26</value>
-  </data>
-  <data name="LicenseMenuItem.Text" xml:space="preserve">
-    <value>License</value>
   </data>
   <data name="aboutToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>64, 24</value>
@@ -232,11 +164,73 @@
   <data name="&gt;&gt;menuStrip1.ZOrder" xml:space="preserve">
     <value>7</value>
   </data>
-  <data name="exitMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="exitMenu.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAA3tJREFUOE9V
+        Uv9PU3cUvY+ipVIqNa5QUWQms1Tjkm77hWBZwIgto0JXvoyVL+IDMYO6zS3tRkZpaYGYmdSoo2wT3CQM
+        Nq2ADRKkT4ZuyOxQ2RgkhrhlWfYXDH6ynN3Kfpg3OcnLvfecdz/nXvp/5DJeJUowE2WVEZVUC8I7cVTy
+        t5Vzh7hm2mh9PrhINsZRIm2DWu05YzItD7tca6N+/9Mhp/PphfLyNZdevyzK5e12ovQ67rXEifHgBFUK
+        Ar1JlO06cECKBIPrfy4s4PdoFIvj44heuYK7gQBGHQ6cNxrXXSqV9C73vs+8E3GBKkYJqzr37YtEQyHM
+        9PdjrK0NDwYGMN/bi/vd3ZhpbkaoIB/f5eTgC50OPpks0s4cb1wAAIlKpWf87FlEenrgO34cl9xuTDFp
+        3t2GuaZGhCtsuNzRgW+KizCgVKBHIASI3BfjAsVsji8vb+lhOIye6mqUmcyoOXYM33b6cafCiluVpfis
+        wws75zrLrRjbnozBTYS+BFr8XKBMqmDveuvqVudHRhDp6sI5iwWFPOrbLDZ8pvsZuaKqCo4jBQjv1WAq
+        lXBDSRiS0z9fy9hLNrHlS1GMzQSDuOvvxEyDiL7DBTAdzEVtfT1cra34yFqE2Zc1WNhBmEsjSNsIo8kU
+        G5ZTM1WzwPmystiE1wuJnf7eVoqbpUXwOT/ES7ps1Dc0IhLowl+5GXjyIuHXXYQfNYSJrRS7voUF3uIl
+        eHNyVq82NWGsyIzr5iMI+n0QG0/gtPUN2AsP4WRzC+4F/PjbuBOPdxOi2gREXkhc5accjQtkNaakLHnS
+        03HZYECv3w97bR0+Li7EzwYtfnhdh5rD+agVG3DH58SKfgse7E3F9M7kxbCCTRzjTdQQeRy80XNqNQJ2
+        O1otZkjZ6XioJaxkEX7K18Fls2DSmofHr2nxyLgftzWb3HDwYcfPkn3QthBJfha5tDUFoR3bMKkizPJb
+        H2UQlncJWDRosGI2YEW0YVafJk0mkTaSukGmDxgsoG8jun1BENYHkxJxQ70ZUpoc9/ao8IsxG3+cFvHk
+        k/fW517ZI0UUpJ9OFeimionxOMngv1MrT/KpIHj6FElL1zI0a7cM+tisKS82X1m8et908LfpTHX7hEDa
+        KTnRSOIz6vPRxeApEvhEd/fLqHRIITsVUspOjWymkhBR5ldcG9xo/S+I/gXG05wecNty4AAAAABJRU5E
+        rkJggg==
+</value>
+  </data>
+  <data name="exitMenu.Size" type="System.Drawing.Size, System.Drawing">
     <value>116, 26</value>
   </data>
-  <data name="exitMenuItem.Text" xml:space="preserve">
+  <data name="exitMenu.Text" xml:space="preserve">
     <value>Exit</value>
+  </data>
+  <data name="settingsMenu.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAJ/SURBVDhPY6AR+M+Y1rGbP6n+iJS9/X4WqCDxwCppg1Ru
+        74ltrkV7jwl5r5QGGRjReNg1v/+8AlQJdmCbulbSImQlp7DVHF7J0I372d03vucK3prKHLjFw7bi6J3w
+        1lMHDbN3SUGVo4Ly6ccVImr3H+R2X9Gun72/NWPK2bfFC278T6y/8se05ORnnrj9f3gjd3Xax+/ngGpB
+        BXH1B90c8vfcEwuf/7t+/ZU/U3Y9/V+x+uH/7KUP/ofNvPtfs/rif+bE462SaWe4gAZKgLwF1YoEXNd5
+        erWf/Ny68eH/9MX3//vPevDcsOv+C4HqW/9ZCq/+Z0g5/0ay8Oz+9FnXt4TOPMMP1QUEwJAW9VolwRq0
+        LS28/tKftAX3/rtOu/lctPq6FUP9Qz/GohtfGaoe/Gcvu/mfPef8B4eOy8dCes8DAxcKQqr2SDsU7TvG
+        7rPpg33T+f9B0+/+N+u5+4Zp1ps4nrkPq3nqn/5ibH31XwIYHqzF19NEs4BeqEeK3rSOM/yZE85sE4vb
+        dUgh/9Abi86b/6Vb7v9nbn/+k2/S/d+sk779F5r44b981/3PzCW3PaDakMF/RlD0iMfs5GZPPNLBmXPu
+        P2Pxzf8MdU/+M3W+/y8y9fN/k7mn//I33v9t03fvTsj0u65QjahAJXcbO3f8wQ7GpBN/GHNPfuauufJH
+        tufZf9W+F+8kup+1c1fc6gqccf9QzqIHilAtqMCo4KBkSPe5Q5b1Z+4xZ5zzZCm8ns5edv29RO2d/cKl
+        13llCh9x6rfcRAQeNlC96IZiZP8Fd5C3OAvPSzt03TievOjhNqOWa5JQJcQDe2BIB068JZM28y4wzrEl
+        HIoBAwMA8togW/4EkPEAAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="settingsMenu.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Transparent</value>
+  </data>
+  <data name="settingsMenu.Size" type="System.Drawing.Size, System.Drawing">
+    <value>145, 26</value>
+  </data>
+  <data name="settingsMenu.Text" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="toolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>142, 6</value>
+  </data>
+  <data name="updateMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>145, 26</value>
+  </data>
+  <data name="updateMenuItem.Text" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="LicenseMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>140, 26</value>
+  </data>
+  <data name="LicenseMenuItem.Text" xml:space="preserve">
+    <value>License</value>
   </data>
   <data name="fileMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>37, 20</value>
@@ -244,14 +238,20 @@
   <data name="fileMenuItem.Text" xml:space="preserve">
     <value>File</value>
   </data>
-  <data name="optionsMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>83, 26</value>
+  <data name="exitMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>116, 26</value>
+  </data>
+  <data name="exitMenuItem.Text" xml:space="preserve">
+    <value>Exit</value>
   </data>
   <data name="toolsMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>47, 20</value>
   </data>
   <data name="toolsMenuItem.Text" xml:space="preserve">
     <value>Tools</value>
+  </data>
+  <data name="optionsMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>83, 26</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="ClearButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
@@ -297,7 +297,7 @@
     <value>4, 0, 4, 0</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>32, 17</value>
+    <value>30, 16</value>
   </data>
   <data name="label1.TabIndex" type="System.Int32, mscorlib">
     <value>366</value>
@@ -447,7 +447,7 @@
     <value>4, 0, 4, 0</value>
   </data>
   <data name="versionLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>64, 17</value>
+    <value>59, 16</value>
   </data>
   <data name="versionLabel.TabIndex" type="System.Int32, mscorlib">
     <value>372</value>

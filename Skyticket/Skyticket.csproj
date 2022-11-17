@@ -144,6 +144,7 @@
       <DependentUpon>ActivationForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Classes\FeedInfo.cs" />
+    <Compile Include="Classes\SuperaUsers.cs" />
     <Compile Include="Classes\TicketInfo.cs" />
     <Compile Include="Codi\CodiPayment.cs" />
     <Compile Include="Codi\CodiPaymentType.cs" />
@@ -401,6 +402,7 @@
     </None>
     <None Include="final certificate.pfx" />
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\Skyticket.Classes.UsersRes.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
