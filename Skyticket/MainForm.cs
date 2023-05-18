@@ -842,7 +842,7 @@ namespace Skyticket
             ThreadPool.QueueUserWorkItem(delegate { LoadCustomHeader(); });
 
 
-            TicketDialog.contactsInfo = CustomerInfo.LoadCustomerInfo();
+            TicketDialogOptions.contactsInfo = CustomerInfo.LoadCustomerInfo();
 
            
 
@@ -975,7 +975,7 @@ namespace Skyticket
 
                     Thread ticketDialogThread = new Thread(() =>
                     {
-                        ticketChoice = TicketDialog.ShowPopUp();
+                        ticketChoice = TicketDialogOptions.ShowPopUp();
                     });
                     ticketDialogThread.Priority = ThreadPriority.Highest;
                     ticketDialogThread.SetApartmentState(ApartmentState.STA);
@@ -1872,7 +1872,7 @@ namespace Skyticket
                     File.Move(psFile, unprocessPath);
 
                     //Thread.Sleep(1500);
-                    TicketDialog.ClosePopup();
+                    TicketDialogOptions.ClosePopup();
                     string originFilePath = System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase.Replace("file:///", "");
                     Updater.ExecuteSelf(originFilePath, "-d");
 
