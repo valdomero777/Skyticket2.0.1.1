@@ -79,6 +79,8 @@ namespace Skyticket
 
         public bool CustomerFeedback { get; set; }
 
+        public bool NoPrint { get; set; }
+
         public Settings()
         {
             if (!Directory.Exists(ConfigDirectory))
@@ -208,6 +210,7 @@ namespace Skyticket
         Aloha = 1,
         Siapa = 2,
         Micros =3,
+        OPOS = 4,
 
     }
 }
