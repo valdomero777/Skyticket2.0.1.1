@@ -10,6 +10,7 @@ using System.Runtime.InteropServices.ComTypes;
 using System.Text.RegularExpressions;
 using Npgsql;
 using System.Data;
+using Skyticket.Classes;
 
 namespace Skyticket
 {
@@ -87,43 +88,32 @@ namespace Skyticket
             this.Close();
         }
         //***************************************//
-        private bool SaveFeedback()
+        public bool SaveFeedback()
         {
+
             bool result = false;
+           
+            FeedInfo feed = new FeedInfo();
+
+           
             try
             {
-                int ticketID = DBProvider.GetLastTicketID();
+                string gender = "";
+                if (MaleButton.Checked)
+                    gender = MaleButton.Tag.ToString();
+                else if (FemaleButton.Checked)
+                    gender = FemaleButton.Tag.ToString();
+                else if (OtherButton.Checked)
+                    gender = OtherButton.Tag.ToString();
 
-                lock (DBProvider.remoteDBLock)
-                {
-                    using (NpgsqlCommand saveCmd = new NpgsqlCommand())
-                    {
-                        saveCmd.CommandType = CommandType.Text;
-                        saveCmd.Connection = DBProvider.remoteConnection;
+                feed.id_ticket = MainForm.id_ticketr;
+                feed.age_range = selectedAge;
+                feed.gender = gender;
+                feed.comments = CommentsBox.Text;
 
-                        string query = "INSERT INTO public.feedback(" +
-                                        "\"id_ticket\", \"age_range\", \"gender\", \"comments\")" +
-                                        "VALUES(@id_ticket, @age_range, @gender, @comments)";
+                MainForm.FeedRequestAsync(feed);
 
-                        saveCmd.CommandText = query;
-                        saveCmd.Parameters.AddWithValue("@id_ticket", ticketID);
-                        saveCmd.Parameters.AddWithValue("@age_range", selectedAge);
 
-                        string gender = "";
-                        if (MaleButton.Checked)
-                            gender = MaleButton.Tag.ToString();
-                        else if (FemaleButton.Checked)
-                            gender = FemaleButton.Tag.ToString();
-                        else if (OtherButton.Checked)
-                            gender = OtherButton.Tag.ToString();
-
-                        saveCmd.Parameters.AddWithValue("@gender", gender);
-                        saveCmd.Parameters.AddWithValue("@comments", CommentsBox.Text);
-
-                        int temp = saveCmd.ExecuteNonQuery();
-                        result = true;
-                    }
-                }
             }
             catch (Exception ex)
             {

@@ -216,6 +216,13 @@ namespace Skyticket
         //***************************************//
         private void PaperButton_Click(object sender, EventArgs e)
         {
+            if (MaleButton.Checked)
+                Gender = MaleButton.Tag.ToString();
+            else if (FemaleButton.Checked)
+                Gender = FemaleButton.Tag.ToString();
+            else if (OtherButton.Checked)
+                Gender = OtherButton.Tag.ToString();
+            Comments = CommentsBox.Text;
             this.KeyPress -= TicketDialog_KeyPress;
             choice.printMethod = TicketMethod.Paper;
             this.DialogResult = DialogResult.OK;
@@ -309,6 +316,8 @@ namespace Skyticket
             else if (OtherButton.Checked)
                 Gender = OtherButton.Tag.ToString();
             Comments = CommentsBox.Text;
+
+            
 
             this.DialogResult = DialogResult.OK;
             this.FormClosing -= TicketDialog_FormClosing;
@@ -440,6 +449,7 @@ namespace Skyticket
             bool result = false;
             try
             {
+
                 
                 feed.id_ticket = MainForm.id_ticketr;
                 feed.age_range = selectedAge;
