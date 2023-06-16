@@ -3036,7 +3036,7 @@ namespace Skyticket
                 .AddJsonBody(feed);
 
             RestResponse response = await client.ExecuteAsync(request);
-            UpdateLogBox(response.Content);
+            
 
         }
 
