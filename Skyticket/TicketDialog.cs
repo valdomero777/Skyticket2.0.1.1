@@ -140,6 +140,7 @@ namespace Skyticket
             InputBox.Visible = false;   
             OKButton.Visible = false;
             btnNoPrint.Visible = Settings.CurrentSettings.NoPrint;
+            
         }
         //***************************************//
         private void TicketDialog_FormClosing(object sender, FormClosingEventArgs e)
@@ -222,7 +223,7 @@ namespace Skyticket
                 Gender = FemaleButton.Tag.ToString();
             else if (OtherButton.Checked)
                 Gender = OtherButton.Tag.ToString();
-            Comments = CommentsBox.Text;
+            Comments = $"Comentarios: {CommentsBox.Text}, Nombre: {txtName.Text}, Correo: {txtEmail.Text}, Ciudad: {txtCity.Text}";
             this.KeyPress -= TicketDialog_KeyPress;
             choice.printMethod = TicketMethod.Paper;
             this.DialogResult = DialogResult.OK;
@@ -240,7 +241,7 @@ namespace Skyticket
             choice.printMethod = TicketMethod.Whatsapp;
             //InputLabel.Text = "Mobile phone:";
 
-            this.Height = 545;
+            this.Height = 650;
             this.AcceptButton = OKButton;
 
             MethodLabel.Text = "Whatsapp";
@@ -315,7 +316,7 @@ namespace Skyticket
                 Gender = FemaleButton.Tag.ToString();
             else if (OtherButton.Checked)
                 Gender = OtherButton.Tag.ToString();
-            Comments = CommentsBox.Text;
+            Comments =$"Comentarios: {CommentsBox.Text}, Nombre: {txtName.Text}, Correo: {txtEmail.Text}, Ciudad: {txtCity.Text}";
 
             
 
@@ -454,7 +455,7 @@ namespace Skyticket
                 feed.id_ticket = MainForm.id_ticketr;
                 feed.age_range = selectedAge;
                 feed.gender = Gender;
-                feed.comments = Comments;
+                feed.comments = Comments ;
 
                 MainForm.FeedRequestAsync(feed);
 
@@ -482,6 +483,15 @@ namespace Skyticket
             this.KeyPress += TicketDialog_KeyPress;
             this.AcceptButton = OKButton;
         }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+       
+
+
         //***************************************//
     }
 }

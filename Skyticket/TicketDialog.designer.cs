@@ -54,6 +54,13 @@
             this.btnNoPrint = new System.Windows.Forms.Button();
             this.PaperButton = new System.Windows.Forms.Button();
             this.WhatsappButton = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtName = new System.Windows.Forms.TextBox();
+            this.txtEmail = new System.Windows.Forms.TextBox();
+            this.txtCity = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -182,6 +189,13 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Controls.Add(this.label5);
+            this.groupBox1.Controls.Add(this.txtCity);
+            this.groupBox1.Controls.Add(this.txtEmail);
+            this.groupBox1.Controls.Add(this.txtName);
+            this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.CommentsBox);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
@@ -256,6 +270,42 @@
             this.WhatsappButton.UseVisualStyleBackColor = false;
             this.WhatsappButton.Click += new System.EventHandler(this.WhatsappButton_Click);
             // 
+            // label4
+            // 
+            resources.ApplyResources(this.label4, "label4");
+            this.label4.Name = "label4";
+            // 
+            // txtName
+            // 
+            resources.ApplyResources(this.txtName, "txtName");
+            this.txtName.Name = "txtName";
+            // 
+            // txtEmail
+            // 
+            resources.ApplyResources(this.txtEmail, "txtEmail");
+            this.txtEmail.Name = "txtEmail";
+            // 
+            // txtCity
+            // 
+            resources.ApplyResources(this.txtCity, "txtCity");
+            this.txtCity.Name = "txtCity";
+            // 
+            // label5
+            // 
+            resources.ApplyResources(this.label5, "label5");
+            this.label5.Name = "label5";
+            // 
+            // label6
+            // 
+            resources.ApplyResources(this.label6, "label6");
+            this.label6.Name = "label6";
+            // 
+            // label7
+            // 
+            resources.ApplyResources(this.label7, "label7");
+            this.label7.Name = "label7";
+            this.label7.Click += new System.EventHandler(this.label7_Click);
+            // 
             // TicketDialog
             // 
             resources.ApplyResources(this, "$this");
@@ -312,5 +362,12 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox CommentsBox;
         private System.Windows.Forms.Label TicketLabel;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox txtCity;
+        private System.Windows.Forms.TextBox txtEmail;
+        private System.Windows.Forms.TextBox txtName;
+        private System.Windows.Forms.Label label4;
     }
 }
