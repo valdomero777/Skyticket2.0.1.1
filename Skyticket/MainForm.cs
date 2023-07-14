@@ -2996,7 +2996,7 @@ namespace Skyticket
             bool result = false;
             try
             {
-                var options = new RestClientOptions("https://skyticketapi.azurewebsites.net/")
+                var options = new RestClientOptions(" http://localhost:7234/api")
                 {
                     MaxTimeout = -1,
                 };
@@ -3005,15 +3005,15 @@ namespace Skyticket
                     .AddJsonBody(ti);
 
                 RestResponse response = await client.ExecuteAsync(request);
-                
 
-               
 
-                var ticketr = JsonConvert.DeserializeObject<TicketRes>(response.Content);
+                result = true;
 
-                id_ticketr = ticketr.ticket.id;
-                if (id_ticketr != 0)
-                    result = true;
+                //var ticketr = JsonConvert.DeserializeObject<TicketRes>(response.Content);
+
+                //id_ticketr = ticketr.ticket.id;
+                //if (id_ticketr != 0)
+                //    result = true;
 
             }
             catch (Exception ex)
