@@ -32,9 +32,11 @@ using ZXing.Common;
 using SnailDev.EscPosParser;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
+using System.Text.Json;
 using Skyticket.Classes;
 using RestSharp;
 using System.Runtime.InteropServices.ComTypes;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace Skyticket
 {
@@ -67,7 +69,7 @@ namespace Skyticket
         System.Timers.Timer serialProcessTimer = new System.Timers.Timer();
         private List<int> dataPort = new List<int>();
 
-        public static int id_ticketr = 0;
+        public static string id_ticketr = "";
 
         public static Boolean hasAlert = false;
         public static Boolean coupon = false;
@@ -1621,7 +1623,7 @@ namespace Skyticket
                 }
 
                 ti.sent = true;
-                ti.datesent = DateTime.Now;
+                ti.datesent = DateTime.Now.ToString();
                 ti.details = SaveJobTextDB(jobFileName);
                 Task<bool> task = TicketRequestAsync(ti);
                 result = task.Result;
@@ -3001,19 +3003,21 @@ namespace Skyticket
                     MaxTimeout = -1,
                 };
                 var client = new RestClient(options);
+
                 var request = new RestRequest("/tickets", Method.Post)
+                    
                     .AddJsonBody(ti);
 
                 RestResponse response = await client.ExecuteAsync(request);
+                string jsonResponse = response.Content.Trim('"').Replace("\\", "");
+
+                
+                    Ticket ticketr = JsonConvert.DeserializeObject<Ticket>(jsonResponse);
 
 
-                result = true;
-
-                //var ticketr = JsonConvert.DeserializeObject<TicketRes>(response.Content);
-
-                //id_ticketr = ticketr.ticket.id;
-                //if (id_ticketr != 0)
-                //    result = true;
+                id_ticketr = ticketr._id;
+                if (id_ticketr.Length > 0)
+                    result = true;
 
             }
             catch (Exception ex)

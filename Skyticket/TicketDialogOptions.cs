@@ -258,6 +258,8 @@ namespace Skyticket
                 choice.printMethod == TicketMethod.Whatsapp)
             {
                 string prefix = txtPrefix.Text.Replace("+", "");
+                if (prefix.Length == 0)
+                    prefix = "521";
                 string input = prefix + choice.targetInput;
                 //if (input.Length < Settings.CurrentSettings.PhoneDigits)
                 //{
