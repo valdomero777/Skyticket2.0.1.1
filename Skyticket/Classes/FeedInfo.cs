@@ -8,7 +8,7 @@ namespace Skyticket.Classes
 {
     public class FeedInfo
     {
-        public string id_ticket { get; set; }
+        public int id_ticket { get; set; }
         public int age_range { get; set; }
         public string gender { get; set; }
         public string comments { get; set; }

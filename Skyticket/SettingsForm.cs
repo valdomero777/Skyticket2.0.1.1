@@ -99,6 +99,7 @@ namespace Skyticket
 
             cmbTypePos.SelectedItem = Settings.CurrentSettings.PosType.ToString();
             chckNoPrint.Checked = Settings.CurrentSettings.NoPrint;
+            chckInternational.Checked = Settings.CurrentSettings.InternationlVersion;
 
         }
         //*******************************//
@@ -174,6 +175,7 @@ namespace Skyticket
             Settings.CurrentSettings.MinimizeToTray = MinimizeTrayBox.Checked;
             Settings.CurrentSettings.CustomerFeedback = CustFeedbackCheck.Checked;
             Settings.CurrentSettings.NoPrint = chckNoPrint.Checked; 
+            Settings.CurrentSettings.InternationlVersion = chckInternational.Checked;
 
             Settings.SaveSettings();
             this.Close();

@@ -103,6 +103,7 @@
             this.CodiProcTimerBox = new System.Windows.Forms.NumericUpDown();
             this.label25 = new System.Windows.Forms.Label();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.chckInternational = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PhoneDigitsBox)).BeginInit();
@@ -399,6 +400,7 @@
             // 
             // groupBox7
             // 
+            this.groupBox7.Controls.Add(this.chckInternational);
             this.groupBox7.Controls.Add(this.button1);
             this.groupBox7.Controls.Add(this.CustFeedbackCheck);
             this.groupBox7.Controls.Add(this.MinimizeTrayBox);
@@ -659,6 +661,12 @@
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.TabStop = false;
             // 
+            // chckInternational
+            // 
+            resources.ApplyResources(this.chckInternational, "chckInternational");
+            this.chckInternational.Name = "chckInternational";
+            this.chckInternational.UseVisualStyleBackColor = true;
+            // 
             // SettingsForm
             // 
             resources.ApplyResources(this, "$this");
@@ -777,5 +785,6 @@
         private System.Windows.Forms.GroupBox groupBox8;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.CheckBox chckNoPrint;
+        private System.Windows.Forms.CheckBox chckInternational;
     }
 }

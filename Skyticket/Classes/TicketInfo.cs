@@ -8,7 +8,7 @@ namespace Skyticket.Classes
 {
    public class Ticket
     {
-        public string _id { get; set; }
+        public int id { get; set; }
         public int id_terminal { get; set; }
         public int id_client { get; set; }
         public string ticketimagepath { get; set; }

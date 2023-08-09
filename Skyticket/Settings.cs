@@ -80,6 +80,7 @@ namespace Skyticket
         public bool CustomerFeedback { get; set; }
 
         public bool NoPrint { get; set; }
+        public bool InternationlVersion { get; set; }
 
         public Settings()
         {
@@ -131,6 +132,7 @@ namespace Skyticket
             CodiRefSequence = 1;
 
             MinimizeToTray = true;
+            InternationlVersion = false;
         }
 
         //-------------------------------------//

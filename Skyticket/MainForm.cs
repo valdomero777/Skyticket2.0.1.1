@@ -69,7 +69,7 @@ namespace Skyticket
         System.Timers.Timer serialProcessTimer = new System.Timers.Timer();
         private List<int> dataPort = new List<int>();
 
-        public static string id_ticketr = "";
+        public static int id_ticketr = 0;
 
         public static Boolean hasAlert = false;
         public static Boolean coupon = false;
@@ -843,8 +843,15 @@ namespace Skyticket
 
             ThreadPool.QueueUserWorkItem(delegate { LoadCustomHeader(); });
 
-
-            TicketDialogOptions.contactsInfo = CustomerInfo.LoadCustomerInfo();
+            if (Settings.CurrentSettings.InternationlVersion)
+            {
+                TicketDialogOptions.contactsInfo = CustomerInfo.LoadCustomerInfo();
+            }
+            else
+            {
+                TicketDialog.contactsInfo = CustomerInfo.LoadCustomerInfo();
+            }
+           
 
            
 
@@ -977,7 +984,15 @@ namespace Skyticket
 
                     Thread ticketDialogThread = new Thread(() =>
                     {
-                        ticketChoice = TicketDialogOptions.ShowPopUp();
+                        if (Settings.CurrentSettings.InternationlVersion)
+                        {
+                            ticketChoice = TicketDialogOptions.ShowPopUp();
+                        }
+                        else
+                        {
+                            ticketChoice = TicketDialog.ShowPopUp();
+                        }
+                        
                     });
                     ticketDialogThread.Priority = ThreadPriority.Highest;
                     ticketDialogThread.SetApartmentState(ApartmentState.STA);
@@ -1628,7 +1643,7 @@ namespace Skyticket
                 Task<bool> task = TicketRequestAsync(ti);
                 result = task.Result;
 
-                if (Settings.CurrentSettings.CustomerFeedback)
+                if (Settings.CurrentSettings.CustomerFeedback && Settings.CurrentSettings.InternationlVersion == false)
                     TicketDialog.SaveFeedback();
             }
             catch (Exception ex)
@@ -1874,7 +1889,15 @@ namespace Skyticket
                     File.Move(psFile, unprocessPath);
 
                     //Thread.Sleep(1500);
-                    TicketDialogOptions.ClosePopup();
+                    if (Settings.CurrentSettings.InternationlVersion)
+                    {
+                        TicketDialogOptions.ClosePopup();
+                    }
+                    else
+                    {
+                        TicketDialog.ClosePopup();
+                    }
+                    
                     string originFilePath = System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase.Replace("file:///", "");
                     Updater.ExecuteSelf(originFilePath, "-d");
 
@@ -2992,31 +3015,65 @@ namespace Skyticket
 
         }
 
-        private static  async Task<bool> TicketRequestAsync(Ticket ti)
+        //private static  async Task<bool> TicketRequestAsync(Ticket ti)
+        //{
+        //    UpdateLogBox("TicketReq");
+        //    bool result = false;
+        //    try
+        //    {
+        //        var options = new RestClientOptions(" http://localhost:7234/api")
+        //        {
+        //            MaxTimeout = -1,
+        //        };
+        //        var client = new RestClient(options);
+
+        //        var request = new RestRequest("/tickets", Method.Post)
+
+        //            .AddJsonBody(ti);
+
+        //        RestResponse response = await client.ExecuteAsync(request);
+        //        string jsonResponse = response.Content.Trim('"').Replace("\\", "");
+
+
+        //            Ticket ticketr = JsonConvert.DeserializeObject<Ticket>(jsonResponse);
+
+
+        //        id_ticketr = ticketr._id;
+        //        if (id_ticketr.Length > 0)
+        //            result = true;
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        //MessageBox.Show(ex.Message, "modificacion proceso lealtad");
+        //    }
+
+        //    return result;
+
+        //}
+        private static async Task<bool> TicketRequestAsync(Ticket ti)
         {
             UpdateLogBox("TicketReq");
             bool result = false;
             try
             {
-                var options = new RestClientOptions(" http://localhost:7234/api")
+                var options = new RestClientOptions("https://skyticketapi.azurewebsites.net/")
                 {
                     MaxTimeout = -1,
                 };
                 var client = new RestClient(options);
-
                 var request = new RestRequest("/tickets", Method.Post)
-                    
                     .AddJsonBody(ti);
 
                 RestResponse response = await client.ExecuteAsync(request);
-                string jsonResponse = response.Content.Trim('"').Replace("\\", "");
-
-                
-                    Ticket ticketr = JsonConvert.DeserializeObject<Ticket>(jsonResponse);
 
 
-                id_ticketr = ticketr._id;
-                if (id_ticketr.Length > 0)
+
+
+                var ticketr = JsonConvert.DeserializeObject<TicketRes>(response.Content);
+
+                id_ticketr = ticketr.ticket.id;
+                if (id_ticketr != 0)
                     result = true;
 
             }
