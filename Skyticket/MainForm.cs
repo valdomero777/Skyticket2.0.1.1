@@ -35,6 +35,7 @@ using Newtonsoft.Json;
 using Skyticket.Classes;
 using RestSharp;
 using System.Runtime.InteropServices.ComTypes;
+using StarMicronics.StarIOExtension;
 
 namespace Skyticket
 {
@@ -1240,7 +1241,7 @@ namespace Skyticket
                     else
                     {
                         printBytes.AddRange(PrintHelper.cutBytes);
-                        ThreadPool.QueueUserWorkItem(delegate { PrintHelper.Print(printBytes.ToArray()); });
+                        ThreadPool.QueueUserWorkItem(delegate { PrintStarHelper.PrintImage(Emulation.StarGraphic, pngFilePath, 576); });
                         //PrintHelper.Print(pngFilePath, receiptHeight);
                     }
                     stopwatch.Stop();
