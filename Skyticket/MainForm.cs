@@ -1192,67 +1192,7 @@ namespace Skyticket
                     }
                 }
 
-                if (ticketChoice.printMethod == TicketMethod.Batch)
-                {
-                    File.Move(processedJobPath, psFilePath);
-                    ProcessBatch();
-                    return;
-                }
-                //print PostScript/image ticket
-                else if (ticketChoice.printMethod == TicketMethod.Paper ||
-                        Settings.CurrentSettings.PrintPaperAlways)
-                {
-                    if (Settings.CurrentSettings.PosType == POSTypes.Siapa)
-                    {
-                        UpdateLogBox("Converting to PDF - " + POSTypes.Siapa.ToString());
-                        if (WritePSToPDF(processedJobPath, pdfFilePath))
-                        {
-                            PrintPDFToPrinter(pdfFilePath);
-                            UpdateLogBox("PDF print sent " + POSTypes.Siapa.ToString());
-                            ThreadPool.QueueUserWorkItem(delegate { PrintHelper.Print(PrintHelper.cutBytes); });
-                        }
-                    }
-                    else if (Settings.CurrentSettings.PosType == POSTypes.OPOS)
-                    {
-                        try
-                        {
-                            // Abrir el puerto serial
-                            
-
-                            // Leer el contenido del archivo de texto
-                            string dataToSend = File.ReadAllText(processedJobPath);
-
-                            // Enviar información a través del puerto serial
-                            port.WriteLine(dataToSend);
-
-                            Console.WriteLine("Datos enviados correctamente.");
-                        }
-                        catch (Exception ex)
-                        {
-                            Console.WriteLine("Error al enviar datos: " + ex.Message);
-                        }
-                        finally
-                        {
-                            // Cerrar el puerto serial al finalizar
-                            
-                        }
-
-                    }
-                    else
-                    {
-                        printBytes.AddRange(PrintHelper.cutBytes);
-                        ThreadPool.QueueUserWorkItem(delegate { PrintStarHelper.PrintImage(Emulation.StarGraphic, pngFilePath, 576); });
-                        //PrintHelper.Print(pngFilePath, receiptHeight);
-                    }
-                    stopwatch.Stop();
-                    UpdateLogBox("Print completed in ms " + stopwatch.ElapsedMilliseconds);
-                    stopwatch.Reset();
-                    stopwatch.Start();
-
-                    if (ticketChoice.targetInput.Length <= 0)
-                        ticketChoice.targetInput = "1";
-                }
-
+                
                 if (ticketType == 1)
                 {
                     stopwatch.Stop();
@@ -1330,6 +1270,68 @@ namespace Skyticket
                     stopwatch.Reset();
                     stopwatch.Start();
                 }
+                if (ticketChoice.printMethod == TicketMethod.Batch)
+                {
+                    File.Move(processedJobPath, psFilePath);
+                    ProcessBatch();
+                    return;
+                }
+                //print PostScript/image ticket
+                else if (ticketChoice.printMethod == TicketMethod.Paper ||
+                        Settings.CurrentSettings.PrintPaperAlways)
+                {
+                    if (Settings.CurrentSettings.PosType == POSTypes.Siapa)
+                    {
+                        UpdateLogBox("Converting to PDF - " + POSTypes.Siapa.ToString());
+                        if (WritePSToPDF(processedJobPath, pdfFilePath))
+                        {
+                            PrintPDFToPrinter(pdfFilePath);
+                            UpdateLogBox("PDF print sent " + POSTypes.Siapa.ToString());
+                            ThreadPool.QueueUserWorkItem(delegate { PrintHelper.Print(PrintHelper.cutBytes); });
+                        }
+                    }
+                    else if (Settings.CurrentSettings.PosType == POSTypes.OPOS)
+                    {
+                        try
+                        {
+                            // Abrir el puerto serial
+
+
+                            // Leer el contenido del archivo de texto
+                            string dataToSend = File.ReadAllText(processedJobPath);
+
+                            // Enviar información a través del puerto serial
+                            port.WriteLine(dataToSend);
+
+                            Console.WriteLine("Datos enviados correctamente.");
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine("Error al enviar datos: " + ex.Message);
+                        }
+                        finally
+                        {
+                            // Cerrar el puerto serial al finalizar
+
+                        }
+
+                    }
+                    else
+                    {
+                        byte[] commands = PrintStarHelper.PrintImage(Emulation.StarLine, pngFilePath, 576);
+                        //byte[] commands = PrintStarHelper.PrintImage(Emulation.StarGraphic, pngFilePath, 576);
+                        ThreadPool.QueueUserWorkItem(delegate { PrintStarHelper.Print(commands); });
+                        //PrintHelper.Print(pngFilePath, receiptHeight);
+                    }
+                    stopwatch.Stop();
+                    UpdateLogBox("Print completed in ms " + stopwatch.ElapsedMilliseconds);
+                    stopwatch.Reset();
+                    stopwatch.Start();
+
+                    if (ticketChoice.targetInput.Length <= 0)
+                        ticketChoice.targetInput = "1";
+                }
+
 
                 if (Program.isActivated)
                     CreateJobLocal(pngfileName, processedJobPath, ticketChoice.printMethod, ticketChoice.targetInput);

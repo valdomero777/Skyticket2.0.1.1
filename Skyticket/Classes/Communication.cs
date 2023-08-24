@@ -1355,7 +1355,7 @@ namespace Skyticket.Classes
         {
             string resultMessage = GetCommunicationResultMessage(result);
 
-            MessageBox.Show(resultMessage, "Communication Result");
+            
         }
 
         public static void ShowPeripheralStatusResultMessage(string peripheralName, PeripheralStatus status)

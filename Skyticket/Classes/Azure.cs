@@ -8,6 +8,7 @@ using System.Net;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Skyticket.Classes
 {
@@ -53,6 +54,12 @@ namespace Skyticket.Classes
             catch (Exception ex) 
             {
                 MainForm.UpdateLogBox("AzureUploadError:" + ex.Message);
+                if (ex.InnerException != null)
+                {
+                    Exception innerException = ex.InnerException;
+                    // Trabajar con la Inner Exception
+                    MainForm.UpdateLogBox(innerException.Message);
+                }
                 return false;
             }
 

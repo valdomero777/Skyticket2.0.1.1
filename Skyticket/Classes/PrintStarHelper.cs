@@ -47,7 +47,7 @@ namespace Skyticket
                 MainForm.UpdateLogBox("imprimiendo");
                 // Your printer PortName and PortSettings.
                 string portName = $"USBPRN:{Settings.CurrentSettings.PrinterName}";
-                MessageBox.Show(portName);
+                
                 string portSettings = "";
 
 
