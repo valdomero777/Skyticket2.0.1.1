@@ -69,7 +69,7 @@ namespace Skyticket
         System.Timers.Timer serialProcessTimer = new System.Timers.Timer();
         private List<int> dataPort = new List<int>();
 
-        public static int id_ticketr = 0;
+        public static string id_ticketr = "";
 
         public static Boolean hasAlert = false;
         public static Boolean coupon = false;
@@ -1638,7 +1638,7 @@ namespace Skyticket
                 }
 
                 ti.sent = true;
-                ti.datesent = DateTime.Now.ToString();
+                ti.datesent = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                 ti.details = SaveJobTextDB(jobFileName);
                 Task<bool> task = TicketRequestAsync(ti);
                 result = task.Result;
@@ -3015,65 +3015,32 @@ namespace Skyticket
 
         }
 
-        //private static  async Task<bool> TicketRequestAsync(Ticket ti)
-        //{
-        //    UpdateLogBox("TicketReq");
-        //    bool result = false;
-        //    try
-        //    {
-        //        var options = new RestClientOptions(" http://localhost:7234/api")
-        //        {
-        //            MaxTimeout = -1,
-        //        };
-        //        var client = new RestClient(options);
-
-        //        var request = new RestRequest("/tickets", Method.Post)
-
-        //            .AddJsonBody(ti);
-
-        //        RestResponse response = await client.ExecuteAsync(request);
-        //        string jsonResponse = response.Content.Trim('"').Replace("\\", "");
-
-
-        //            Ticket ticketr = JsonConvert.DeserializeObject<Ticket>(jsonResponse);
-
-
-        //        id_ticketr = ticketr._id;
-        //        if (id_ticketr.Length > 0)
-        //            result = true;
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        //MessageBox.Show(ex.Message, "modificacion proceso lealtad");
-        //    }
-
-        //    return result;
-
-        //}
         private static async Task<bool> TicketRequestAsync(Ticket ti)
         {
             UpdateLogBox("TicketReq");
             bool result = false;
             try
             {
-                var options = new RestClientOptions("https://skyticketapi.azurewebsites.net/")
+                var options = new RestClientOptions("https://api-skymanagement.azure-api.net/NewReceipt/")
                 {
                     MaxTimeout = -1,
                 };
                 var client = new RestClient(options);
+
                 var request = new RestRequest("/tickets", Method.Post)
+
                     .AddJsonBody(ti);
 
                 RestResponse response = await client.ExecuteAsync(request);
+                string jsonResponse = response.Content.Trim('"').Replace("\\", "");
 
 
+                Ticket ticketr = JsonConvert.DeserializeObject<Ticket>(jsonResponse);
 
+                UpdateLogBox($"Respuesta: {response.StatusCode}");
 
-                var ticketr = JsonConvert.DeserializeObject<TicketRes>(response.Content);
-
-                id_ticketr = ticketr.ticket.id;
-                if (id_ticketr != 0)
+                id_ticketr = ticketr._id;
+                if (id_ticketr.Length > 0)
                     result = true;
 
             }
@@ -3085,6 +3052,40 @@ namespace Skyticket
             return result;
 
         }
+        //private static async Task<bool> TicketRequestAsync(Ticket ti)
+        //{
+        //    UpdateLogBox("TicketReq");
+        //    bool result = false;
+        //    try
+        //    {
+        //        var options = new RestClientOptions("https://skyticketapi.azurewebsites.net/")
+        //        {
+        //            MaxTimeout = -1,
+        //        };
+        //        var client = new RestClient(options);
+        //        var request = new RestRequest("/tickets", Method.Post)
+        //            .AddJsonBody(ti);
+
+        //        RestResponse response = await client.ExecuteAsync(request);
+
+
+
+
+        //        var ticketr = JsonConvert.DeserializeObject<TicketRes>(response.Content);
+
+        //        id_ticketr = ticketr.ticket.id;
+        //        if (id_ticketr != 0)
+        //            result = true;
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        //MessageBox.Show(ex.Message, "modificacion proceso lealtad");
+        //    }
+
+        //    return result;
+
+        //}
 
         public static async Task FeedRequestAsync( FeedInfo feed)
         {
