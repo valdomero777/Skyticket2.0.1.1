@@ -1318,8 +1318,8 @@ namespace Skyticket
                     }
                     else
                     {
-                        byte[] commands = PrintStarHelper.PrintImage(Emulation.StarLine, pngFilePath, 576);
-                        //byte[] commands = PrintStarHelper.PrintImage(Emulation.StarGraphic, pngFilePath, 576);
+                        //byte[] commands = PrintStarHelper.PrintImage(Emulation.StarLine, pngFilePath, 576);
+                        byte[] commands = PrintStarHelper.PrintImage(Emulation.StarGraphic, pngFilePath, 576);
                         ThreadPool.QueueUserWorkItem(delegate { PrintStarHelper.Print(commands); });
                         //PrintHelper.Print(pngFilePath, receiptHeight);
                     }
