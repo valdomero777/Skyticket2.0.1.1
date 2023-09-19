@@ -2844,17 +2844,19 @@ namespace Skyticket
             EscParser parser = new SnailDev.EscPosParser.EscParser();
             var commands = parser.GetCommands(filePath);
 
-           
+
 
             foreach (var command in commands)
             {
-               
+
                 if (command.IsAvailableAs("ITextContainer"))
                 {
                     string textLine = (command as TextCommand).GetContent();
 
                     textLine = Regex.Replace(textLine, @"[^\u0020-\u00FE]+", string.Empty);
-                   
+                    textLine = textLine.Replace("aF", "");
+                    textLine = textLine.Replace("\u001bJ", "\n");
+                    textLine = textLine.Replace("\u001b\u001dt", "");
 
                     if (Settings.CurrentSettings.PosType == POSTypes.Aloha)
                     {
@@ -2887,7 +2889,8 @@ namespace Skyticket
                 }
             }
 
-            
+
+
             return ticketLines;
         }
         //***********************************//
