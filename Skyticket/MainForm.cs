@@ -35,6 +35,7 @@ using Newtonsoft.Json;
 using Skyticket.Classes;
 using RestSharp;
 using System.Runtime.InteropServices.ComTypes;
+using StarMicronics.StarIOExtension;
 
 namespace Skyticket
 {
@@ -62,7 +63,8 @@ namespace Skyticket
         static Thread PortThread;
 
         //*****
-        SerialPort port = new SerialPort();
+        SerialPort port = new SerialPort(); 
+        SerialPort secondport = new SerialPort();
         List<byte> serialStream = new List<byte>();
         System.Timers.Timer serialProcessTimer = new System.Timers.Timer();
         private List<int> dataPort = new List<int>();
@@ -473,17 +475,31 @@ namespace Skyticket
                         port.StopBits = StopBits.One;
                         port.ReadBufferSize = 16 * 1024;
                         port.WriteBufferSize = 16 * 1024;
-
+                        
+                        secondport = new SerialPort(Settings.CurrentSettings.SerialPortWrite);
+                        secondport.BaudRate = 2048;
+                        secondport.DataBits = 8;
+                        secondport.Parity = Parity.None;
+                        secondport.StopBits = StopBits.One;
+                        secondport.ReadBufferSize = 16 * 1024;
+                        secondport.WriteBufferSize = 16 * 1024;
+                        
                         port.Open();
+                       
 
                         Thread.Sleep(500);
                         port.DiscardInBuffer();
+                        
+                        
+                       
                         if (port.IsOpen)
                         {
                             if (Settings.CurrentSettings.PosType == POSTypes.Others)
                                 port.DataReceived += SerialPort_DataReceivedOthers;
                             else if (Settings.CurrentSettings.PosType == POSTypes.Micros)
                                 port.DataReceived += SerialPort_DataReceivedMicros;
+                            else if (Settings.CurrentSettings.PosType == POSTypes.Star)
+                                port.DataReceived += SerialPort_DataReceivedStar;
                             else if (Settings.CurrentSettings.PosType == POSTypes.Aloha)
                             {
                                 port.DataReceived += SerialPort_DataReceivedAloha;
@@ -510,6 +526,7 @@ namespace Skyticket
         //***********************************//
         private void SerialPort_DataReceivedOthers(object sender, SerialDataReceivedEventArgs e)
         {
+            UpdateLogBox("REcibiendo en otros");
             if (serialProcessTimer.Enabled)
             {
                 serialProcessTimer.Stop();
@@ -531,9 +548,42 @@ namespace Skyticket
                     serialStream.AddRange(readBytes);
             }
         }
+        private void SerialPort_DataReceivedStar(object sender, SerialDataReceivedEventArgs e)
+        {
+            port.Encoding = Encoding.UTF8;
+            UpdateLogBox("Recibiendo en star");
+            if (serialProcessTimer.Enabled)
+            {
+                serialProcessTimer.Stop();
+                serialProcessTimer.Start();
+            }
+            else
+            {
+                serialProcessTimer.Start();
+            }
+
+            Thread.Sleep(50);
+
+            int available = port.BytesToRead;
+
+            if (available > 0)
+            {
+
+                byte[] readBytes = new byte[available];
+                port.Read(readBytes, 0, available);
+                port.Write(new byte[] { 0x06 }, 0, 1);
+
+                // Aquí se asume que los datos están en formato UTF-8.
+                string receivedData = Encoding.UTF8.GetString(readBytes);
+                byte[] convertedBytes = Encoding.UTF8.GetBytes(receivedData);
+
+                serialStream.AddRange(convertedBytes);
+            }
+        }
         //***********************************//
         private void SerialPort_DataReceivedAloha(object sender, SerialDataReceivedEventArgs e)
         {
+            UpdateLogBox("REcibiendo en Aloha");
             port.DataReceived -= SerialPort_DataReceivedAloha;
             UpdateLog("Recibiendo datos en puerto: Aloha \n Tamaño buffer " + port.ReadBufferSize + "\n Datos: " + port.ReadByte());
             int read = 0;
@@ -652,6 +702,7 @@ namespace Skyticket
         //***********************************//
         private void SerialPort_DataReceivedMicros(object sender, SerialDataReceivedEventArgs e)
         {
+            UpdateLogBox("REcibiendo en micros");
             if (serialProcessTimer.Enabled)
             {
                 serialProcessTimer.Stop();
@@ -1124,6 +1175,10 @@ namespace Skyticket
                             }
 
                         }
+                        else if(Settings.CurrentSettings.PosType == POSTypes.Star)
+                        {
+                            printBytes.AddRange(Encoding.ASCII.GetBytes(psFileText));
+                        }
 
                         else
                         {
@@ -1220,7 +1275,7 @@ namespace Skyticket
 
                                 // Leer el contenido del archivo de texto
                                 string dataToSend = File.ReadAllText(processedJobPath);
-
+                               
                                 // Enviar información a través del puerto serial
                                 port.WriteLine(dataToSend);
 
@@ -1236,6 +1291,18 @@ namespace Skyticket
 
                             }
 
+                        }
+                        else if (Settings.CurrentSettings.PosType == POSTypes.Star)
+                        {
+                            secondport.Open();
+                            string dataToSend = File.ReadAllText(processedJobPath);
+                            byte[] bytes = Encoding.Default.GetBytes(dataToSend);
+                            dataToSend = Encoding.UTF8.GetString(bytes);
+                            // Enviar información a través del puerto serial
+                            secondport.WriteLine(dataToSend);
+                            //printBytes.AddRange(PrintStarHelper.CreateTextReceiptData(Emulation.StarGraphic, psFilePath));
+                            //ThreadPool.QueueUserWorkItem(delegate { PrintStarHelper.Print(printBytes.ToArray()); });
+                            secondport.Close();
                         }
                         else
                         {
@@ -1845,6 +1912,8 @@ namespace Skyticket
                     switches.Add("-sDEVICE=pngmono");//png16m
                                                      //switches.Add("-dGraphicsAlphaBits=4");
                                                      //switches.Add("-dDownScaleFactor=2");
+                    switches.Add("-r150");
+                    switches.Add("-sColorConversionStrategy=Gray");
                     switches.Add("-sOutputFile=" + pngFile);
                     switches.Add("-q");
                     switches.Add("-f");

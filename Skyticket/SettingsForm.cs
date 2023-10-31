@@ -74,7 +74,9 @@ namespace Skyticket
             PhoneDigitsBox.Value = Settings.CurrentSettings.PhoneDigits;
 
             PortsListBox.DataSource = SerialPort.GetPortNames();
+            Port2Write.DataSource = SerialPort.GetPortNames();
             PortsListBox.SelectedItem = Settings.CurrentSettings.SerialPort;
+            Port2Write.SelectedItem = Settings.CurrentSettings.SerialPortWrite;
             BarcodesCheck.Checked = Settings.CurrentSettings.EnableBarcodes;
 
             FTPHostBox.Text = Settings.CurrentSettings.FTPServer;
@@ -123,6 +125,10 @@ namespace Skyticket
             {
                 Settings.CurrentSettings.PosType = POSTypes.OPOS;
             }
+            else if (cmbTypePos.Text == "Star")
+            {
+                Settings.CurrentSettings.PosType = POSTypes.Star;
+            }
 
             Settings.CurrentSettings.OutputPath = OutputFolderBox.Text;
 
@@ -151,7 +157,9 @@ namespace Skyticket
             Settings.CurrentSettings.PhoneDigits = (int)PhoneDigitsBox.Value;
 
             if (PortsListBox.SelectedIndex >= 0)
-                Settings.CurrentSettings.SerialPort = PortsListBox.SelectedItem.ToString();
+                Settings.CurrentSettings.SerialPort = PortsListBox.SelectedItem.ToString(); 
+            if (Port2Write.SelectedIndex >= 0)
+                Settings.CurrentSettings.SerialPortWrite = Port2Write.SelectedItem.ToString();
             Settings.CurrentSettings.EnableBarcodes = BarcodesCheck.Checked;
 
             Settings.CurrentSettings.FTPServer = FTPHostBox.Text;

@@ -60,7 +60,7 @@ namespace Skyticket
                     //bool resultPort = installer.CreatePrinterPort();
 
                     SpoolerHelper sh = new SpoolerHelper();
-                    SpoolerHelper.GenericResult result = sh.AddVPrinter("Skyticket", "Skyticket");
+                    SpoolerHelper.GenericResult result = sh.AddVPrinter("YupioReceiptC", "YupioReceiptC");
                     if (result.Success == false)
                     {
                         LogError(result.Method, result.Message, result.Exception);

@@ -103,6 +103,8 @@
             this.CodiProcTimerBox = new System.Windows.Forms.NumericUpDown();
             this.label25 = new System.Windows.Forms.Label();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.Port2Write = new System.Windows.Forms.ComboBox();
+            this.label27 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PhoneDigitsBox)).BeginInit();
@@ -213,6 +215,8 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.Port2Write);
+            this.groupBox3.Controls.Add(this.label27);
             this.groupBox3.Controls.Add(this.chckNoPrint);
             this.groupBox3.Controls.Add(this.cmbTypePos);
             this.groupBox3.Controls.Add(this.label26);
@@ -248,7 +252,8 @@
             resources.GetString("cmbTypePos.Items1"),
             resources.GetString("cmbTypePos.Items2"),
             resources.GetString("cmbTypePos.Items3"),
-            resources.GetString("cmbTypePos.Items4")});
+            resources.GetString("cmbTypePos.Items4"),
+            resources.GetString("cmbTypePos.Items5")});
             resources.ApplyResources(this.cmbTypePos, "cmbTypePos");
             this.cmbTypePos.Name = "cmbTypePos";
             // 
@@ -659,6 +664,18 @@
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.TabStop = false;
             // 
+            // Port2Write
+            // 
+            this.Port2Write.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.Port2Write.FormattingEnabled = true;
+            resources.ApplyResources(this.Port2Write, "Port2Write");
+            this.Port2Write.Name = "Port2Write";
+            // 
+            // label27
+            // 
+            resources.ApplyResources(this.label27, "label27");
+            this.label27.Name = "label27";
+            // 
             // SettingsForm
             // 
             resources.ApplyResources(this, "$this");
@@ -777,5 +794,7 @@
         private System.Windows.Forms.GroupBox groupBox8;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.CheckBox chckNoPrint;
+        private System.Windows.Forms.ComboBox Port2Write;
+        private System.Windows.Forms.Label label27;
     }
 }

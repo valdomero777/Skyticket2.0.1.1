@@ -1,4 +1,4 @@
-*PPD-Adobe: "4.3"
+S*PPD-Adobe: "4.3"
 *FileVersion: "1.1"
 *FormatVersion: "4.3" 
 *LanguageEncoding: ISOLatin1
@@ -26,16 +26,16 @@
 *ContoneOnly: True
 
 *OpenUI *Resolution: PickOne
-*DefaultResolution: 203dpi
+*DefaultResolution: 600dpi
 *OrderDependency: 10 AnySetup *Resolution
-*Resolution 203dpi: "<< /HWResolution [203 203] >> setpagedevice"
+*Resolution 600dpi: "<< /HWResolution [600 600] >> setpagedevice"
 *CloseUI: *Resolution
 
 *HWMargins: 0 0 0 0
-*ParamCustomPageSize Width: 1 points 1 567
-*ParamCustomPageSize Height: 2 points 1 567
-*ParamCustomPageSize WidthOffset/Width Margin: 3 points 0 567
-*ParamCustomPageSize HeightOffset/Height Margin: 4 points 0 567
+*ParamCustomPageSize Width: 1 points 1 2500
+*ParamCustomPageSize Height: 2 points 1 5000
+*ParamCustomPageSize WidthOffset/Width Margin: 3 points 0 2500
+*ParamCustomPageSize HeightOffset/Height Margin: 4 points 0 5000
 *ParamCustomPageSize Orientation: 5 int 0 3
 *NonUIOrderDependency: 20 AnySetup *CustomPageSize
 *CustomPageSize True: "
@@ -54,30 +54,28 @@
   /ImagingBBox null def
   end setpagedevice"
 *End
-*MaxMediaWidth: "567"
-*MaxMediaHeight: "567"
+*MaxMediaWidth: "2500"
+*MaxMediaHeight: "5000"
 
 *LandscapeOrientation: Any
 
 *OpenUI *PageSize: PickOne
-*DefaultPageSize: Skyticket
 *OrderDependency: 20 AnySetup *PageSize
-*PageSize Skyticket: "<< /PageSize [612 567] /ImagingBBox null >> setpagedevice"
-
+*PageSize Skyticket: "<< /PageSize [228 5000] /ImagingBBox null >> setpagedevice"
+*DefaultPageSize: Skyticket
 *CloseUI: *PageSize
 
 *OpenUI *PageRegion: PickOne
-*DefaultPageRegion: Skyticket
 *OrderDependency: 20 AnySetup *PageRegion
-*PageRegion Skyticket: "<< /PageSize [612 567] /ImagingBBox null >> setpagedevice"
+*PageRegion Skyticket: "<< /PageSize [228 5000] /ImagingBBox null >> setpagedevice"
+*DefaultPageRegion: Skyticket
 *CloseUI: *PageRegion
 
+*ImageableArea Skyticket: "0 0 228 5000"
 *DefaultImageableArea: Skyticket
-*ImageableArea Skyticket: "0 0 612 567"
 
+*PaperDimension Skyticket: "228 5000"
 *DefaultPaperDimension: Skyticket
-*PaperDimension Skyticket: "612 567"
-
 
 *DefaultFont: Courier
 *Font Courier: Standard "(1.05)" Standard ROM
