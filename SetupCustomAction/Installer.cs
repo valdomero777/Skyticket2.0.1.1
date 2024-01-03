@@ -25,7 +25,7 @@ namespace Skyticket
             ProcessStartInfo startInfo = new ProcessStartInfo("C:\\Program Files\\Skyticket\\LicenseValidator.exe");
             Process p = Process.Start(startInfo);
             p.WaitForExit();// Have to hold the setup until the application is closed.
-
+            
             //Application.EnableVisualStyles();
             //LicenseForm licenseForm = new LicenseForm();
             if (p.ExitCode != 987)
@@ -60,7 +60,7 @@ namespace Skyticket
                     //bool resultPort = installer.CreatePrinterPort();
 
                     SpoolerHelper sh = new SpoolerHelper();
-                    SpoolerHelper.GenericResult result = sh.AddVPrinter("YupioReceiptC", "YupioReceiptC");
+                    SpoolerHelper.GenericResult result = sh.AddVPrinter("DigitalReceiptEvans", "DigitalReceiptEvans");
                     if (result.Success == false)
                     {
                         LogError(result.Method, result.Message, result.Exception);

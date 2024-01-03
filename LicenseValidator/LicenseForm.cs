@@ -86,7 +86,7 @@ namespace Skyticket
                 Settings.CurrentSettings.TerminalID = infos[terminalIndex].idterminal.ToString();
 
                 Settings.CurrentSettings.OutputPath = Settings.processedDirectory;
-                Settings.CurrentSettings.PoweredLogoEnabled = true;
+                Settings.CurrentSettings.PoweredLogoEnabled = false;
 
                 Settings.CurrentSettings.FTPServer = "ftp://104.197.8.205";
                 Settings.CurrentSettings.FTPPort = 24;
@@ -100,9 +100,9 @@ namespace Skyticket
                 Settings.CurrentSettings.DBUsername = "postgres";
                 Settings.CurrentSettings.DBPassword = "Webmaster3d";
 
-                Settings.CurrentSettings.ServiceEnabled = true;
-                Settings.CurrentSettings.ServiceUser = "PruebasMx";
-                Settings.CurrentSettings.ServicePassword = "1qazxd";
+                Settings.CurrentSettings.ServiceEnabled = false;
+                Settings.CurrentSettings.ServiceUser = "";
+                Settings.CurrentSettings.ServicePassword = "";
 
                 Settings.CurrentSettings.ConnectionType = ConnectionTypes.Network;
                 Settings.CurrentSettings.PrinterIP = "127.0.0.1";

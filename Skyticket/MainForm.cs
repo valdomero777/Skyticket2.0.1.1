@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -8,34 +7,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
 using System.Diagnostics;
-using System.Collections;
 using System.Text.RegularExpressions;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
-using System.Drawing.Printing;
 using Ghostscript.NET;
 using Ghostscript.NET.Processor;
 using System.Data.SQLite;
-using Npgsql;
 using System.Runtime.InteropServices;
 using System.Globalization;
-using System.Xml.Linq;
 using System.IO.Ports;
-
-
 using ZXing;
-using ZXing.Common;
 using SnailDev.EscPosParser;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using Skyticket.Classes;
 using RestSharp;
-using System.Runtime.InteropServices.ComTypes;
-using StarMicronics.StarIOExtension;
+
 
 namespace Skyticket
 {
@@ -1014,7 +1004,11 @@ namespace Skyticket
                     
                 }
                 string psFileText = File.ReadAllText(processedJobPath);
+            if(Settings.CurrentSettings.PosType != POSTypes.Siapa)
+            {
                 ThreadPool.QueueUserWorkItem(delegate { PrintHelper.OpenCashDrawer(); });
+            }
+                
 
                 string timeStamp = DateTime.Now.ToString("yyyyMMddHHmmssfff");
 
@@ -1263,7 +1257,7 @@ namespace Skyticket
                             {
                                 PrintPDFToPrinter(pdfFilePath);
                                 UpdateLogBox("PDF print sent " + POSTypes.Siapa.ToString());
-                                ThreadPool.QueueUserWorkItem(delegate { PrintHelper.Print(PrintHelper.cutBytes); });
+                                //ThreadPool.QueueUserWorkItem(delegate { PrintHelper.Print(PrintHelper.cutBytes); });
                             }
                         }
                         else if (Settings.CurrentSettings.PosType == POSTypes.OPOS)
@@ -1318,6 +1312,7 @@ namespace Skyticket
                         if (ticketChoice.targetInput.Length <= 0)
                             ticketChoice.targetInput = "1";
                     }
+                   
 
                     if (ticketType == 1)
                     {
@@ -1688,7 +1683,7 @@ namespace Skyticket
                     ti.mobilephone = target;
                 }
 
-                ti.sent = true;
+                ti.sent = false;
                 ti.datesent = DateTime.Now;
                 ti.details = SaveJobTextDB(jobFileName);
                 Task<bool> task = TicketRequestAsync(ti);
@@ -1993,6 +1988,26 @@ namespace Skyticket
             return returnVal;
         }
         //***********************************//
+        public void PrintPDF(string pdfFile)
+        {
+            try
+            {
+                ProcessStartInfo startInfo = new ProcessStartInfo
+                {
+                    FileName = "AcroRd32.exe", // Nombre del visor de PDF predeterminado (en este ejemplo, Adobe Reader)
+                    Arguments = $"/h /t \"{pdfFile}\"", // Argumentos para imprimir directamente sin abrir el visor
+                    CreateNoWindow = true,
+                    Verb = "PrintTo"
+                };
+
+                Process.Start(startInfo);
+            }
+            catch (Exception ex)
+            {
+                // Manejo de errores
+                Console.WriteLine("Error al imprimir: " + ex.Message);
+            }
+        }
         private void PrintPDFToPrinter(string pdfFile)
         {
             //added for Epson U200:
@@ -2000,7 +2015,7 @@ namespace Skyticket
 
             //gswin32c.exe  -dPrinted -dBATCH -dNOPAUSE -dNOSAFER -q -dNumCopies=1 -sDEVICE=mswinpr2 -dNoCancel -sOutputFile="%printer%HP LaserJet 1320" "D:\Edu\VS Projects\GhostScriptTest\GhostScriptTest\bin\Debug\newPOS.pdf"
 
-            string argument = "-dPrinted -dBATCH -dNOPAUSE -dNOSAFER -q -dNumCopies=1 -sDEVICE=mswinpr2 -dNoCancel -sOutputFile=\"%printer%{0}\" \"{1}\"";
+            string argument = "-dPrinted -dBATCH -dNOPAUSE -dNOSAFER -q -dNumCopies=1 -sDEVICE=mswinpr2 -dNoCancel -sPAPERSIZE=letter -dFIXEDMEDIA -dPDFFitPage -sOutputFile=\"%printer%{0}\" \"{1}\"";
 
             argument = string.Format(argument, Settings.CurrentSettings.PrinterName, pdfFile);
 
@@ -2661,7 +2676,7 @@ namespace Skyticket
             
             //get image data
             BitmapData bd = img.LockBits(new Rectangle(Point.Empty, img.Size),
-            ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb);
+            ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
             int[] rgbValues = new int[img.Height * img.Width];
             Marshal.Copy(bd.Scan0, rgbValues, 0, rgbValues.Length);
             img.UnlockBits(bd);
@@ -2769,10 +2784,10 @@ namespace Skyticket
             //create new image
             img.Dispose();
 
-            Bitmap newImage = new Bitmap(width, height, PixelFormat.Format32bppArgb);
+            Bitmap newImage = new Bitmap(width, height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
             BitmapData nbd
                 = newImage.LockBits(new Rectangle(0, 0, width, height),
-                    ImageLockMode.WriteOnly, PixelFormat.Format32bppArgb);
+                    ImageLockMode.WriteOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
             Marshal.Copy(imgData, 0, nbd.Scan0, imgData.Length);
             newImage.UnlockBits(nbd);
 
@@ -3071,6 +3086,7 @@ namespace Skyticket
                 var ticketr = JsonConvert.DeserializeObject<TicketRes>(response.Content);
 
                 id_ticketr = ticketr.ticket.id;
+                
                 if (id_ticketr != 0)
                     result = true;
 
