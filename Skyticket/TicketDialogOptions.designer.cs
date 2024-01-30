@@ -52,6 +52,8 @@
             this.PaperButton = new System.Windows.Forms.Button();
             this.WhatsappButton = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.lblPhone = new System.Windows.Forms.Label();
+            this.button10 = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
             this.pictureBox12 = new System.Windows.Forms.PictureBox();
             this.pictureBox11 = new System.Windows.Forms.PictureBox();
@@ -77,8 +79,6 @@
             this.button32 = new System.Windows.Forms.Button();
             this.txtPrefix = new System.Windows.Forms.TextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.button10 = new System.Windows.Forms.Button();
-            this.lblPhone = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).BeginInit();
@@ -325,6 +325,19 @@
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.TabStop = false;
             // 
+            // lblPhone
+            // 
+            resources.ApplyResources(this.lblPhone, "lblPhone");
+            this.lblPhone.Name = "lblPhone";
+            // 
+            // button10
+            // 
+            resources.ApplyResources(this.button10, "button10");
+            this.button10.Name = "button10";
+            this.button10.Tag = "506";
+            this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.writeNumber);
+            // 
             // button9
             // 
             resources.ApplyResources(this.button9, "button9");
@@ -519,19 +532,6 @@
             resources.ApplyResources(this.pictureBox1, "pictureBox1");
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.TabStop = false;
-            // 
-            // button10
-            // 
-            resources.ApplyResources(this.button10, "button10");
-            this.button10.Name = "button10";
-            this.button10.Tag = "506";
-            this.button10.UseVisualStyleBackColor = true;
-            this.button10.Click += new System.EventHandler(this.writeNumber);
-            // 
-            // lblPhone
-            // 
-            resources.ApplyResources(this.lblPhone, "lblPhone");
-            this.lblPhone.Name = "lblPhone";
             // 
             // TicketDialogOptions
             // 

@@ -208,7 +208,7 @@ namespace Skyticket
         //***********************************//
         private void SettingsButton_Click(object sender, EventArgs e)
         {
-            SettingsForm settingsForm = new SettingsForm();
+            SettingForm settingsForm = new SettingForm();
             settingsForm.ShowDialog();
         }
         //***********************************//
