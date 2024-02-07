@@ -38,6 +38,7 @@ namespace Skyticket
         public bool PrintCustomerInfo { get; set; }
 
         public string SerialPort { get; set; }
+        public string SerialPortWrite { get; set; }
         public bool EnableBarcodes { get; set; }
         public string DBServer { get; set; }
         public string DBUsername { get; set; }
@@ -78,6 +79,8 @@ namespace Skyticket
         public bool MinimizeToTray { get; set; }
 
         public bool CustomerFeedback { get; set; }
+
+        public bool NoPrint { get; set; }
 
         public Settings()
         {
@@ -208,6 +211,8 @@ namespace Skyticket
         Aloha = 1,
         Siapa = 2,
         Micros =3,
+        OPOS = 4,
+        Star = 5,
 
     }
 }

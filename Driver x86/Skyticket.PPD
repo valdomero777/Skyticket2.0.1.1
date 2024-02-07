@@ -60,36 +60,24 @@
 *LandscapeOrientation: Any
 
 *OpenUI *PageSize: PickOne
-*DefaultPageSize: Skyticket
 *OrderDependency: 20 AnySetup *PageSize
-*PageSize Skyticket: "<< /PageSize [612 5670] /ImagingBBox null >> setpagedevice"
 *PageSize Letter: "<< /PageSize [612 792] /ImagingBBox null >> setpagedevice"
-*PageSize Legal: "<< /PageSize [612 1008] /ImagingBBox null >> setpagedevice"
-*PageSize A4: "<< /PageSize [595 842] /ImagingBBox null >> setpagedevice"
-
+*DefaultPageSize: Letter
 *CloseUI: *PageSize
 
 *OpenUI *PageRegion: PickOne
-*DefaultPageRegion: Skyticket
 *OrderDependency: 20 AnySetup *PageRegion
-*PageRegion Skyticket: "<< /PageSize [612 5670] /ImagingBBox null >> setpagedevice"
 *PageRegion Letter: "<< /PageSize [612 792] /ImagingBBox null >> setpagedevice"
-*PageRegion Legal: "<< /PageSize [612 1008] /ImagingBBox null >> setpagedevice"
-*PageRegion A4: "<< /PageSize [595 842] /ImagingBBox null >> setpagedevice"
+*DefaultPageRegion: Letter
 *CloseUI: *PageRegion
 
-*DefaultImageableArea: Skyticket
-*ImageableArea Skyticket: "0 0 612 5670"
+
 *ImageableArea Letter: "0 0 612 792"
-*ImageableArea Legal: "0 0 612 1008"
-*ImageableArea A4: "0 0 595 842"
+*DefaultImageableArea: Letter
 
-*DefaultPaperDimension: Skyticket
-*PaperDimension Skyticket: "612 5670"
+
 *PaperDimension Letter: "612 792"
-*PaperDimension Legal: "612 1008"
-*PaperDimension A4: "595 842"
-
+*DefaultPaperDimension: Letter
 
 *DefaultFont: Courier
 *Font Courier: Standard "(1.05)" Standard ROM

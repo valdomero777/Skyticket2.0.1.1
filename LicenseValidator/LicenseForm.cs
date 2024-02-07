@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Skyticket
@@ -22,15 +23,16 @@ namespace Skyticket
             this.DialogResult = DialogResult.Cancel;
         }
         //***********************************//
-        private void ValidateButton_Click(object sender, EventArgs e)
+        private async void ValidateButton_Click (object sender, EventArgs e)
         {
             ValidateButton.Enabled = false;
             ProceedButton.Enabled = false;
             try
             {
-                DBProvider.InitRemoteDB();
 
-                infos = TerminalInfo.LoadTerminals(LicenseKeyBox.Text);
+                infos = await TerminalInfo.LoadTerminals(LicenseKeyBox.Text);
+
+               
 
                 if (infos.Count > 0)
                 {
@@ -38,6 +40,7 @@ namespace Skyticket
                     {
                         SucursalList.Items.Add(info.nombreSucursal);
                         TerminalList.Items.Add(info.nombreTerminal);
+                        
                     }
 
                     ProceedButton.Enabled = true;
@@ -70,18 +73,20 @@ namespace Skyticket
         {
             try
             {
+
+              
                 Settings.CurrentSettings = new Settings();
 
                 int sucursalIndex = SucursalList.SelectedIndex;
                 int terminalIndex = TerminalList.SelectedIndex;
-
+               
                 Settings.CurrentSettings.ActivationKey = LicenseKeyBox.Text;
 
                 Settings.CurrentSettings.ClientID = infos[sucursalIndex].id_cliente.ToString();
                 Settings.CurrentSettings.TerminalID = infos[terminalIndex].idterminal.ToString();
 
                 Settings.CurrentSettings.OutputPath = Settings.processedDirectory;
-                Settings.CurrentSettings.PoweredLogoEnabled = true;
+                Settings.CurrentSettings.PoweredLogoEnabled = false;
 
                 Settings.CurrentSettings.FTPServer = "ftp://104.197.8.205";
                 Settings.CurrentSettings.FTPPort = 24;
@@ -95,9 +100,9 @@ namespace Skyticket
                 Settings.CurrentSettings.DBUsername = "postgres";
                 Settings.CurrentSettings.DBPassword = "Webmaster3d";
 
-                Settings.CurrentSettings.ServiceEnabled = true;
-                Settings.CurrentSettings.ServiceUser = "PruebasMx";
-                Settings.CurrentSettings.ServicePassword = "1qazxd";
+                Settings.CurrentSettings.ServiceEnabled = false;
+                Settings.CurrentSettings.ServiceUser = "";
+                Settings.CurrentSettings.ServicePassword = "";
 
                 Settings.CurrentSettings.ConnectionType = ConnectionTypes.Network;
                 Settings.CurrentSettings.PrinterIP = "127.0.0.1";

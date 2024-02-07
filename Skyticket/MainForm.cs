@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -8,32 +7,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
 using System.Diagnostics;
-using System.Collections;
 using System.Text.RegularExpressions;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
-using System.Drawing.Printing;
 using Ghostscript.NET;
 using Ghostscript.NET.Processor;
 using System.Data.SQLite;
-using Npgsql;
 using System.Runtime.InteropServices;
 using System.Globalization;
-using System.Xml.Linq;
 using System.IO.Ports;
-
-
 using ZXing;
-using ZXing.Common;
 using SnailDev.EscPosParser;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using Skyticket.Classes;
 using RestSharp;
+
 
 namespace Skyticket
 {
@@ -61,7 +53,8 @@ namespace Skyticket
         static Thread PortThread;
 
         //*****
-        SerialPort port = new SerialPort();
+        SerialPort port = new SerialPort(); 
+        SerialPort secondport = new SerialPort();
         List<byte> serialStream = new List<byte>();
         System.Timers.Timer serialProcessTimer = new System.Timers.Timer();
         private List<int> dataPort = new List<int>();
@@ -71,9 +64,10 @@ namespace Skyticket
         public static Boolean hasAlert = false;
         public static Boolean coupon = false;
         public static string clipPhone = "";
+        string barcode = "";
 
 
-        CodiForm codiForm = new CodiForm();
+
 
         public MainForm()
         {
@@ -289,150 +283,121 @@ namespace Skyticket
         //***********************************//
         private void CouponButton_Click(object sender, EventArgs e)
         {
-            LoadCoupon();
+            LoadCouponAsync();
         }
         //***********************************//
         private void CouponsTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            LoadCoupon();
+            LoadCouponAsync();
             couponsTimer.Interval = 60 * 1000 * Settings.CurrentSettings.CouponLoadInterval;
         }
         //***********************************//
-        private void LoadCoupon()
+        private async Task LoadCouponAsync()
         {
             string fileName = "";
             try
             {
-                lock (DBProvider.remoteDBLock)
-                    using (NpgsqlCommand Cmd = new NpgsqlCommand())
-                    {
-                        Cmd.CommandType = CommandType.Text;
-                        Cmd.Connection = DBProvider.remoteConnection;
+                var options = new RestClientOptions("https://skyticketapi.azurewebsites.net/")
+                {
+                    MaxTimeout = -1,
+                };
+                var client = new RestClient(options);
+                var request = new RestRequest("/coupon/", Method.Get)
+                    .AddQueryParameter("terminal_id", Settings.CurrentSettings.TerminalID)
+                    .AddQueryParameter("client_id", Settings.CurrentSettings.ClientID);
 
-                        string query = "SELECT \"date\", \"imagepathftp\" FROM public.ct_coupon WHERE terminalid=@terminalid AND clientid=@clientid ORDER BY \"date\" DESC";
+                RestResponse response = await client.ExecuteAsync(request);
+                string[] responseArray = JsonConvert.DeserializeObject<string[]>(response.Content);
 
-                        Cmd.CommandText = query;
-                        Cmd.Parameters.AddWithValue("@terminalid", Settings.CurrentSettings.TerminalID);
-                        Cmd.Parameters.AddWithValue("@clientid", Settings.CurrentSettings.ClientID);
+                if (responseArray[0] != null) 
+                {
 
-                        using (NpgsqlDataReader reader = Cmd.ExecuteReader())
-                        {
-                            if (reader.HasRows)
-                            {
-                                if (reader.Read())
-                                {
-                                    fileName = reader.GetString(1);
-                                }
-                            }
-                        }
-                    }
+                    fileName = responseArray[0];
+                    
+                }
+
+               
             }
             catch (Exception ex)
             {
                 UpdateLogBox("LoadCoupon(): " + ex.Message);
 
-                if (DBProvider.remoteConnection.State != ConnectionState.Open)
-                    DBProvider.InitRemoteDB();
+               
             }
 
             if (couponFileName.Length > 0)
                 previousCouponFileName = couponFileName;
 
             if (fileName.Length > 0)
-            {
-                string sourcePath = Settings.CurrentSettings.FTPServer + ":" + Settings.CurrentSettings.FTPPort.ToString() +
-                                        "/" + Settings.CurrentSettings.FTPCouponsFolder + "/" +
-                                        Path.GetFileName(fileName);
+            {               
                 string destinationFile = Path.Combine(Settings.ConfigDirectory, "coupons");
-                destinationFile = Path.Combine(destinationFile, fileName);
-                if (FTP.FTPDownload(sourcePath, destinationFile))
+               
+                if (Azure.DownloadImage(fileName, destinationFile))
                 {
+                    destinationFile = Path.Combine(destinationFile, Path.GetFileName(fileName));
                     couponFileName = destinationFile;
-                }
+                    UpdateLogBox(couponFileName);
+                }   
             }
             else
                 couponFileName = "";
 
-            {
-                string sourcePath = Settings.CurrentSettings.FTPServer + ":" + Settings.CurrentSettings.FTPPort.ToString() +
-                                            "/" + Settings.CurrentSettings.FTPCouponsFolder + "/" + "power.png";
-                string destinationFile = Path.Combine(Settings.ConfigDirectory, "coupons");
-                destinationFile = Path.Combine(destinationFile, "power.png");
-                if (FTP.FTPDownload(sourcePath, destinationFile))
-                {
+            //{
+            //    string sourcePath = Settings.CurrentSettings.FTPServer + ":" + Settings.CurrentSettings.FTPPort.ToString() +
+            //                                "/" + Settings.CurrentSettings.FTPCouponsFolder + "/" + "power.png";
+            //    string destinationFile = Path.Combine(Settings.ConfigDirectory, "coupons");
+            //    destinationFile = Path.Combine(destinationFile, "power.png");
+            //    if (FTP.FTPDownload(sourcePath, destinationFile))
+            //    {
 
-                }
-            }
+            //    }
+            //}
         }
         //***********************************//
-        private void LoadCustomHeader()
+        private async Task LoadCustomHeader()
         {
-            UpdateLog("cargando header");
+            
             string fileName = "";
             try
             {
-                lock (DBProvider.remoteDBLock)
-                    using (NpgsqlCommand Cmd = new NpgsqlCommand())
-                    {
-                        Cmd.CommandType = CommandType.Text;
-                        Cmd.Connection = DBProvider.remoteConnection;
+                var options = new RestClientOptions("https://skyticketapi.azurewebsites.net/")
+                {
+                    MaxTimeout = -1,
+                };
+                var client = new RestClient(options);
+                var request = new RestRequest("/header/", Method.Get)
+                    .AddQueryParameter("terminal_id", Settings.CurrentSettings.TerminalID)
+                    .AddQueryParameter("client_id", Settings.CurrentSettings.ClientID);
 
-                        string query = "SELECT \"image_path\" FROM public.ct_header WHERE id_terminal=@id_terminal AND id_client=@id_client";
+                RestResponse response = await client.ExecuteAsync(request);
+                string[] responseArray = JsonConvert.DeserializeObject<string[]>(response.Content);
 
-                        Cmd.CommandText = query;
-                        Cmd.Parameters.AddWithValue("@id_terminal", Convert.ToInt32(Settings.CurrentSettings.TerminalID));
-                        Cmd.Parameters.AddWithValue("@id_client", Convert.ToInt32(Settings.CurrentSettings.ClientID));
 
-                        using (NpgsqlDataReader reader = Cmd.ExecuteReader())
-                        {
-                            if (reader.HasRows)
-                            {
-                                UpdateLog("hay header");
 
-                                if (reader.Read())
-                                {
-                                    fileName = reader.GetString(0);
-                                    UpdateLog(fileName);
-                                }
-                                else
-                                {
-                                    UpdateLog("error en la lectura del archivo");
-                                }
-                            }
-                            else
-                            {
-                                UpdateLog("no hay header");
-                            }
-                        }
-                    }
+                if (responseArray[0] != null)
+                {
+
+                    fileName = responseArray[0];
+
+                }
+
+
             }
             catch (Exception ex)
             {
-                UpdateLogBox("LoadCustomHeader(): " + ex.Message);
-                UpdateLog("LoadCustomHeader(): " + ex.Message);
+                UpdateLogBox("LoadHeader(): " + ex.Message);
 
-                if (DBProvider.remoteConnection.State != ConnectionState.Open)
-                    DBProvider.InitRemoteDB();
+                
             }
-
 
             if (fileName.Length > 0)
             {
-                try
+                string destinationFile = Path.Combine(Settings.ConfigDirectory, "headers");
+                
+                if (Azure.DownloadImage(fileName, destinationFile))
                 {
-                    string sourcePath = Settings.CurrentSettings.FTPServer + ":" + Settings.CurrentSettings.FTPPort.ToString() +
-                                            "/" + fileName;
-                    string destinationFile = Path.Combine(Settings.ConfigDirectory, "headers");
-                    if (!Directory.Exists(destinationFile))
-                        Directory.CreateDirectory(destinationFile);
                     destinationFile = Path.Combine(destinationFile, Path.GetFileName(fileName));
-                    if (FTP.FTPDownload(sourcePath, destinationFile))
-                    {
-                        customHeader = destinationFile;
-                    }
-                }catch (Exception ex)
-                {
-                    UpdateLog(ex.Message);
+                    customHeader = destinationFile;
                 }
             }
             else
@@ -440,7 +405,6 @@ namespace Skyticket
                 customHeader = "";
                 UpdateLog("no hay nada que mover");
             }
-               
         }
         //***********************************//
         private void Start()
@@ -501,17 +465,31 @@ namespace Skyticket
                         port.StopBits = StopBits.One;
                         port.ReadBufferSize = 16 * 1024;
                         port.WriteBufferSize = 16 * 1024;
-
+                        
+                        secondport = new SerialPort(Settings.CurrentSettings.SerialPortWrite);
+                        secondport.BaudRate = 2048;
+                        secondport.DataBits = 8;
+                        secondport.Parity = Parity.None;
+                        secondport.StopBits = StopBits.One;
+                        secondport.ReadBufferSize = 16 * 1024;
+                        secondport.WriteBufferSize = 16 * 1024;
+                        
                         port.Open();
+                       
 
                         Thread.Sleep(500);
                         port.DiscardInBuffer();
+                        
+                        
+                       
                         if (port.IsOpen)
                         {
                             if (Settings.CurrentSettings.PosType == POSTypes.Others)
                                 port.DataReceived += SerialPort_DataReceivedOthers;
                             else if (Settings.CurrentSettings.PosType == POSTypes.Micros)
                                 port.DataReceived += SerialPort_DataReceivedMicros;
+                            else if (Settings.CurrentSettings.PosType == POSTypes.Star)
+                                port.DataReceived += SerialPort_DataReceivedStar;
                             else if (Settings.CurrentSettings.PosType == POSTypes.Aloha)
                             {
                                 port.DataReceived += SerialPort_DataReceivedAloha;
@@ -523,6 +501,8 @@ namespace Skyticket
                     {
                         UpdateLogBox("SerialPort: " + ex.Message);
                     }
+
+                   
                     
                     //UpdateLogBox("Service started, listening on port " + Settings.CurrentSettings.ListenPort.ToString());
                 }
@@ -536,6 +516,7 @@ namespace Skyticket
         //***********************************//
         private void SerialPort_DataReceivedOthers(object sender, SerialDataReceivedEventArgs e)
         {
+            UpdateLogBox("REcibiendo en otros");
             if (serialProcessTimer.Enabled)
             {
                 serialProcessTimer.Stop();
@@ -557,9 +538,42 @@ namespace Skyticket
                     serialStream.AddRange(readBytes);
             }
         }
+        private void SerialPort_DataReceivedStar(object sender, SerialDataReceivedEventArgs e)
+        {
+            port.Encoding = Encoding.UTF8;
+            UpdateLogBox("Recibiendo en star");
+            if (serialProcessTimer.Enabled)
+            {
+                serialProcessTimer.Stop();
+                serialProcessTimer.Start();
+            }
+            else
+            {
+                serialProcessTimer.Start();
+            }
+
+            Thread.Sleep(50);
+
+            int available = port.BytesToRead;
+
+            if (available > 0)
+            {
+
+                byte[] readBytes = new byte[available];
+                port.Read(readBytes, 0, available);
+                port.Write(new byte[] { 0x06 }, 0, 1);
+
+                // Aquí se asume que los datos están en formato UTF-8.
+                string receivedData = Encoding.UTF8.GetString(readBytes);
+                byte[] convertedBytes = Encoding.UTF8.GetBytes(receivedData);
+
+                serialStream.AddRange(convertedBytes);
+            }
+        }
         //***********************************//
         private void SerialPort_DataReceivedAloha(object sender, SerialDataReceivedEventArgs e)
         {
+            UpdateLogBox("REcibiendo en Aloha");
             port.DataReceived -= SerialPort_DataReceivedAloha;
             UpdateLog("Recibiendo datos en puerto: Aloha \n Tamaño buffer " + port.ReadBufferSize + "\n Datos: " + port.ReadByte());
             int read = 0;
@@ -678,6 +692,7 @@ namespace Skyticket
         //***********************************//
         private void SerialPort_DataReceivedMicros(object sender, SerialDataReceivedEventArgs e)
         {
+            UpdateLogBox("REcibiendo en micros");
             if (serialProcessTimer.Enabled)
             {
                 serialProcessTimer.Stop();
@@ -863,22 +878,14 @@ namespace Skyticket
         //***********************************//
         private void PrintJobThreadFunction()
         {
-            ThreadPool.QueueUserWorkItem(delegate { LoadCoupon(); });
+            ThreadPool.QueueUserWorkItem(delegate { LoadCouponAsync(); });
 
             ThreadPool.QueueUserWorkItem(delegate { LoadCustomHeader(); });
 
 
             TicketDialog.contactsInfo = CustomerInfo.LoadCustomerInfo();
 
-            if (Settings.CurrentSettings.CodiEnabled)
-            {
-                CodiAPI.codiInfo = CodiInfo.LoadCodiInfo();
-                if (Settings.CurrentSettings.CodiEnabled)
-                {
-                    CodiPayment.StartStatusThread();
-                    ThreadPool.QueueUserWorkItem(delegate { Application.Run(codiForm); });
-                }
-            }
+           
 
             ThreadPool.QueueUserWorkItem(delegate
             {
@@ -969,6 +976,7 @@ namespace Skyticket
         //******************************//
         private void ProcessJob(string psFilePath)
         {
+            string barcode = "";
             try
             {
                 clipPhone = Clipboard.GetText();
@@ -995,346 +1003,398 @@ namespace Skyticket
                     
                     
                 }
-
+                string psFileText = File.ReadAllText(processedJobPath);
+            if(Settings.CurrentSettings.PosType != POSTypes.Siapa)
+            {
                 ThreadPool.QueueUserWorkItem(delegate { PrintHelper.OpenCashDrawer(); });
+            }
+                
 
                 string timeStamp = DateTime.Now.ToString("yyyyMMddHHmmssfff");
 
                 TicketChoice ticketChoice = null;
-
-                if (Program.isActivated)
+                if (psFileText.Length > 3)
                 {
-                    //start processing while taking user's input
 
-                    Thread ticketDialogThread = new Thread(() =>
+                    if (Program.isActivated)
                     {
-                        ticketChoice = TicketDialog.ShowPopUp();
-                    });
-                    ticketDialogThread.Priority = ThreadPriority.Highest;
-                    ticketDialogThread.SetApartmentState(ApartmentState.STA);
-                    ticketDialogThread.Start();
-                    //ThreadPool.QueueUserWorkItem(delegate {  });
-                    //ticketChoice = TicketDialog.ShowPopUp();
-                }
-                else
-                {
-                    ticketChoice = new TicketChoice();
-                    ticketChoice.printMethod = TicketMethod.Paper;
-                }
+                        //start processing while taking user's input
 
-                string pngfileName = timeStamp + ".png";
-                string pngFilePath = Path.Combine(Settings.CurrentSettings.OutputPath, pngfileName);
-                string pdfFilePath = Path.Combine(Settings.CurrentSettings.OutputPath, timeStamp + ".pdf");
-                string psFileText = File.ReadAllText(processedJobPath);
-
-                if (psFileText.Length <= 200)
-                    return;
-
-                int receiptHeight = 0;
-
-                int ticketType = 0;
-
-                List<byte> printBytes = new List<byte>();
-
-                if (File.Exists(customHeader))
-                {
-                    Bitmap bitmap = PrintHelper.ConvertToBitmap(customHeader);
-                    printBytes.AddRange(PrintHelper.GetImageBytes(bitmap));
-                }
-
-                if (psFileText.ToLower().Contains("%%targetdevice") || psFileText.ToLower().Contains("%!ps-adobe"))
-                {
-                    int pages = GetPageCount(processedJobPath);
-
-                    if (pages > 1)
-                    {
-                        List<string> pngPages = new List<string>();
-
-                        for (int i = 1; i <= pages; i++)
+                        Thread ticketDialogThread = new Thread(() =>
                         {
-                            string pngPageName = Path.Combine(Settings.processedDirectory, pngfileName + "_" + i.ToString());
-                            if (WritePSToPng(processedJobPath, pngPageName, i))
+                            ticketChoice = TicketDialog.ShowPopUp();
+                        });
+                        ticketDialogThread.Priority = ThreadPriority.Highest;
+                        ticketDialogThread.SetApartmentState(ApartmentState.STA);
+                        ticketDialogThread.Start();
+                        //ThreadPool.QueueUserWorkItem(delegate {  });
+                        //ticketChoice = TicketDialog.ShowPopUp();
+                    }
+                    else
+                    {
+                        ticketChoice = new TicketChoice();
+                        ticketChoice.printMethod = TicketMethod.Paper;
+                    }
+
+                    string pngfileName = timeStamp + ".png";
+                    string pngFilePath = Path.Combine(Settings.CurrentSettings.OutputPath, pngfileName);
+                    string pdfFilePath = Path.Combine(Settings.CurrentSettings.OutputPath, timeStamp + ".pdf");
+
+
+                    if (psFileText.Length <= 200)
+                        return;
+
+                    int receiptHeight = 0;
+
+                    int ticketType = 0;
+
+                    List<byte> printBytes = new List<byte>();
+
+                    if (File.Exists(customHeader))
+                    {
+                        Bitmap bitmap = PrintHelper.ConvertToBitmap(customHeader);
+                        printBytes.AddRange(PrintHelper.GetImageBytes(bitmap));
+                    }
+
+                    if (psFileText.ToLower().Contains("%%targetdevice") || psFileText.ToLower().Contains("%!ps-adobe"))
+                    {
+                        int pages = GetPageCount(processedJobPath);
+
+                        if (pages > 1)
+                        {
+                            List<string> pngPages = new List<string>();
+
+                            for (int i = 1; i <= pages; i++)
                             {
-                                pngPages.Add(pngPageName);
+                                string pngPageName = Path.Combine(Settings.processedDirectory, pngfileName + "_" + i.ToString());
+                                if (WritePSToPng(processedJobPath, pngPageName, i))
+                                {
+                                    pngPages.Add(pngPageName);
+                                }
                             }
-                        }
 
-                        stopwatch.Stop();
-                        UpdateLogBox("multiple png files created in ms " + stopwatch.ElapsedMilliseconds);
-                        stopwatch.Reset();
-                        stopwatch.Start();
+                            stopwatch.Stop();
+                            UpdateLogBox("multiple png files created in ms " + stopwatch.ElapsedMilliseconds);
+                            stopwatch.Reset();
+                            stopwatch.Start();
 
-                        //to do: add pages to bytes separately, without combining
-                        if (CombinePNGPages(pngPages, pngfileName))
-                        {
-                            try
+                            //to do: add pages to bytes separately, without combining
+                            if (CombinePNGPages(pngPages, pngfileName))
                             {
+                                try
+                                {
+                                    Bitmap bitmap = PrintHelper.ConvertToBitmap(pngFilePath);
+                                    printBytes.AddRange(PrintHelper.GetImageBytes(bitmap));
+                                }
+                                catch (Exception ex)
+                                {
+                                    UpdateLogBox("PngPages to printBytes: " + ex.Message);
+                                }
+                            }
+
+                            stopwatch.Stop();
+                            UpdateLogBox("png files combined created in ms " + stopwatch.ElapsedMilliseconds);
+                            stopwatch.Reset();
+                            stopwatch.Start();
+                        }
+                        else
+                        {
+                            if (WritePSToPng(processedJobPath, pngFilePath))
+                            {
+                                stopwatch.Stop();
+                                UpdateLogBox("png file created in ms " + stopwatch.ElapsedMilliseconds);
+                                stopwatch.Reset();
+                                stopwatch.Start();
+
+                                if (language.Contains("es"))
+                                    UpdateLogBox("PS " + TextsSpanish.TicketConverted + pngfileName);
+                                else
+                                    UpdateLogBox("PS " + Texts.TicketConverted + pngfileName);
+
+                                Bitmap trimmedImage = null;
+                                using (Bitmap initial = new Bitmap(pngFilePath))
+                                {
+                                    trimmedImage = ImageTrimWhite(initial);
+                                }
+
+                                try { File.Delete(pngFilePath); } catch (Exception) { }
+
+                                timeStamp = DateTime.Now.ToString("yyyyMMddHHmmssfff");
+                                pngfileName = timeStamp + ".png";
+                                pngFilePath = Path.Combine(Settings.CurrentSettings.OutputPath, pngfileName);
+
+                                trimmedImage.Save(pngFilePath, ImageFormat.Png);
+
+                                stopwatch.Stop();
+                                UpdateLogBox("white trimmed in ms " + stopwatch.ElapsedMilliseconds);
+                                stopwatch.Reset();
+                                stopwatch.Start();
+
                                 Bitmap bitmap = PrintHelper.ConvertToBitmap(pngFilePath);
                                 printBytes.AddRange(PrintHelper.GetImageBytes(bitmap));
                             }
-                            catch (Exception ex)
+                        }
+                    }
+                    else//it's ESC/POS
+                    {
+                        RemoveWhiteLines(processedJobPath, processedJobPath);
+                        CleanTicketOthers(processedJobPath);
+                        ticketType = 1;
+
+                        ////if (Settings.CurrentSettings.EnableBarcodes)
+                        ////    AddBarcodes(pngFilePath, psBytes, out receiptHeight);
+
+                        byte[] posBytes = File.ReadAllBytes(processedJobPath);
+
+                        if (Settings.CurrentSettings.PosType == POSTypes.Aloha)
+                        {
+                            string[] ticketLines = GetESCPOSText(processedJobPath);
+
+                            for (int i = 0; i < ticketLines.Length; i++)
                             {
-                                UpdateLogBox("PngPages to printBytes: " + ex.Message);
+                                while (ticketLines[i].Length > 46)
+                                {
+                                    if (ticketLines[i].Contains("   "))
+                                        ticketLines[i] = ticketLines[i].Replace("   ", "  ");
+                                    else
+                                        break;
+                                }
+                                if (ticketLines[i].Replace("\r", "").Length <= 1)
+                                    continue;
+                                ticketLines[i] = ticketLines[i].Replace("\r", "");
+                                ticketLines[i] = ticketLines[i].Replace("aF", "");
+                                printBytes.AddRange(Encoding.ASCII.GetBytes(ticketLines[i]));
+                                printBytes.Add(0x0A);
+
                             }
+
+                        }
+                        else if(Settings.CurrentSettings.PosType == POSTypes.Star)
+                        {
+                            printBytes.AddRange(Encoding.ASCII.GetBytes(psFileText));
                         }
 
+                        else
+                        {
+                            string bytesStr = Converters.ByteArrayToHexString(posBytes);
+                            bytesStr = bytesStr.ToUpper().Replace("1D564200", "");
+                            bytesStr = bytesStr.ToUpper().Replace("1B69", "");
+                            posBytes = Converters.HexStringToByteArray(bytesStr);
+                            printBytes.AddRange(posBytes);
+
+                        }
+                        printBytes.AddRange(PrintHelper.initBytes);
+                    }
+                    //********************//
+
+                    //add coupon, powered logo and customer info to print data
+                    {
+                        string couponToUse = "";
+                        if (File.Exists(couponFileName))
+                            couponToUse = couponFileName;
+                        else if (File.Exists(previousCouponFileName))
+                            couponToUse = previousCouponFileName;
+
+
+                        if (File.Exists(couponToUse))
+                        {
+                            Bitmap bitmap = PrintHelper.ConvertToBitmap(couponToUse);
+                            //printBytes.Clear();
+                            //printBytes.AddRange(PrintHelper.initBytes);
+                            printBytes.AddRange(PrintHelper.GetImageBytes(bitmap));
+                        }
+
+                        if (Settings.CurrentSettings.PoweredLogoEnabled)
+                        {
+                            string poweredLogo = Path.Combine(Settings.ConfigDirectory, "coupons");
+                            poweredLogo = Path.Combine(poweredLogo, "power.png");
+
+                            if (File.Exists(poweredLogo))
+                            {
+                                Bitmap bitmap = PrintHelper.ConvertToBitmap(poweredLogo);
+                                printBytes.AddRange(PrintHelper.GetImageBytes(bitmap));
+
+                            }
+                        }
+                    }
+
+                    while (ticketChoice == null)
+                    {
+                        Thread.Sleep(100);
+                    }
+
+                    stopwatch.Stop();
+                    stopwatch.Reset();
+                    stopwatch.Start();
+
+                    if (ticketChoice.printMethod == TicketMethod.None)
+                        return;
+
+                    if (Settings.CurrentSettings.PrintCustomerInfo)
+                    {
+                        string customerInfo = GetCustomerInfo(ticketChoice.targetInput);
+
+                        if (!string.IsNullOrEmpty(customerInfo))
+                        {
+                            printBytes.AddRange(Encoding.ASCII.GetBytes(customerInfo));
+                        }
+                    }
+
+                    if (ticketChoice.printMethod == TicketMethod.Batch)
+                    {
+                        File.Move(processedJobPath, psFilePath);
+                        ProcessBatch();
+                        return;
+                    }
+                    //print PostScript/image ticket
+                    else if (ticketChoice.printMethod == TicketMethod.Paper ||
+                            Settings.CurrentSettings.PrintPaperAlways)
+                    {
+                        if (Settings.CurrentSettings.PosType == POSTypes.Siapa)
+                        {
+                            UpdateLogBox("Converting to PDF - " + POSTypes.Siapa.ToString());
+                            if (WritePSToPDF(processedJobPath, pdfFilePath))
+                            {
+                                PrintPDFToPrinter(pdfFilePath);
+                                UpdateLogBox("PDF print sent " + POSTypes.Siapa.ToString());
+                                //ThreadPool.QueueUserWorkItem(delegate { PrintHelper.Print(PrintHelper.cutBytes); });
+                            }
+                        }
+                        else if (Settings.CurrentSettings.PosType == POSTypes.OPOS)
+                        {
+                            try
+                            {
+                                // Abrir el puerto serial
+
+
+                                // Leer el contenido del archivo de texto
+                                string dataToSend = File.ReadAllText(processedJobPath);
+                               
+                                // Enviar información a través del puerto serial
+                                port.WriteLine(dataToSend);
+
+                                Console.WriteLine("Datos enviados correctamente.");
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine("Error al enviar datos: " + ex.Message);
+                            }
+                            finally
+                            {
+                                // Cerrar el puerto serial al finalizar
+
+                            }
+
+                        }
+                        else if (Settings.CurrentSettings.PosType == POSTypes.Star)
+                        {
+                            secondport.Open();
+                            string dataToSend = File.ReadAllText(processedJobPath);
+                            byte[] bytes = Encoding.Default.GetBytes(dataToSend);
+                            dataToSend = Encoding.UTF8.GetString(bytes);
+                            // Enviar información a través del puerto serial
+                            secondport.WriteLine(dataToSend);
+                            //printBytes.AddRange(PrintStarHelper.CreateTextReceiptData(Emulation.StarGraphic, psFilePath));
+                            //ThreadPool.QueueUserWorkItem(delegate { PrintStarHelper.Print(printBytes.ToArray()); });
+                            secondport.Close();
+                        }
+                        else
+                        {
+                            printBytes.AddRange(PrintHelper.cutBytes);
+                            ThreadPool.QueueUserWorkItem(delegate { PrintHelper.Print(printBytes.ToArray()); });
+                            //PrintHelper.Print(pngFilePath, receiptHeight);
+                        }
                         stopwatch.Stop();
-                        UpdateLogBox("png files combined created in ms " + stopwatch.ElapsedMilliseconds);
+                        UpdateLogBox("Print completed in ms " + stopwatch.ElapsedMilliseconds);
+                        stopwatch.Reset();
+                        stopwatch.Start();
+
+                        if (ticketChoice.targetInput.Length <= 0)
+                            ticketChoice.targetInput = "1";
+                    }
+                   
+
+                    if (ticketType == 1)
+                    {
+                        stopwatch.Stop();
+                        string[] ticketLines = GetESCPOSText(processedJobPath);
+
+                        if (ticketLines.Length > 0)
+                        {
+                            bool result = WriteTextToPng(ticketLines, pngFilePath);
+                        }
+                        UpdateLogBox("(for upload) WriteTextToPng in ms " + stopwatch.ElapsedMilliseconds);
                         stopwatch.Reset();
                         stopwatch.Start();
                     }
-                    else
+
+
+                    if (File.Exists(customHeader))
                     {
-                        if (WritePSToPng(processedJobPath, pngFilePath))
+                        try
                         {
-                            stopwatch.Stop();
-                            UpdateLogBox("png file created in ms " + stopwatch.ElapsedMilliseconds);
-                            stopwatch.Reset();
-                            stopwatch.Start();
-
-                            if (language.Contains("es"))
-                                UpdateLogBox("PS " + TextsSpanish.TicketConverted + pngfileName);
-                            else
-                                UpdateLogBox("PS " + Texts.TicketConverted + pngfileName);
-
-                            Bitmap trimmedImage = null;
-                            using (Bitmap initial = new Bitmap(pngFilePath))
-                            {
-                                trimmedImage = ImageTrimWhite(initial);
-                            }
-
-                            try { File.Delete(pngFilePath); } catch (Exception) { }
-
-                            timeStamp = DateTime.Now.ToString("yyyyMMddHHmmssfff");
-                            pngfileName = timeStamp + ".png";
-                            pngFilePath = Path.Combine(Settings.CurrentSettings.OutputPath, pngfileName);
-
-                            trimmedImage.Save(pngFilePath, ImageFormat.Png);
-
-                            stopwatch.Stop();
-                            UpdateLogBox("white trimmed in ms " + stopwatch.ElapsedMilliseconds);
-                            stopwatch.Reset();
-                            stopwatch.Start();
-
-                            Bitmap bitmap = PrintHelper.ConvertToBitmap(pngFilePath);
-                            printBytes.AddRange(PrintHelper.GetImageBytes(bitmap));
+                            AddCustomHeader(pngFilePath, out receiptHeight);
                         }
-                    }
-                }
-                else//it's ESC/POS
-                {
-                    RemoveWhiteLines(processedJobPath, processedJobPath);
-                    ticketType = 1;
-
-                    ////if (Settings.CurrentSettings.EnableBarcodes)
-                    ////    AddBarcodes(pngFilePath, psBytes, out receiptHeight);
-
-                    byte[] posBytes = File.ReadAllBytes(processedJobPath);
-
-                    if (Settings.CurrentSettings.PosType == POSTypes.Aloha)
-                    {
-                        string[] ticketLines = GetESCPOSText(processedJobPath);
-
-                        for (int i = 0; i < ticketLines.Length; i++)
+                        catch (Exception ex)
                         {
-                            while (ticketLines[i].Length > 46)
-                            {
-                                if (ticketLines[i].Contains("   "))
-                                    ticketLines[i] = ticketLines[i].Replace("   ", "  ");
-                                else
-                                    break;
-                            }
-
-                            
-                                
-
-                                if (ticketLines[i].Replace("\r", "").Length <= 1)
-                                continue;
-                            ticketLines[i] = ticketLines[i].Replace("\r", "");
-                            printBytes.AddRange(Encoding.ASCII.GetBytes(ticketLines[i]));
-                            printBytes.Add(0x0A);
-                            
+                            UpdateLogBox("AddCustomHeader: " + ex.Message);
                         }
-
-                       
+                        stopwatch.Stop();
+                        UpdateLogBox("(for upload) CustomHeader added in ms " + stopwatch.ElapsedMilliseconds);
+                        stopwatch.Reset();
+                        stopwatch.Start();
                     }
-                    else
+
+                    AddBarCode(pngFilePath, out receiptHeight);
+
+                    try
                     {
-                        string bytesStr = Converters.ByteArrayToHexString(posBytes);
-                        bytesStr = bytesStr.ToUpper().Replace("1D564200", "");
-                        bytesStr = bytesStr.ToUpper().Replace("1B69", "");
-                        posBytes = Converters.HexStringToByteArray(bytesStr);
-                        printBytes.AddRange(posBytes);
+                        AddCouponImage(pngFilePath, out receiptHeight);
+                        stopwatch.Stop();
+                        UpdateLogBox("(for upload) coupon added in ms " + stopwatch.ElapsedMilliseconds);
+                        stopwatch.Reset();
+                        stopwatch.Start();
                     }
-                    printBytes.AddRange(PrintHelper.initBytes);
-                }
-                //********************//
-
-                //add coupon, powered logo and customer info to print data
-                {
-                    string couponToUse = "";
-                    if (File.Exists(couponFileName))
-                        couponToUse = couponFileName;
-                    else if (File.Exists(previousCouponFileName))
-                        couponToUse = previousCouponFileName;
-
-
-                    if (File.Exists(couponToUse))
+                    catch (Exception ex)
                     {
-                        Bitmap bitmap = PrintHelper.ConvertToBitmap(couponToUse);
-                        //printBytes.Clear();
-                        //printBytes.AddRange(PrintHelper.initBytes);
-                        printBytes.AddRange(PrintHelper.GetImageBytes(bitmap));
+                        UpdateLogBox("AddCouponHeader: " + ex.Message);
                     }
 
                     if (Settings.CurrentSettings.PoweredLogoEnabled)
                     {
-                        string poweredLogo = Path.Combine(Settings.ConfigDirectory, "coupons");
-                        poweredLogo = Path.Combine(poweredLogo, "power.png");
-
-                        if (File.Exists(poweredLogo))
+                        try
                         {
-                            Bitmap bitmap = PrintHelper.ConvertToBitmap(poweredLogo);
-                            printBytes.AddRange(PrintHelper.GetImageBytes(bitmap));
-
+                            AddPoweredImage(pngFilePath, out receiptHeight);
                         }
-                    }
-                }
-
-                while (ticketChoice == null)
-                {
-                    Thread.Sleep(100);
-                }
-
-                stopwatch.Stop();
-                stopwatch.Reset();
-                stopwatch.Start();
-
-                if (ticketChoice.printMethod == TicketMethod.None)
-                    return;
-
-                if (Settings.CurrentSettings.PrintCustomerInfo)
-                {
-                    string customerInfo = GetCustomerInfo(ticketChoice.targetInput);
-
-                    if (!string.IsNullOrEmpty(customerInfo))
-                    {
-                        printBytes.AddRange(Encoding.ASCII.GetBytes(customerInfo));
-                    }
-                }
-
-                if (ticketChoice.printMethod == TicketMethod.Batch)
-                {
-                    File.Move(processedJobPath, psFilePath);
-                    ProcessBatch();
-                    return;
-                }
-                //print PostScript/image ticket
-                else if (ticketChoice.printMethod == TicketMethod.Paper ||
-                        Settings.CurrentSettings.PrintPaperAlways)
-                {
-                    if (Settings.CurrentSettings.PosType == POSTypes.Siapa)
-                    {
-                        UpdateLogBox("Converting to PDF - " + POSTypes.Siapa.ToString());
-                        if (WritePSToPDF(processedJobPath, pdfFilePath))
+                        catch (Exception ex)
                         {
-                            PrintPDFToPrinter(pdfFilePath);
-                            UpdateLogBox("PDF print sent " + POSTypes.Siapa.ToString());
-                            ThreadPool.QueueUserWorkItem(delegate { PrintHelper.Print(PrintHelper.cutBytes); });
+                            UpdateLogBox("AddPowered: " + ex.Message);
                         }
+                        stopwatch.Stop();
+                        UpdateLogBox("(for upload) PoweredBy added in ms " + stopwatch.ElapsedMilliseconds);
+                        stopwatch.Reset();
+                        stopwatch.Start();
                     }
-                    else
-                    {
-                        printBytes.AddRange(PrintHelper.cutBytes);
-                        ThreadPool.QueueUserWorkItem(delegate { PrintHelper.Print(printBytes.ToArray()); });
-                        //PrintHelper.Print(pngFilePath, receiptHeight);
-                    }
-                    stopwatch.Stop();
-                    UpdateLogBox("Print completed in ms " + stopwatch.ElapsedMilliseconds);
-                    stopwatch.Reset();
-                    stopwatch.Start();
 
-                    if (ticketChoice.targetInput.Length <= 0)
-                        ticketChoice.targetInput = "1";
+                    if (Settings.CurrentSettings.PrintCustomerInfo)
+                    {
+                        try
+                        {
+                            AddCustomerInfo(pngFilePath, ticketChoice.targetInput, ticketType, ref receiptHeight);
+                        }
+                        catch (Exception ex)
+                        {
+                            UpdateLogBox("AddCustomerInfo: " + ex.Message);
+                        }
+                        stopwatch.Stop();
+                        UpdateLogBox("(for upload) CustomerInfo added in ms " + stopwatch.ElapsedMilliseconds);
+                        stopwatch.Reset();
+                        stopwatch.Start();
+                    }
+
+                    if (Program.isActivated)
+                        CreateJobLocal(pngfileName, processedJobPath, ticketChoice.printMethod, ticketChoice.targetInput);
                 }
-
-                if (ticketType == 1)
-                {
-                    stopwatch.Stop();
-                    string[] ticketLines = GetESCPOSText(processedJobPath);
-
-                    if (ticketLines.Length > 0)
-                    {
-                        bool result = WriteTextToPng(ticketLines, pngFilePath);
-                    }
-                    UpdateLogBox("(for upload) WriteTextToPng in ms " + stopwatch.ElapsedMilliseconds);
-                    stopwatch.Reset();
-                    stopwatch.Start();
-                }
-
-                if (File.Exists(customHeader))
-                {
-                    try
-                    {
-                        AddCustomHeader(pngFilePath, out receiptHeight);
-                    }
-                    catch (Exception ex)
-                    {
-                        UpdateLogBox("AddCustomHeader: " + ex.Message);
-                    }
-                    stopwatch.Stop();
-                    UpdateLogBox("(for upload) CustomHeader added in ms " + stopwatch.ElapsedMilliseconds);
-                    stopwatch.Reset();
-                    stopwatch.Start();
-                }
-
-                try
-                {
-                    AddCouponImage(pngFilePath, out receiptHeight);
-                    stopwatch.Stop();
-                    UpdateLogBox("(for upload) coupon added in ms " + stopwatch.ElapsedMilliseconds);
-                    stopwatch.Reset();
-                    stopwatch.Start();
-                }
-                catch (Exception ex)
-                {
-                    UpdateLogBox("AddCouponHeader: " + ex.Message);
-                }
-
-                if (Settings.CurrentSettings.PoweredLogoEnabled)
-                {
-                    try
-                    {
-                        AddPoweredImage(pngFilePath, out receiptHeight);
-                    }
-                    catch (Exception ex)
-                    {
-                        UpdateLogBox("AddPowered: " + ex.Message);
-                    }
-                    stopwatch.Stop();
-                    UpdateLogBox("(for upload) PoweredBy added in ms " + stopwatch.ElapsedMilliseconds);
-                    stopwatch.Reset();
-                    stopwatch.Start();
-                }
-
-                if (Settings.CurrentSettings.PrintCustomerInfo)
-                {
-                    try
-                    {
-                        AddCustomerInfo(pngFilePath, ticketChoice.targetInput, ticketType, ref receiptHeight);
-                    }
-                    catch (Exception ex)
-                    {
-                        UpdateLogBox("AddCustomerInfo: " + ex.Message);
-                    }
-                    stopwatch.Stop();
-                    UpdateLogBox("(for upload) CustomerInfo added in ms " + stopwatch.ElapsedMilliseconds);
-                    stopwatch.Reset();
-                    stopwatch.Start();
-                }
-
-                if (Program.isActivated)
-                    CreateJobLocal(pngfileName, processedJobPath, ticketChoice.printMethod, ticketChoice.targetInput);
             }
             catch (Exception ex)
             {
@@ -1623,11 +1683,11 @@ namespace Skyticket
                     ti.mobilephone = target;
                 }
 
-                ti.sent = true;
+                ti.sent = false;
                 ti.datesent = DateTime.Now;
                 ti.details = SaveJobTextDB(jobFileName);
-
-                result =  TicketRequest(ti);
+                Task<bool> task = TicketRequestAsync(ti);
+                result = task.Result;
 
                 if (Settings.CurrentSettings.CustomerFeedback)
                     TicketDialog.SaveFeedback();
@@ -1756,7 +1816,7 @@ namespace Skyticket
             return text;
         }
         //******************************//
-        private void UploadJobsThreadFunction()
+        private async void UploadJobsThreadFunction()
         {
             int JobWithoutPng;
             while (isRunning)
@@ -1779,7 +1839,7 @@ namespace Skyticket
                         else
                         {
                             byte[] imageBytes = File.ReadAllBytes(pngFilePath);
-                            if (FTP.FTPUpload(job.ticketImage, imageBytes))
+                            if (await Azure.UploadImageAsync(pngFilePath))
                             {
 
                                 bool remoteResult = false;
@@ -1818,6 +1878,7 @@ namespace Skyticket
         //******************************//
         private bool WritePSToPng(string psFile, string pngFile, int page = 1)
         {
+           
             bool returnVal = false;
             string inputFile = psFile;
 
@@ -1846,6 +1907,8 @@ namespace Skyticket
                     switches.Add("-sDEVICE=pngmono");//png16m
                                                      //switches.Add("-dGraphicsAlphaBits=4");
                                                      //switches.Add("-dDownScaleFactor=2");
+                    switches.Add("-r150");
+                    switches.Add("-sColorConversionStrategy=Gray");
                     switches.Add("-sOutputFile=" + pngFile);
                     switches.Add("-q");
                     switches.Add("-f");
@@ -1925,6 +1988,26 @@ namespace Skyticket
             return returnVal;
         }
         //***********************************//
+        public void PrintPDF(string pdfFile)
+        {
+            try
+            {
+                ProcessStartInfo startInfo = new ProcessStartInfo
+                {
+                    FileName = "AcroRd32.exe", // Nombre del visor de PDF predeterminado (en este ejemplo, Adobe Reader)
+                    Arguments = $"/h /t \"{pdfFile}\"", // Argumentos para imprimir directamente sin abrir el visor
+                    CreateNoWindow = true,
+                    Verb = "PrintTo"
+                };
+
+                Process.Start(startInfo);
+            }
+            catch (Exception ex)
+            {
+                // Manejo de errores
+                Console.WriteLine("Error al imprimir: " + ex.Message);
+            }
+        }
         private void PrintPDFToPrinter(string pdfFile)
         {
             //added for Epson U200:
@@ -1932,7 +2015,7 @@ namespace Skyticket
 
             //gswin32c.exe  -dPrinted -dBATCH -dNOPAUSE -dNOSAFER -q -dNumCopies=1 -sDEVICE=mswinpr2 -dNoCancel -sOutputFile="%printer%HP LaserJet 1320" "D:\Edu\VS Projects\GhostScriptTest\GhostScriptTest\bin\Debug\newPOS.pdf"
 
-            string argument = "-dPrinted -dBATCH -dNOPAUSE -dNOSAFER -q -dNumCopies=1 -sDEVICE=mswinpr2 -dNoCancel -sOutputFile=\"%printer%{0}\" \"{1}\"";
+            string argument = "-dPrinted -dBATCH -dNOPAUSE -dNOSAFER -q -dNumCopies=1 -sDEVICE=mswinpr2 -dNoCancel -sPAPERSIZE=letter -dFIXEDMEDIA -dPDFFitPage -sOutputFile=\"%printer%{0}\" \"{1}\"";
 
             argument = string.Format(argument, Settings.CurrentSettings.PrinterName, pdfFile);
 
@@ -2064,6 +2147,73 @@ namespace Skyticket
             GC.Collect();
         }
         //***********************************//
+        private void AddBarCode(string pngFile, out int receiptHeight)
+        {
+            UpdateLogBox("Agregando codigo de barras");
+
+            receiptHeight = 0;
+            Bitmap newImage = null;
+            int couponHeight = 512;
+            using (Image ticketImage = Image.FromFile(pngFile))
+            {
+                receiptHeight = ticketImage.Height;
+
+                
+                if (File.Exists(Settings.CurrentSettings.OutputPath+"\\barcode.png"))
+                {
+
+                    using (Image barCodeImage = Image.FromFile(Settings.CurrentSettings.OutputPath + "\\barcode.png"))
+                    {
+                        int width = ticketImage.Width;
+                        int height = ticketImage.Height;
+
+                        double proportion = (double)barCodeImage.Width / (double)barCodeImage.Height;
+                        couponHeight = (int)((double)width / proportion);
+                        //string timeStamp = DateTime.Now.ToString("yyyyMMddHHmmssfff");
+                        //string pngfileName = timeStamp + ".png";
+                        //string pngFilePath = Path.Combine(Settings.CurrentSettings.OutputPath, pngfileName);
+                        newImage = new Bitmap(width, height + couponHeight);// couponImage.Height);
+
+                        Graphics g = Graphics.FromImage(newImage);
+
+                        g.Clear(Color.White);
+                        g.DrawImage(ticketImage, 0, 0, ticketImage.Width, ticketImage.Height);
+
+                        g.DrawImage(barCodeImage, 0, ticketImage.Height, ticketImage.Width, couponHeight);// couponImage.Height);
+
+                        g.Dispose();
+                    }
+                }
+
+                ticketImage.Dispose();
+            }
+
+            if (newImage != null)
+            {
+                newImage.Save(pngFile, ImageFormat.Png);
+                File.Delete(Settings.CurrentSettings.OutputPath + "\\barcode.png");
+                receiptHeight = newImage.Height;
+                newImage.Dispose();
+            }
+
+            //if (Settings.CurrentSettings.PoweredLogoEnabled)
+            //{
+            //    string destinationFile = Path.Combine(Settings.ConfigDirectory, "coupons");
+            //    destinationFile = Path.Combine(destinationFile, "power.png");
+
+            //    if (newImage != null)
+            //    {
+
+            //    }
+            //    else
+            //    {
+
+            //    }
+
+            //}
+
+            GC.Collect();
+        }
         private void AddPoweredImage(string pngFile, out int receiptHeight)
         {
             receiptHeight = 0;
@@ -2526,7 +2676,7 @@ namespace Skyticket
             
             //get image data
             BitmapData bd = img.LockBits(new Rectangle(Point.Empty, img.Size),
-            ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb);
+            ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
             int[] rgbValues = new int[img.Height * img.Width];
             Marshal.Copy(bd.Scan0, rgbValues, 0, rgbValues.Length);
             img.UnlockBits(bd);
@@ -2634,10 +2784,10 @@ namespace Skyticket
             //create new image
             img.Dispose();
 
-            Bitmap newImage = new Bitmap(width, height, PixelFormat.Format32bppArgb);
+            Bitmap newImage = new Bitmap(width, height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
             BitmapData nbd
                 = newImage.LockBits(new Rectangle(0, 0, width, height),
-                    ImageLockMode.WriteOnly, PixelFormat.Format32bppArgb);
+                    ImageLockMode.WriteOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
             Marshal.Copy(imgData, 0, nbd.Scan0, imgData.Length);
             newImage.UnlockBits(nbd);
 
@@ -2677,6 +2827,8 @@ namespace Skyticket
             
             bool returnVal = false;
             string ticketText = "";
+            
+
 
             try
             {
@@ -2699,59 +2851,43 @@ namespace Skyticket
 
                     ticketText += line;
 
-                   
+
 
                     if (Settings.CurrentSettings.PosType == POSTypes.Aloha)
                     {
                         if (textLine.Replace(" ", "").Length <= 1)
                             continue;
+
+                        
                     }
+                   
                     graphics.DrawString(textLine, new Font("Lucida Console", 16), new SolidBrush(Color.Black), startX, startY + Offset);
                     Offset = Offset + 25;
                 }
 
-
-
+                                
                 var trimmedImage = ImageTrimWhite(ticketImage);
 
                 ticketImage.Dispose();
 
                 trimmedImage.Save(pngFile, ImageFormat.Png);
-
-                //ticketImage.Save(pngFile, ImageFormat.Png);
-
-                returnVal = true;
                 trimmedImage.Dispose();
                 GC.Collect();
+
+                //ticketImage.Save(pngFile, ImageFormat.Png);
+                barcode = GenerateBarCode.GetCode(ticketText);
+               
+                    
+                
+
+                returnVal = true;
+                
+
             }
             catch (Exception ex)
             {
                 UpdateLogBox("WriteTextToPng(): " + ex.Message);
             }
-            try
-            {
-
-                if (ticketText.ToLower().Contains("10% sky") || ticketText.ToLower().Contains("15% sky") || ticketText.ToLower().Contains("20% sky"))
-                {
-                    coupon = true;
-                    
-                    UpdateLogBox("aplico cupon");
-
-                    if (ticketText.ToLower().Contains("empleado") || ticketText.ToLower().Contains("corte") || ticketText.ToLower().Contains("entrada") ||
-                        ticketText.ToLower().Contains("reimpresion") || ticketText.ToLower().Contains("ventas") || ticketText.ToLower().Contains("salida") ||
-                        ticketText.ToLower().Contains("error") || ticketText.ToLower().Contains("propinas") || ticketText.ToLower().Contains("reporte")
-                        || ticketText.ToLower().Contains("*** promociones ***") || ticketText.ToLower().Contains("ventas restaurante"))
-                    {
-                        
-                    }
-
-                }
-            }catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message+"Mainform", "validacion de proceso lealtad");    
-            }
-            alertCreation();
-
 
             return returnVal;
         }
@@ -2775,7 +2911,9 @@ namespace Skyticket
                     string textLine = (command as TextCommand).GetContent();
 
                     textLine = Regex.Replace(textLine, @"[^\u0020-\u00FE]+", string.Empty);
-                   
+                    textLine = textLine.Replace("aF", "");
+                    textLine = textLine.Replace("\u001bJ", "\n");
+                    textLine = textLine.Replace("\u001b\u001dt", "");
 
                     if (Settings.CurrentSettings.PosType == POSTypes.Aloha)
                     {
@@ -2807,8 +2945,9 @@ namespace Skyticket
                         ticketLines[i] = ticketLines[i].Replace((char)196, '=');
                 }
             }
+           
+                
 
-            
             return ticketLines;
         }
         //***********************************//
@@ -2910,45 +3049,46 @@ namespace Skyticket
             //Guarda las nuevas lineas en el nuevo fichero
            
             File.WriteAllLines(strDestinePath, strAllLines.Where(x => !string.IsNullOrWhiteSpace(x)).ToArray());
+            
 
 
         }
 
-        private static bool TicketRequest(Ticket ti)
+        private void CleanTicketOthers(string path)
+        {
+            string inputText = File.ReadAllText(path);
+
+           
+           
+            string patron = "aF";
+            string resultado = Regex.Replace(inputText, patron, "");
+            File.WriteAllText(path, resultado);
+
+            
+        }
+
+        private static  async Task<bool> TicketRequestAsync(Ticket ti)
         {
             UpdateLogBox("TicketReq");
             bool result = false;
             try
             {
-                var ticket = new RestClient("https://skyticketapi.azurewebsites.net/");
-                ticket.Timeout = -1;
-                var request = new RestRequest("tickets", Method.POST);
-                request.AddJsonBody(ti);
+                var options = new RestClientOptions("https://skyticketapi.azurewebsites.net/")
+                {
+                    MaxTimeout = -1,
+                };
+                var client = new RestClient(options);
+                var request = new RestRequest("/tickets", Method.Post)
+                    .AddJsonBody(ti);
 
-                IRestResponse response = ticket.Execute(request);
-
+                RestResponse response = await client.ExecuteAsync(request);
+               
                 var ticketr = JsonConvert.DeserializeObject<TicketRes>(response.Content);
 
                 id_ticketr = ticketr.ticket.id;
-
+                
                 if (id_ticketr != 0)
-                {
                     result = true;
-                    if (hasAlert)
-                    {
-
-                        var client = new RestClient("https://skyticketapi.azurewebsites.net/updateAlert?id_ticket=" + id_ticketr + "&clipBoard=" + clipPhone + "&id_terminal=" + Settings.CurrentSettings.TerminalID);
-                        client.Timeout = -1;
-                        var alertRequest = new RestRequest(Method.POST);
-
-                        IRestResponse alertResponse = client.Execute(alertRequest);
-
-                        Clipboard.Clear();
-                        coupon = false;
-                        hasAlert = false;
-                        clipPhone = "";
-                    }
-                }
 
             }
             catch (Exception ex)
@@ -2960,71 +3100,21 @@ namespace Skyticket
 
         }
 
-        public static void FeedRequest( FeedInfo feed)
+        public static async Task FeedRequestAsync( FeedInfo feed)
         {
-            var feedback = new RestClient("https://skyticketapi.azurewebsites.net/");
-            feedback.Timeout = -1;
-            var request = new RestRequest("feedback", Method.POST);
-            request.AddJsonBody(feed);
+            var options = new RestClientOptions("https://skyticketapi.azurewebsites.net/")
+            {
+                MaxTimeout = -1,
+            };
+            var client = new RestClient(options);
+            var request = new RestRequest("/feedback", Method.Post)
+                .AddJsonBody(feed);
 
-            IRestResponse response = feedback.Execute(request);
-        }
-
-        public static void alertCreation()
-        {
-            string res = "";
+            RestResponse response = await client.ExecuteAsync(request);
             
-            try
-            {
 
-                
-
-                if (clipPhone.Length < 0 || clipPhone == null)
-                {
-                    clipPhone = "no hay nada copiado";
-                }
-
-                res = clipPhone.Substring(0, 1);
-
-                UpdateLogBox("clip"+clipPhone);
-            }
-            catch (Exception ex)
-            {
-
-            }
-            if (coupon == true && res != "L")
-            {
-                hasAlert = true;
-                //agregamos la alerta de cupon aplicado y no canjeado
-                var client = new RestClient("https://skyticketapi.azurewebsites.net/alert?id=" + Settings.CurrentSettings.TerminalID + "&alerta=Aplico y no canjeo");
-                client.Timeout = -1;
-                var request = new RestRequest(Method.POST);
-
-                IRestResponse response = client.Execute(request);
-                // lealtad MessageBox.Show(new Form { TopMost = true }, "Se ha detectado una anomalia al aplicar el cupon, se notificara al gerente de sucursal", "Alerta Aplico", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-
-            }
-            else if (coupon == false && res == "L")
-            {
-                hasAlert = true;
-                //agregamos la alerta de cupon canjeado y no aplicado
-
-                var client = new RestClient("https://skyticketapi.azurewebsites.net/alert?id=" + Settings.CurrentSettings.TerminalID + "&alerta=Canjeo y no aplico");
-                client.Timeout = -1;
-                var request = new RestRequest(Method.POST);
-
-                IRestResponse response = client.Execute(request);
-
-                //MessageBox.Show(new Form { TopMost = true }, "Se ha detectado una anomalia al aplicar el cupon, se notificara al gerente de sucursal", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-
-            }
-
-            coupon = false;
-            Clipboard.Clear();
-           
         }
+
 
 
 

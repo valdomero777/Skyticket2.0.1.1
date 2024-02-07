@@ -32,10 +32,10 @@
 *CloseUI: *Resolution
 
 *HWMargins: 0 0 0 0
-*ParamCustomPageSize Width: 1 points 1 2500
-*ParamCustomPageSize Height: 2 points 1 2500
-*ParamCustomPageSize WidthOffset/Width Margin: 3 points 0 2500
-*ParamCustomPageSize HeightOffset/Height Margin: 4 points 0 2500
+*ParamCustomPageSize Width: 1 points 1 5670
+*ParamCustomPageSize Height: 2 points 1 5670
+*ParamCustomPageSize WidthOffset/Width Margin: 3 points 0 5670
+*ParamCustomPageSize HeightOffset/Height Margin: 4 points 0 5670
 *ParamCustomPageSize Orientation: 5 int 0 3
 *NonUIOrderDependency: 20 AnySetup *CustomPageSize
 *CustomPageSize True: "
@@ -54,28 +54,30 @@
   /ImagingBBox null def
   end setpagedevice"
 *End
-*MaxMediaWidth: "2500"
-*MaxMediaHeight: "2500"
+*MaxMediaWidth: "5670"
+*MaxMediaHeight: "5670"
 
 *LandscapeOrientation: Any
 
 *OpenUI *PageSize: PickOne
 *OrderDependency: 20 AnySetup *PageSize
-*PageSize Skyticket: "<< /PageSize [228 2500] /ImagingBBox null >> setpagedevice"
-*DefaultPageSize: Skyticket
+*PageSize Letter: "<< /PageSize [612 792] /ImagingBBox null >> setpagedevice"
+*DefaultPageSize: Letter
 *CloseUI: *PageSize
 
 *OpenUI *PageRegion: PickOne
 *OrderDependency: 20 AnySetup *PageRegion
-*PageRegion Skyticket: "<< /PageSize [228 2500] /ImagingBBox null >> setpagedevice"
-*DefaultPageRegion: Skyticket
+*PageRegion Letter: "<< /PageSize [612 792] /ImagingBBox null >> setpagedevice"
+*DefaultPageRegion: Letter
 *CloseUI: *PageRegion
 
-*ImageableArea Skyticket: "0 0 228 2500"
-*DefaultImageableArea: Skyticket
 
-*PaperDimension Skyticket: "228 2500"
-*DefaultPaperDimension: Skyticket
+*ImageableArea Letter: "0 0 612 792"
+*DefaultImageableArea: Letter
+
+
+*PaperDimension Letter: "612 792"
+*DefaultPaperDimension: Letter
 
 *DefaultFont: Courier
 *Font Courier: Standard "(1.05)" Standard ROM

@@ -378,7 +378,7 @@ namespace Skyticket
             GenericResult retVal = new GenericResult("AddVPrinter");
             try
             {
-                string monitorName = "Skyticket";
+                string monitorName = "YupioReceiptEvans";
                 string portName = string.Format("{0}", printerName);
                 string driverName = "Skyticket";
 

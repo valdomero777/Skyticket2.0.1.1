@@ -25,7 +25,7 @@ namespace Skyticket
             ProcessStartInfo startInfo = new ProcessStartInfo("C:\\Program Files\\Skyticket\\LicenseValidator.exe");
             Process p = Process.Start(startInfo);
             p.WaitForExit();// Have to hold the setup until the application is closed.
-
+            
             //Application.EnableVisualStyles();
             //LicenseForm licenseForm = new LicenseForm();
             if (p.ExitCode != 987)
@@ -60,7 +60,7 @@ namespace Skyticket
                     //bool resultPort = installer.CreatePrinterPort();
 
                     SpoolerHelper sh = new SpoolerHelper();
-                    SpoolerHelper.GenericResult result = sh.AddVPrinter("Skyticket", "Skyticket");
+                    SpoolerHelper.GenericResult result = sh.AddVPrinter("DigitalReceiptEvans", "DigitalReceiptEvans");
                     if (result.Success == false)
                     {
                         LogError(result.Method, result.Message, result.Exception);
@@ -75,16 +75,16 @@ namespace Skyticket
                     LogError("AddVPrinter", ex.Message, ex);
                 }
 
-                try
-                {
-                    PrinterInstaller installer = new PrinterInstaller();
-                    installer.InstallPrinterWMI();
-                    //bool resultPort = installer.CreatePrinterPort();
-                }
-                catch (Exception ex)
-                {
-                    LogError("AddVPrinter", ex.Message, ex);
-                }
+                //try
+                //{
+                //    PrinterInstaller installer = new PrinterInstaller();
+                //    installer.InstallPrinterWMI();
+                //    //bool resultPort = installer.CreatePrinterPort();
+                //}
+                //catch (Exception ex)
+                //{
+                //    LogError("AddVPrinter", ex.Message, ex);
+                //}
 
                 {
                     var process = new Process();
@@ -100,7 +100,7 @@ namespace Skyticket
                     process.Dispose();
                 }
 
-                LaunchHelper.RunAsDesktopUser("C:\\Program Files\\Skyticket\\SetupSerial.exe");
+               // LaunchHelper.RunAsDesktopUser("C:\\Program Files\\Skyticket\\SetupSerial.exe");
                 LaunchHelper.RunAsDesktopUser("C:\\Program Files\\Skyticket\\Skyticket.exe");
                 //if (IntPtr.Size == 8)
                 //    LaunchHelper.RunAsDesktopUser("C:\\Program Files\\Skyticket\\Skyticket.exe");

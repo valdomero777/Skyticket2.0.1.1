@@ -66,38 +66,6 @@ namespace Skyticket
             string res = "";
             string phone = "";
 
-            try
-            {
-                
-                   
-
-                    if (MainForm.clipPhone.Length < 0 || MainForm.clipPhone == null)
-                    {
-                    MainForm.clipPhone = "no hay nada copiado";
-                    }
-
-                    res = MainForm.clipPhone.Substring(0, 1);
-                    phone = MainForm.clipPhone.Substring(1, 10);
-                
-            }
-            catch (Exception ex)
-            {
-                    
-            }
-
-            
-
-            if (MainForm.clipPhone.Length == 11 && res == "L")
-            {
-                InputBox.Text = phone;
-                InputBox.Enabled = false;
-                PaperButton.Enabled = false;
-                SMSButton.Enabled = false;
-                EmailButton.Enabled = false;
-                BatchButton.Enabled = false;
-
-            }
-
             ThreadPool.QueueUserWorkItem(delegate
             {
                 Thread.Sleep(100);
@@ -166,6 +134,12 @@ namespace Skyticket
                 else
                     BatchButton.Text = "Corte";
             };
+
+            MethodLabel.Visible = false;    
+            InputLabel.Visible = false;
+            InputBox.Visible = false;   
+            OKButton.Visible = false;
+            btnNoPrint.Visible = Settings.CurrentSettings.NoPrint;
         }
         //***************************************//
         private void TicketDialog_FormClosing(object sender, FormClosingEventArgs e)
@@ -230,9 +204,7 @@ namespace Skyticket
                     break;
 
                 case '5':
-                    e.Handled = true;
-                    EmailButton_Click(null, null);
-                    break;
+                   
 
                 case '6':
                     e.Handled = true;
@@ -244,6 +216,13 @@ namespace Skyticket
         //***************************************//
         private void PaperButton_Click(object sender, EventArgs e)
         {
+            if (MaleButton.Checked)
+                Gender = MaleButton.Tag.ToString();
+            else if (FemaleButton.Checked)
+                Gender = FemaleButton.Tag.ToString();
+            else if (OtherButton.Checked)
+                Gender = OtherButton.Tag.ToString();
+            Comments = CommentsBox.Text;
             this.KeyPress -= TicketDialog_KeyPress;
             choice.printMethod = TicketMethod.Paper;
             this.DialogResult = DialogResult.OK;
@@ -253,6 +232,10 @@ namespace Skyticket
         //***************************************//
         private void WhatsappButton_Click(object sender, EventArgs e)
         {
+            MethodLabel.Visible =true;
+            InputLabel.Visible =true;
+            InputBox.Visible = true;
+            OKButton.Visible = true;
             this.KeyPress -= TicketDialog_KeyPress;
             choice.printMethod = TicketMethod.Whatsapp;
             //InputLabel.Text = "Mobile phone:";
@@ -270,41 +253,17 @@ namespace Skyticket
         {
             this.KeyPress -= TicketDialog_KeyPress;
             choice.printMethod = TicketMethod.NoPrint;
-
-            this.Height = 545;
-            this.AcceptButton = OKButton;
-
-            MethodLabel.Text = "No Print";
-            InputBox.SelectionStart = InputBox.Text.Length;
-            InputBox.Focus();
+            this.DialogResult = DialogResult.OK;
+            this.FormClosing -= TicketDialog_FormClosing;
+            this.Close();
         }
         //***************************************//
         private void SMSButton_Click(object sender, EventArgs e)
         {
-            this.KeyPress -= TicketDialog_KeyPress;
-            choice.printMethod = TicketMethod.SMS;
-            InputLabel.Text = "Mobile phone:";
 
-            this.Height = 545;
-            this.AcceptButton = OKButton;
-
-            MethodLabel.Text = "SMS";
-            InputBox.SelectionStart = InputBox.Text.Length;
-            InputBox.Focus();
         }
         //***************************************//
-        private void EmailButton_Click(object sender, EventArgs e)
-        {
-            this.KeyPress -= TicketDialog_KeyPress;
-            choice.printMethod = TicketMethod.Email;
-            InputLabel.Text = "Email:";
 
-            this.Height = 545;
-            this.AcceptButton = OKButton;
-
-            MethodLabel.Text = "Email";
-            InputBox.Focus();
-        }
         //***************************************//
         private void OKButton_Click(object sender, EventArgs e)
         {
@@ -357,6 +316,8 @@ namespace Skyticket
             else if (OtherButton.Checked)
                 Gender = OtherButton.Tag.ToString();
             Comments = CommentsBox.Text;
+
+            
 
             this.DialogResult = DialogResult.OK;
             this.FormClosing -= TicketDialog_FormClosing;
@@ -488,13 +449,14 @@ namespace Skyticket
             bool result = false;
             try
             {
+
                 
                 feed.id_ticket = MainForm.id_ticketr;
                 feed.age_range = selectedAge;
                 feed.gender = Gender;
                 feed.comments = Comments;
 
-                MainForm.FeedRequest(feed);
+                MainForm.FeedRequestAsync(feed);
 
 
             }
