@@ -79,6 +79,9 @@ namespace Skyticket
 
         public bool CustomerFeedback { get; set; }
 
+        public bool NoPrint { get; set; }
+        public bool InternationlVersion { get; set; }
+
         public Settings()
         {
             if (!Directory.Exists(ConfigDirectory))
@@ -129,6 +132,7 @@ namespace Skyticket
             CodiRefSequence = 1;
 
             MinimizeToTray = true;
+            InternationlVersion = false;
         }
 
         //-------------------------------------//
@@ -208,6 +212,7 @@ namespace Skyticket
         Aloha = 1,
         Siapa = 2,
         Micros =3,
+        OPOS = 4,
 
     }
 }

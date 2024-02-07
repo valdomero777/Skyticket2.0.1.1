@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsForm));
-            this.SaveButton = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.OutputFolderBox = new System.Windows.Forms.TextBox();
             this.BrowseButton = new System.Windows.Forms.Button();
@@ -44,17 +43,10 @@
             this.NetworkRadioButton = new System.Windows.Forms.RadioButton();
             this.PrinterBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.TestDBButton = new System.Windows.Forms.Button();
-            this.DBNameBox = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.DBPasswordBox = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.DBUsernameBox = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.DBServerBox = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.chckNoPrint = new System.Windows.Forms.CheckBox();
+            this.cmbTypePos = new System.Windows.Forms.ComboBox();
+            this.label26 = new System.Windows.Forms.Label();
             this.BarcodesCheck = new System.Windows.Forms.CheckBox();
             this.PortsListBox = new System.Windows.Forms.ComboBox();
             this.label23 = new System.Windows.Forms.Label();
@@ -69,57 +61,62 @@
             this.label10 = new System.Windows.Forms.Label();
             this.TerminalIDBox = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.label20 = new System.Windows.Forms.Label();
-            this.CouponIntervalBox = new System.Windows.Forms.NumericUpDown();
-            this.label17 = new System.Windows.Forms.Label();
-            this.FTPCouponsFolderBox = new System.Windows.Forms.TextBox();
-            this.label14 = new System.Windows.Forms.Label();
-            this.FTPPasswordBox = new System.Windows.Forms.TextBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.FTPUserBox = new System.Windows.Forms.TextBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.FTPTicketsFolderBox = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.FTPPortBox = new System.Windows.Forms.NumericUpDown();
-            this.label9 = new System.Windows.Forms.Label();
-            this.FTPHostBox = new System.Windows.Forms.TextBox();
-            this.label15 = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.ServiceEnableCheck = new System.Windows.Forms.CheckBox();
             this.ServicePasswordBox = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
             this.ServiceUserBox = new System.Windows.Forms.TextBox();
             this.label19 = new System.Windows.Forms.Label();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.label25 = new System.Windows.Forms.Label();
-            this.CodiProcTimerBox = new System.Windows.Forms.NumericUpDown();
-            this.label24 = new System.Windows.Forms.Label();
-            this.CodiWinTimerBox = new System.Windows.Forms.NumericUpDown();
-            this.CODICheck = new System.Windows.Forms.CheckBox();
             this.MinimizeTrayBox = new System.Windows.Forms.CheckBox();
             this.CustFeedbackCheck = new System.Windows.Forms.CheckBox();
-            this.label26 = new System.Windows.Forms.Label();
-            this.cmbTypePos = new System.Windows.Forms.ComboBox();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.DBServerBox = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.DBUsernameBox = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.DBPasswordBox = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.DBNameBox = new System.Windows.Forms.TextBox();
+            this.TestDBButton = new System.Windows.Forms.Button();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.FTPHostBox = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.FTPPortBox = new System.Windows.Forms.NumericUpDown();
+            this.label8 = new System.Windows.Forms.Label();
+            this.FTPTicketsFolderBox = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.FTPUserBox = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.FTPPasswordBox = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.FTPCouponsFolderBox = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.CouponIntervalBox = new System.Windows.Forms.NumericUpDown();
+            this.label20 = new System.Windows.Forms.Label();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.CODICheck = new System.Windows.Forms.CheckBox();
+            this.CodiWinTimerBox = new System.Windows.Forms.NumericUpDown();
+            this.label24 = new System.Windows.Forms.Label();
+            this.CodiProcTimerBox = new System.Windows.Forms.NumericUpDown();
+            this.label25 = new System.Windows.Forms.Label();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.chckInternational = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PhoneDigitsBox)).BeginInit();
-            this.groupBox4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.CouponIntervalBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.FTPPortBox)).BeginInit();
             this.groupBox5.SuspendLayout();
-            this.groupBox6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.CodiProcTimerBox)).BeginInit();
+            this.groupBox7.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.FTPPortBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CouponIntervalBox)).BeginInit();
+            this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CodiWinTimerBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CodiProcTimerBox)).BeginInit();
+            this.groupBox8.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // SaveButton
-            // 
-            resources.ApplyResources(this.SaveButton, "SaveButton");
-            this.SaveButton.Name = "SaveButton";
-            this.SaveButton.UseVisualStyleBackColor = true;
-            this.SaveButton.Click += new System.EventHandler(this.SaveButton_Click);
             // 
             // label4
             // 
@@ -215,70 +212,9 @@
             resources.ApplyResources(this.label3, "label3");
             this.label3.Name = "label3";
             // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.TestDBButton);
-            this.groupBox2.Controls.Add(this.DBNameBox);
-            this.groupBox2.Controls.Add(this.label7);
-            this.groupBox2.Controls.Add(this.DBPasswordBox);
-            this.groupBox2.Controls.Add(this.label6);
-            this.groupBox2.Controls.Add(this.DBUsernameBox);
-            this.groupBox2.Controls.Add(this.label5);
-            this.groupBox2.Controls.Add(this.DBServerBox);
-            this.groupBox2.Controls.Add(this.label2);
-            resources.ApplyResources(this.groupBox2, "groupBox2");
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.TabStop = false;
-            // 
-            // TestDBButton
-            // 
-            resources.ApplyResources(this.TestDBButton, "TestDBButton");
-            this.TestDBButton.Name = "TestDBButton";
-            this.TestDBButton.UseVisualStyleBackColor = true;
-            this.TestDBButton.Click += new System.EventHandler(this.TestDBButton_Click);
-            // 
-            // DBNameBox
-            // 
-            resources.ApplyResources(this.DBNameBox, "DBNameBox");
-            this.DBNameBox.Name = "DBNameBox";
-            // 
-            // label7
-            // 
-            resources.ApplyResources(this.label7, "label7");
-            this.label7.Name = "label7";
-            // 
-            // DBPasswordBox
-            // 
-            resources.ApplyResources(this.DBPasswordBox, "DBPasswordBox");
-            this.DBPasswordBox.Name = "DBPasswordBox";
-            // 
-            // label6
-            // 
-            resources.ApplyResources(this.label6, "label6");
-            this.label6.Name = "label6";
-            // 
-            // DBUsernameBox
-            // 
-            resources.ApplyResources(this.DBUsernameBox, "DBUsernameBox");
-            this.DBUsernameBox.Name = "DBUsernameBox";
-            // 
-            // label5
-            // 
-            resources.ApplyResources(this.label5, "label5");
-            this.label5.Name = "label5";
-            // 
-            // DBServerBox
-            // 
-            resources.ApplyResources(this.DBServerBox, "DBServerBox");
-            this.DBServerBox.Name = "DBServerBox";
-            // 
-            // label2
-            // 
-            resources.ApplyResources(this.label2, "label2");
-            this.label2.Name = "label2";
-            // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.chckNoPrint);
             this.groupBox3.Controls.Add(this.cmbTypePos);
             this.groupBox3.Controls.Add(this.label26);
             this.groupBox3.Controls.Add(this.BarcodesCheck);
@@ -298,6 +234,29 @@
             resources.ApplyResources(this.groupBox3, "groupBox3");
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.TabStop = false;
+            // 
+            // chckNoPrint
+            // 
+            resources.ApplyResources(this.chckNoPrint, "chckNoPrint");
+            this.chckNoPrint.Name = "chckNoPrint";
+            this.chckNoPrint.UseVisualStyleBackColor = true;
+            // 
+            // cmbTypePos
+            // 
+            this.cmbTypePos.FormattingEnabled = true;
+            this.cmbTypePos.Items.AddRange(new object[] {
+            resources.GetString("cmbTypePos.Items"),
+            resources.GetString("cmbTypePos.Items1"),
+            resources.GetString("cmbTypePos.Items2"),
+            resources.GetString("cmbTypePos.Items3"),
+            resources.GetString("cmbTypePos.Items4")});
+            resources.ApplyResources(this.cmbTypePos, "cmbTypePos");
+            this.cmbTypePos.Name = "cmbTypePos";
+            // 
+            // label26
+            // 
+            resources.ApplyResources(this.label26, "label26");
+            this.label26.Name = "label26";
             // 
             // BarcodesCheck
             // 
@@ -389,133 +348,6 @@
             resources.ApplyResources(this.label11, "label11");
             this.label11.Name = "label11";
             // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.label20);
-            this.groupBox4.Controls.Add(this.CouponIntervalBox);
-            this.groupBox4.Controls.Add(this.label17);
-            this.groupBox4.Controls.Add(this.FTPCouponsFolderBox);
-            this.groupBox4.Controls.Add(this.label14);
-            this.groupBox4.Controls.Add(this.FTPPasswordBox);
-            this.groupBox4.Controls.Add(this.label13);
-            this.groupBox4.Controls.Add(this.FTPUserBox);
-            this.groupBox4.Controls.Add(this.label12);
-            this.groupBox4.Controls.Add(this.FTPTicketsFolderBox);
-            this.groupBox4.Controls.Add(this.label8);
-            this.groupBox4.Controls.Add(this.FTPPortBox);
-            this.groupBox4.Controls.Add(this.label9);
-            this.groupBox4.Controls.Add(this.FTPHostBox);
-            this.groupBox4.Controls.Add(this.label15);
-            resources.ApplyResources(this.groupBox4, "groupBox4");
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.TabStop = false;
-            // 
-            // label20
-            // 
-            resources.ApplyResources(this.label20, "label20");
-            this.label20.Name = "label20";
-            // 
-            // CouponIntervalBox
-            // 
-            resources.ApplyResources(this.CouponIntervalBox, "CouponIntervalBox");
-            this.CouponIntervalBox.Maximum = new decimal(new int[] {
-            1440,
-            0,
-            0,
-            0});
-            this.CouponIntervalBox.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.CouponIntervalBox.Name = "CouponIntervalBox";
-            this.CouponIntervalBox.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // label17
-            // 
-            resources.ApplyResources(this.label17, "label17");
-            this.label17.Name = "label17";
-            // 
-            // FTPCouponsFolderBox
-            // 
-            resources.ApplyResources(this.FTPCouponsFolderBox, "FTPCouponsFolderBox");
-            this.FTPCouponsFolderBox.Name = "FTPCouponsFolderBox";
-            // 
-            // label14
-            // 
-            resources.ApplyResources(this.label14, "label14");
-            this.label14.Name = "label14";
-            // 
-            // FTPPasswordBox
-            // 
-            resources.ApplyResources(this.FTPPasswordBox, "FTPPasswordBox");
-            this.FTPPasswordBox.Name = "FTPPasswordBox";
-            this.FTPPasswordBox.UseSystemPasswordChar = true;
-            // 
-            // label13
-            // 
-            resources.ApplyResources(this.label13, "label13");
-            this.label13.Name = "label13";
-            // 
-            // FTPUserBox
-            // 
-            resources.ApplyResources(this.FTPUserBox, "FTPUserBox");
-            this.FTPUserBox.Name = "FTPUserBox";
-            // 
-            // label12
-            // 
-            resources.ApplyResources(this.label12, "label12");
-            this.label12.Name = "label12";
-            // 
-            // FTPTicketsFolderBox
-            // 
-            resources.ApplyResources(this.FTPTicketsFolderBox, "FTPTicketsFolderBox");
-            this.FTPTicketsFolderBox.Name = "FTPTicketsFolderBox";
-            // 
-            // label8
-            // 
-            resources.ApplyResources(this.label8, "label8");
-            this.label8.Name = "label8";
-            // 
-            // FTPPortBox
-            // 
-            resources.ApplyResources(this.FTPPortBox, "FTPPortBox");
-            this.FTPPortBox.Maximum = new decimal(new int[] {
-            65535,
-            0,
-            0,
-            0});
-            this.FTPPortBox.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.FTPPortBox.Name = "FTPPortBox";
-            this.FTPPortBox.Value = new decimal(new int[] {
-            21,
-            0,
-            0,
-            0});
-            // 
-            // label9
-            // 
-            resources.ApplyResources(this.label9, "label9");
-            this.label9.Name = "label9";
-            // 
-            // FTPHostBox
-            // 
-            resources.ApplyResources(this.FTPHostBox, "FTPHostBox");
-            this.FTPHostBox.Name = "FTPHostBox";
-            // 
-            // label15
-            // 
-            resources.ApplyResources(this.label15, "label15");
-            this.label15.Name = "label15";
-            // 
             // groupBox5
             // 
             this.groupBox5.Controls.Add(this.ServiceEnableCheck);
@@ -554,41 +386,229 @@
             resources.ApplyResources(this.label19, "label19");
             this.label19.Name = "label19";
             // 
-            // groupBox6
+            // MinimizeTrayBox
             // 
-            this.groupBox6.Controls.Add(this.label25);
-            this.groupBox6.Controls.Add(this.CodiProcTimerBox);
-            this.groupBox6.Controls.Add(this.label24);
-            this.groupBox6.Controls.Add(this.CodiWinTimerBox);
-            this.groupBox6.Controls.Add(this.CODICheck);
-            resources.ApplyResources(this.groupBox6, "groupBox6");
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.TabStop = false;
+            resources.ApplyResources(this.MinimizeTrayBox, "MinimizeTrayBox");
+            this.MinimizeTrayBox.Name = "MinimizeTrayBox";
+            this.MinimizeTrayBox.UseVisualStyleBackColor = true;
             // 
-            // label25
+            // CustFeedbackCheck
             // 
-            resources.ApplyResources(this.label25, "label25");
-            this.label25.Name = "label25";
+            resources.ApplyResources(this.CustFeedbackCheck, "CustFeedbackCheck");
+            this.CustFeedbackCheck.Name = "CustFeedbackCheck";
+            this.CustFeedbackCheck.UseVisualStyleBackColor = true;
             // 
-            // CodiProcTimerBox
+            // groupBox7
             // 
-            resources.ApplyResources(this.CodiProcTimerBox, "CodiProcTimerBox");
-            this.CodiProcTimerBox.Maximum = new decimal(new int[] {
-            60,
+            this.groupBox7.Controls.Add(this.chckInternational);
+            this.groupBox7.Controls.Add(this.button1);
+            this.groupBox7.Controls.Add(this.CustFeedbackCheck);
+            this.groupBox7.Controls.Add(this.MinimizeTrayBox);
+            resources.ApplyResources(this.groupBox7, "groupBox7");
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.TabStop = false;
+            // 
+            // button1
+            // 
+            resources.ApplyResources(this.button1, "button1");
+            this.button1.Name = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.SaveButton_Click);
+            // 
+            // label2
+            // 
+            resources.ApplyResources(this.label2, "label2");
+            this.label2.Name = "label2";
+            // 
+            // DBServerBox
+            // 
+            resources.ApplyResources(this.DBServerBox, "DBServerBox");
+            this.DBServerBox.Name = "DBServerBox";
+            // 
+            // label5
+            // 
+            resources.ApplyResources(this.label5, "label5");
+            this.label5.Name = "label5";
+            // 
+            // DBUsernameBox
+            // 
+            resources.ApplyResources(this.DBUsernameBox, "DBUsernameBox");
+            this.DBUsernameBox.Name = "DBUsernameBox";
+            // 
+            // label6
+            // 
+            resources.ApplyResources(this.label6, "label6");
+            this.label6.Name = "label6";
+            // 
+            // DBPasswordBox
+            // 
+            resources.ApplyResources(this.DBPasswordBox, "DBPasswordBox");
+            this.DBPasswordBox.Name = "DBPasswordBox";
+            // 
+            // label7
+            // 
+            resources.ApplyResources(this.label7, "label7");
+            this.label7.Name = "label7";
+            // 
+            // DBNameBox
+            // 
+            resources.ApplyResources(this.DBNameBox, "DBNameBox");
+            this.DBNameBox.Name = "DBNameBox";
+            // 
+            // TestDBButton
+            // 
+            resources.ApplyResources(this.TestDBButton, "TestDBButton");
+            this.TestDBButton.Name = "TestDBButton";
+            this.TestDBButton.UseVisualStyleBackColor = true;
+            this.TestDBButton.Click += new System.EventHandler(this.TestDBButton_Click);
+            // 
+            // groupBox2
+            // 
+            resources.ApplyResources(this.groupBox2, "groupBox2");
+            this.groupBox2.Controls.Add(this.TestDBButton);
+            this.groupBox2.Controls.Add(this.DBNameBox);
+            this.groupBox2.Controls.Add(this.label7);
+            this.groupBox2.Controls.Add(this.DBPasswordBox);
+            this.groupBox2.Controls.Add(this.label6);
+            this.groupBox2.Controls.Add(this.DBUsernameBox);
+            this.groupBox2.Controls.Add(this.label5);
+            this.groupBox2.Controls.Add(this.DBServerBox);
+            this.groupBox2.Controls.Add(this.label2);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.TabStop = false;
+            // 
+            // label15
+            // 
+            resources.ApplyResources(this.label15, "label15");
+            this.label15.Name = "label15";
+            // 
+            // FTPHostBox
+            // 
+            resources.ApplyResources(this.FTPHostBox, "FTPHostBox");
+            this.FTPHostBox.Name = "FTPHostBox";
+            // 
+            // label9
+            // 
+            resources.ApplyResources(this.label9, "label9");
+            this.label9.Name = "label9";
+            // 
+            // FTPPortBox
+            // 
+            resources.ApplyResources(this.FTPPortBox, "FTPPortBox");
+            this.FTPPortBox.Maximum = new decimal(new int[] {
+            65535,
             0,
             0,
             0});
-            this.CodiProcTimerBox.Name = "CodiProcTimerBox";
-            this.CodiProcTimerBox.Value = new decimal(new int[] {
-            30,
+            this.FTPPortBox.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.FTPPortBox.Name = "FTPPortBox";
+            this.FTPPortBox.Value = new decimal(new int[] {
+            21,
             0,
             0,
             0});
             // 
-            // label24
+            // label8
             // 
-            resources.ApplyResources(this.label24, "label24");
-            this.label24.Name = "label24";
+            resources.ApplyResources(this.label8, "label8");
+            this.label8.Name = "label8";
+            // 
+            // FTPTicketsFolderBox
+            // 
+            resources.ApplyResources(this.FTPTicketsFolderBox, "FTPTicketsFolderBox");
+            this.FTPTicketsFolderBox.Name = "FTPTicketsFolderBox";
+            // 
+            // label12
+            // 
+            resources.ApplyResources(this.label12, "label12");
+            this.label12.Name = "label12";
+            // 
+            // FTPUserBox
+            // 
+            resources.ApplyResources(this.FTPUserBox, "FTPUserBox");
+            this.FTPUserBox.Name = "FTPUserBox";
+            // 
+            // label13
+            // 
+            resources.ApplyResources(this.label13, "label13");
+            this.label13.Name = "label13";
+            // 
+            // FTPPasswordBox
+            // 
+            resources.ApplyResources(this.FTPPasswordBox, "FTPPasswordBox");
+            this.FTPPasswordBox.Name = "FTPPasswordBox";
+            this.FTPPasswordBox.UseSystemPasswordChar = true;
+            // 
+            // label14
+            // 
+            resources.ApplyResources(this.label14, "label14");
+            this.label14.Name = "label14";
+            // 
+            // FTPCouponsFolderBox
+            // 
+            resources.ApplyResources(this.FTPCouponsFolderBox, "FTPCouponsFolderBox");
+            this.FTPCouponsFolderBox.Name = "FTPCouponsFolderBox";
+            // 
+            // label17
+            // 
+            resources.ApplyResources(this.label17, "label17");
+            this.label17.Name = "label17";
+            // 
+            // CouponIntervalBox
+            // 
+            resources.ApplyResources(this.CouponIntervalBox, "CouponIntervalBox");
+            this.CouponIntervalBox.Maximum = new decimal(new int[] {
+            1440,
+            0,
+            0,
+            0});
+            this.CouponIntervalBox.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.CouponIntervalBox.Name = "CouponIntervalBox";
+            this.CouponIntervalBox.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label20
+            // 
+            resources.ApplyResources(this.label20, "label20");
+            this.label20.Name = "label20";
+            // 
+            // groupBox4
+            // 
+            resources.ApplyResources(this.groupBox4, "groupBox4");
+            this.groupBox4.Controls.Add(this.label20);
+            this.groupBox4.Controls.Add(this.CouponIntervalBox);
+            this.groupBox4.Controls.Add(this.label17);
+            this.groupBox4.Controls.Add(this.FTPCouponsFolderBox);
+            this.groupBox4.Controls.Add(this.label14);
+            this.groupBox4.Controls.Add(this.FTPPasswordBox);
+            this.groupBox4.Controls.Add(this.label13);
+            this.groupBox4.Controls.Add(this.FTPUserBox);
+            this.groupBox4.Controls.Add(this.label12);
+            this.groupBox4.Controls.Add(this.FTPTicketsFolderBox);
+            this.groupBox4.Controls.Add(this.label8);
+            this.groupBox4.Controls.Add(this.FTPPortBox);
+            this.groupBox4.Controls.Add(this.label9);
+            this.groupBox4.Controls.Add(this.FTPHostBox);
+            this.groupBox4.Controls.Add(this.label15);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.TabStop = false;
+            // 
+            // CODICheck
+            // 
+            resources.ApplyResources(this.CODICheck, "CODICheck");
+            this.CODICheck.Name = "CODICheck";
+            this.CODICheck.UseVisualStyleBackColor = true;
             // 
             // CodiWinTimerBox
             // 
@@ -605,47 +625,54 @@
             0,
             0});
             // 
-            // CODICheck
+            // label24
             // 
-            resources.ApplyResources(this.CODICheck, "CODICheck");
-            this.CODICheck.Name = "CODICheck";
-            this.CODICheck.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.label24, "label24");
+            this.label24.Name = "label24";
             // 
-            // MinimizeTrayBox
+            // CodiProcTimerBox
             // 
-            resources.ApplyResources(this.MinimizeTrayBox, "MinimizeTrayBox");
-            this.MinimizeTrayBox.Name = "MinimizeTrayBox";
-            this.MinimizeTrayBox.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.CodiProcTimerBox, "CodiProcTimerBox");
+            this.CodiProcTimerBox.Maximum = new decimal(new int[] {
+            60,
+            0,
+            0,
+            0});
+            this.CodiProcTimerBox.Name = "CodiProcTimerBox";
+            this.CodiProcTimerBox.Value = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
             // 
-            // CustFeedbackCheck
+            // label25
             // 
-            resources.ApplyResources(this.CustFeedbackCheck, "CustFeedbackCheck");
-            this.CustFeedbackCheck.Name = "CustFeedbackCheck";
-            this.CustFeedbackCheck.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.label25, "label25");
+            this.label25.Name = "label25";
             // 
-            // label26
+            // groupBox8
             // 
-            resources.ApplyResources(this.label26, "label26");
-            this.label26.Name = "label26";
+            this.groupBox8.Controls.Add(this.label25);
+            this.groupBox8.Controls.Add(this.CodiProcTimerBox);
+            this.groupBox8.Controls.Add(this.CODICheck);
+            this.groupBox8.Controls.Add(this.label24);
+            this.groupBox8.Controls.Add(this.CodiWinTimerBox);
+            resources.ApplyResources(this.groupBox8, "groupBox8");
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.TabStop = false;
             // 
-            // cmbTypePos
+            // chckInternational
             // 
-            this.cmbTypePos.FormattingEnabled = true;
-            this.cmbTypePos.Items.AddRange(new object[] {
-            resources.GetString("cmbTypePos.Items"),
-            resources.GetString("cmbTypePos.Items1"),
-            resources.GetString("cmbTypePos.Items2"),
-            resources.GetString("cmbTypePos.Items3")});
-            resources.ApplyResources(this.cmbTypePos, "cmbTypePos");
-            this.cmbTypePos.Name = "cmbTypePos";
+            resources.ApplyResources(this.chckInternational, "chckInternational");
+            this.chckInternational.Name = "chckInternational";
+            this.chckInternational.UseVisualStyleBackColor = true;
             // 
             // SettingsForm
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.CustFeedbackCheck);
-            this.Controls.Add(this.MinimizeTrayBox);
-            this.Controls.Add(this.groupBox6);
+            this.Controls.Add(this.groupBox8);
+            this.Controls.Add(this.groupBox7);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
@@ -654,35 +681,36 @@
             this.Controls.Add(this.BrowseButton);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.OutputFolderBox);
-            this.Controls.Add(this.SaveButton);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "SettingsForm";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Load += new System.EventHandler(this.OptionsForm_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PhoneDigitsBox)).EndInit();
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.CouponIntervalBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.FTPPortBox)).EndInit();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
-            this.groupBox6.ResumeLayout(false);
-            this.groupBox6.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.CodiProcTimerBox)).EndInit();
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox7.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.FTPPortBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CouponIntervalBox)).EndInit();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CodiWinTimerBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CodiProcTimerBox)).EndInit();
+            this.groupBox8.ResumeLayout(false);
+            this.groupBox8.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.Button SaveButton;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox OutputFolderBox;
         private System.Windows.Forms.Button BrowseButton;
@@ -693,34 +721,11 @@
         private System.Windows.Forms.RadioButton NetworkRadioButton;
         private System.Windows.Forms.TextBox PrinterBox;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Button TestDBButton;
-        private System.Windows.Forms.TextBox DBNameBox;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox DBPasswordBox;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox DBUsernameBox;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox DBServerBox;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.TextBox ClientIDBox;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox TerminalIDBox;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.TextBox FTPPasswordBox;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.TextBox FTPUserBox;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.TextBox FTPTicketsFolderBox;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.NumericUpDown FTPPortBox;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox FTPHostBox;
-        private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.TextBox FTPCouponsFolderBox;
-        private System.Windows.Forms.Label label14;
         private System.Windows.Forms.ComboBox LanguagesBox;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.GroupBox groupBox5;
@@ -730,9 +735,6 @@
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.CheckBox ServiceEnableCheck;
         private System.Windows.Forms.CheckBox DocPrinterCheck;
-        private System.Windows.Forms.NumericUpDown CouponIntervalBox;
-        private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Button TestClientButton;
         private System.Windows.Forms.TextBox PhoneSuffixBox;
         private System.Windows.Forms.Label label21;
@@ -744,15 +746,45 @@
         private System.Windows.Forms.CheckBox PrintPaperCheck;
         private System.Windows.Forms.CheckBox PrintCustomerCheck;
         private System.Windows.Forms.CheckBox PoweredCheck;
-        private System.Windows.Forms.GroupBox groupBox6;
-        private System.Windows.Forms.CheckBox CODICheck;
-        private System.Windows.Forms.Label label24;
-        private System.Windows.Forms.NumericUpDown CodiWinTimerBox;
-        private System.Windows.Forms.Label label25;
-        private System.Windows.Forms.NumericUpDown CodiProcTimerBox;
-        private System.Windows.Forms.CheckBox MinimizeTrayBox;
-        private System.Windows.Forms.CheckBox CustFeedbackCheck;
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.ComboBox cmbTypePos;
+        private System.Windows.Forms.CheckBox MinimizeTrayBox;
+        private System.Windows.Forms.CheckBox CustFeedbackCheck;
+        private System.Windows.Forms.GroupBox groupBox7;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox DBServerBox;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox DBUsernameBox;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox DBPasswordBox;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox DBNameBox;
+        private System.Windows.Forms.Button TestDBButton;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.TextBox FTPHostBox;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.NumericUpDown FTPPortBox;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox FTPTicketsFolderBox;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TextBox FTPUserBox;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox FTPPasswordBox;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox FTPCouponsFolderBox;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.NumericUpDown CouponIntervalBox;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.CheckBox CODICheck;
+        private System.Windows.Forms.NumericUpDown CodiWinTimerBox;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.NumericUpDown CodiProcTimerBox;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.GroupBox groupBox8;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.CheckBox chckNoPrint;
+        private System.Windows.Forms.CheckBox chckInternational;
     }
 }

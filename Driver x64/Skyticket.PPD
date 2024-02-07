@@ -26,16 +26,16 @@
 *ContoneOnly: True
 
 *OpenUI *Resolution: PickOne
-*DefaultResolution: 600dpi
+*DefaultResolution: 203dpi
 *OrderDependency: 10 AnySetup *Resolution
-*Resolution 600dpi: "<< /HWResolution [600 600] >> setpagedevice"
+*Resolution 203dpi: "<< /HWResolution [203 203] >> setpagedevice"
 *CloseUI: *Resolution
 
 *HWMargins: 0 0 0 0
-*ParamCustomPageSize Width: 1 points 1 2500
-*ParamCustomPageSize Height: 2 points 1 2500
-*ParamCustomPageSize WidthOffset/Width Margin: 3 points 0 2500
-*ParamCustomPageSize HeightOffset/Height Margin: 4 points 0 2500
+*ParamCustomPageSize Width: 1 points 1 567
+*ParamCustomPageSize Height: 2 points 1 567
+*ParamCustomPageSize WidthOffset/Width Margin: 3 points 0 567
+*ParamCustomPageSize HeightOffset/Height Margin: 4 points 0 567
 *ParamCustomPageSize Orientation: 5 int 0 3
 *NonUIOrderDependency: 20 AnySetup *CustomPageSize
 *CustomPageSize True: "
@@ -54,28 +54,30 @@
   /ImagingBBox null def
   end setpagedevice"
 *End
-*MaxMediaWidth: "2500"
-*MaxMediaHeight: "2500"
+*MaxMediaWidth: "567"
+*MaxMediaHeight: "567"
 
 *LandscapeOrientation: Any
 
 *OpenUI *PageSize: PickOne
-*OrderDependency: 20 AnySetup *PageSize
-*PageSize Skyticket: "<< /PageSize [228 2500] /ImagingBBox null >> setpagedevice"
 *DefaultPageSize: Skyticket
+*OrderDependency: 20 AnySetup *PageSize
+*PageSize Skyticket: "<< /PageSize [612 567] /ImagingBBox null >> setpagedevice"
+
 *CloseUI: *PageSize
 
 *OpenUI *PageRegion: PickOne
-*OrderDependency: 20 AnySetup *PageRegion
-*PageRegion Skyticket: "<< /PageSize [228 2500] /ImagingBBox null >> setpagedevice"
 *DefaultPageRegion: Skyticket
+*OrderDependency: 20 AnySetup *PageRegion
+*PageRegion Skyticket: "<< /PageSize [612 567] /ImagingBBox null >> setpagedevice"
 *CloseUI: *PageRegion
 
-*ImageableArea Skyticket: "0 0 228 2500"
 *DefaultImageableArea: Skyticket
+*ImageableArea Skyticket: "0 0 612 567"
 
-*PaperDimension Skyticket: "228 2500"
 *DefaultPaperDimension: Skyticket
+*PaperDimension Skyticket: "612 567"
+
 
 *DefaultFont: Courier
 *Font Courier: Standard "(1.05)" Standard ROM

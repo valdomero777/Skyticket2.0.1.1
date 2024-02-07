@@ -32,8 +32,11 @@ using ZXing.Common;
 using SnailDev.EscPosParser;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
+using System.Text.Json;
 using Skyticket.Classes;
 using RestSharp;
+using System.Runtime.InteropServices.ComTypes;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace Skyticket
 {
@@ -66,14 +69,15 @@ namespace Skyticket
         System.Timers.Timer serialProcessTimer = new System.Timers.Timer();
         private List<int> dataPort = new List<int>();
 
-        public static int id_ticketr = 0;
+        public static string id_ticketr = "";
 
         public static Boolean hasAlert = false;
         public static Boolean coupon = false;
         public static string clipPhone = "";
+        string barcode = "";
 
 
-        CodiForm codiForm = new CodiForm();
+
 
         public MainForm()
         {
@@ -204,7 +208,7 @@ namespace Skyticket
         //***********************************//
         private void SettingsButton_Click(object sender, EventArgs e)
         {
-            SettingsForm settingsForm = new SettingsForm();
+            SettingForm settingsForm = new SettingForm();
             settingsForm.ShowDialog();
         }
         //***********************************//
@@ -289,150 +293,121 @@ namespace Skyticket
         //***********************************//
         private void CouponButton_Click(object sender, EventArgs e)
         {
-            LoadCoupon();
+            LoadCouponAsync();
         }
         //***********************************//
         private void CouponsTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            LoadCoupon();
+            LoadCouponAsync();
             couponsTimer.Interval = 60 * 1000 * Settings.CurrentSettings.CouponLoadInterval;
         }
         //***********************************//
-        private void LoadCoupon()
+        private async Task LoadCouponAsync()
         {
             string fileName = "";
             try
             {
-                lock (DBProvider.remoteDBLock)
-                    using (NpgsqlCommand Cmd = new NpgsqlCommand())
-                    {
-                        Cmd.CommandType = CommandType.Text;
-                        Cmd.Connection = DBProvider.remoteConnection;
+                var options = new RestClientOptions("https://skyticketapi.azurewebsites.net/")
+                {
+                    MaxTimeout = -1,
+                };
+                var client = new RestClient(options);
+                var request = new RestRequest("/coupon/", Method.Get)
+                    .AddQueryParameter("terminal_id", Settings.CurrentSettings.TerminalID)
+                    .AddQueryParameter("client_id", Settings.CurrentSettings.ClientID);
 
-                        string query = "SELECT \"date\", \"imagepathftp\" FROM public.ct_coupon WHERE terminalid=@terminalid AND clientid=@clientid ORDER BY \"date\" DESC";
+                RestResponse response = await client.ExecuteAsync(request);
+                string[] responseArray = JsonConvert.DeserializeObject<string[]>(response.Content);
 
-                        Cmd.CommandText = query;
-                        Cmd.Parameters.AddWithValue("@terminalid", Settings.CurrentSettings.TerminalID);
-                        Cmd.Parameters.AddWithValue("@clientid", Settings.CurrentSettings.ClientID);
+                if (responseArray[0] != null) 
+                {
 
-                        using (NpgsqlDataReader reader = Cmd.ExecuteReader())
-                        {
-                            if (reader.HasRows)
-                            {
-                                if (reader.Read())
-                                {
-                                    fileName = reader.GetString(1);
-                                }
-                            }
-                        }
-                    }
+                    fileName = responseArray[0];
+                    
+                }
+
+               
             }
             catch (Exception ex)
             {
                 UpdateLogBox("LoadCoupon(): " + ex.Message);
 
-                if (DBProvider.remoteConnection.State != ConnectionState.Open)
-                    DBProvider.InitRemoteDB();
+               
             }
 
             if (couponFileName.Length > 0)
                 previousCouponFileName = couponFileName;
 
             if (fileName.Length > 0)
-            {
-                string sourcePath = Settings.CurrentSettings.FTPServer + ":" + Settings.CurrentSettings.FTPPort.ToString() +
-                                        "/" + Settings.CurrentSettings.FTPCouponsFolder + "/" +
-                                        Path.GetFileName(fileName);
+            {               
                 string destinationFile = Path.Combine(Settings.ConfigDirectory, "coupons");
-                destinationFile = Path.Combine(destinationFile, fileName);
-                if (FTP.FTPDownload(sourcePath, destinationFile))
+               
+                if (Azure.DownloadImage(fileName, destinationFile))
                 {
+                    destinationFile = Path.Combine(destinationFile, Path.GetFileName(fileName));
                     couponFileName = destinationFile;
-                }
+                    UpdateLogBox(couponFileName);
+                }   
             }
             else
                 couponFileName = "";
 
-            {
-                string sourcePath = Settings.CurrentSettings.FTPServer + ":" + Settings.CurrentSettings.FTPPort.ToString() +
-                                            "/" + Settings.CurrentSettings.FTPCouponsFolder + "/" + "power.png";
-                string destinationFile = Path.Combine(Settings.ConfigDirectory, "coupons");
-                destinationFile = Path.Combine(destinationFile, "power.png");
-                if (FTP.FTPDownload(sourcePath, destinationFile))
-                {
+            //{
+            //    string sourcePath = Settings.CurrentSettings.FTPServer + ":" + Settings.CurrentSettings.FTPPort.ToString() +
+            //                                "/" + Settings.CurrentSettings.FTPCouponsFolder + "/" + "power.png";
+            //    string destinationFile = Path.Combine(Settings.ConfigDirectory, "coupons");
+            //    destinationFile = Path.Combine(destinationFile, "power.png");
+            //    if (FTP.FTPDownload(sourcePath, destinationFile))
+            //    {
 
-                }
-            }
+            //    }
+            //}
         }
         //***********************************//
-        private void LoadCustomHeader()
+        private async Task LoadCustomHeader()
         {
-            UpdateLog("cargando header");
+            
             string fileName = "";
             try
             {
-                lock (DBProvider.remoteDBLock)
-                    using (NpgsqlCommand Cmd = new NpgsqlCommand())
-                    {
-                        Cmd.CommandType = CommandType.Text;
-                        Cmd.Connection = DBProvider.remoteConnection;
+                var options = new RestClientOptions("https://skyticketapi.azurewebsites.net/")
+                {
+                    MaxTimeout = -1,
+                };
+                var client = new RestClient(options);
+                var request = new RestRequest("/header/", Method.Get)
+                    .AddQueryParameter("terminal_id", Settings.CurrentSettings.TerminalID)
+                    .AddQueryParameter("client_id", Settings.CurrentSettings.ClientID);
 
-                        string query = "SELECT \"image_path\" FROM public.ct_header WHERE id_terminal=@id_terminal AND id_client=@id_client";
+                RestResponse response = await client.ExecuteAsync(request);
+                string[] responseArray = JsonConvert.DeserializeObject<string[]>(response.Content);
 
-                        Cmd.CommandText = query;
-                        Cmd.Parameters.AddWithValue("@id_terminal", Convert.ToInt32(Settings.CurrentSettings.TerminalID));
-                        Cmd.Parameters.AddWithValue("@id_client", Convert.ToInt32(Settings.CurrentSettings.ClientID));
 
-                        using (NpgsqlDataReader reader = Cmd.ExecuteReader())
-                        {
-                            if (reader.HasRows)
-                            {
-                                UpdateLog("hay header");
 
-                                if (reader.Read())
-                                {
-                                    fileName = reader.GetString(0);
-                                    UpdateLog(fileName);
-                                }
-                                else
-                                {
-                                    UpdateLog("error en la lectura del archivo");
-                                }
-                            }
-                            else
-                            {
-                                UpdateLog("no hay header");
-                            }
-                        }
-                    }
+                if (responseArray[0] != null)
+                {
+
+                    fileName = responseArray[0];
+
+                }
+
+
             }
             catch (Exception ex)
             {
-                UpdateLogBox("LoadCustomHeader(): " + ex.Message);
-                UpdateLog("LoadCustomHeader(): " + ex.Message);
+                UpdateLogBox("LoadHeader(): " + ex.Message);
 
-                if (DBProvider.remoteConnection.State != ConnectionState.Open)
-                    DBProvider.InitRemoteDB();
+                
             }
-
 
             if (fileName.Length > 0)
             {
-                try
+                string destinationFile = Path.Combine(Settings.ConfigDirectory, "headers");
+                
+                if (Azure.DownloadImage(fileName, destinationFile))
                 {
-                    string sourcePath = Settings.CurrentSettings.FTPServer + ":" + Settings.CurrentSettings.FTPPort.ToString() +
-                                            "/" + fileName;
-                    string destinationFile = Path.Combine(Settings.ConfigDirectory, "headers");
-                    if (!Directory.Exists(destinationFile))
-                        Directory.CreateDirectory(destinationFile);
                     destinationFile = Path.Combine(destinationFile, Path.GetFileName(fileName));
-                    if (FTP.FTPDownload(sourcePath, destinationFile))
-                    {
-                        customHeader = destinationFile;
-                    }
-                }catch (Exception ex)
-                {
-                    UpdateLog(ex.Message);
+                    customHeader = destinationFile;
                 }
             }
             else
@@ -440,7 +415,6 @@ namespace Skyticket
                 customHeader = "";
                 UpdateLog("no hay nada que mover");
             }
-               
         }
         //***********************************//
         private void Start()
@@ -523,6 +497,8 @@ namespace Skyticket
                     {
                         UpdateLogBox("SerialPort: " + ex.Message);
                     }
+
+                   
                     
                     //UpdateLogBox("Service started, listening on port " + Settings.CurrentSettings.ListenPort.ToString());
                 }
@@ -863,22 +839,21 @@ namespace Skyticket
         //***********************************//
         private void PrintJobThreadFunction()
         {
-            ThreadPool.QueueUserWorkItem(delegate { LoadCoupon(); });
+            ThreadPool.QueueUserWorkItem(delegate { LoadCouponAsync(); });
 
             ThreadPool.QueueUserWorkItem(delegate { LoadCustomHeader(); });
 
-
-            TicketDialog.contactsInfo = CustomerInfo.LoadCustomerInfo();
-
-            if (Settings.CurrentSettings.CodiEnabled)
+            if (Settings.CurrentSettings.InternationlVersion)
             {
-                CodiAPI.codiInfo = CodiInfo.LoadCodiInfo();
-                if (Settings.CurrentSettings.CodiEnabled)
-                {
-                    CodiPayment.StartStatusThread();
-                    ThreadPool.QueueUserWorkItem(delegate { Application.Run(codiForm); });
-                }
+                TicketDialogOptions.contactsInfo = CustomerInfo.LoadCustomerInfo();
             }
+            else
+            {
+                TicketDialog.contactsInfo = CustomerInfo.LoadCustomerInfo();
+            }
+           
+
+           
 
             ThreadPool.QueueUserWorkItem(delegate
             {
@@ -969,6 +944,7 @@ namespace Skyticket
         //******************************//
         private void ProcessJob(string psFilePath)
         {
+            string barcode = "";
             try
             {
                 clipPhone = Clipboard.GetText();
@@ -1008,7 +984,15 @@ namespace Skyticket
 
                     Thread ticketDialogThread = new Thread(() =>
                     {
-                        ticketChoice = TicketDialog.ShowPopUp();
+                        if (Settings.CurrentSettings.InternationlVersion)
+                        {
+                            ticketChoice = TicketDialogOptions.ShowPopUp();
+                        }
+                        else
+                        {
+                            ticketChoice = TicketDialog.ShowPopUp();
+                        }
+                        
                     });
                     ticketDialogThread.Priority = ThreadPriority.Highest;
                     ticketDialogThread.SetApartmentState(ApartmentState.STA);
@@ -1165,6 +1149,7 @@ namespace Skyticket
                         bytesStr = bytesStr.ToUpper().Replace("1B69", "");
                         posBytes = Converters.HexStringToByteArray(bytesStr);
                         printBytes.AddRange(posBytes);
+
                     }
                     printBytes.AddRange(PrintHelper.initBytes);
                 }
@@ -1243,6 +1228,32 @@ namespace Skyticket
                             ThreadPool.QueueUserWorkItem(delegate { PrintHelper.Print(PrintHelper.cutBytes); });
                         }
                     }
+                    else if (Settings.CurrentSettings.PosType == POSTypes.OPOS)
+                    {
+                        try
+                        {
+                            // Abrir el puerto serial
+                            
+
+                            // Leer el contenido del archivo de texto
+                            string dataToSend = File.ReadAllText(processedJobPath);
+
+                            // Enviar información a través del puerto serial
+                            port.WriteLine(dataToSend);
+
+                            Console.WriteLine("Datos enviados correctamente.");
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine("Error al enviar datos: " + ex.Message);
+                        }
+                        finally
+                        {
+                            // Cerrar el puerto serial al finalizar
+                            
+                        }
+
+                    }
                     else
                     {
                         printBytes.AddRange(PrintHelper.cutBytes);
@@ -1272,6 +1283,7 @@ namespace Skyticket
                     stopwatch.Start();
                 }
 
+
                 if (File.Exists(customHeader))
                 {
                     try
@@ -1287,8 +1299,10 @@ namespace Skyticket
                     stopwatch.Reset();
                     stopwatch.Start();
                 }
-
-                try
+                
+                    AddBarCode(pngFilePath, out receiptHeight);
+                    
+                  try
                 {
                     AddCouponImage(pngFilePath, out receiptHeight);
                     stopwatch.Stop();
@@ -1624,12 +1638,12 @@ namespace Skyticket
                 }
 
                 ti.sent = true;
-                ti.datesent = DateTime.Now;
+                ti.datesent = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                 ti.details = SaveJobTextDB(jobFileName);
+                Task<bool> task = TicketRequestAsync(ti);
+                result = task.Result;
 
-                result =  TicketRequest(ti);
-
-                if (Settings.CurrentSettings.CustomerFeedback)
+                if (Settings.CurrentSettings.CustomerFeedback && Settings.CurrentSettings.InternationlVersion == false)
                     TicketDialog.SaveFeedback();
             }
             catch (Exception ex)
@@ -1756,7 +1770,7 @@ namespace Skyticket
             return text;
         }
         //******************************//
-        private void UploadJobsThreadFunction()
+        private async void UploadJobsThreadFunction()
         {
             int JobWithoutPng;
             while (isRunning)
@@ -1779,7 +1793,7 @@ namespace Skyticket
                         else
                         {
                             byte[] imageBytes = File.ReadAllBytes(pngFilePath);
-                            if (FTP.FTPUpload(job.ticketImage, imageBytes))
+                            if (await Azure.UploadImageAsync(pngFilePath))
                             {
 
                                 bool remoteResult = false;
@@ -1818,6 +1832,7 @@ namespace Skyticket
         //******************************//
         private bool WritePSToPng(string psFile, string pngFile, int page = 1)
         {
+           
             bool returnVal = false;
             string inputFile = psFile;
 
@@ -1874,7 +1889,15 @@ namespace Skyticket
                     File.Move(psFile, unprocessPath);
 
                     //Thread.Sleep(1500);
-                    TicketDialog.ClosePopup();
+                    if (Settings.CurrentSettings.InternationlVersion)
+                    {
+                        TicketDialogOptions.ClosePopup();
+                    }
+                    else
+                    {
+                        TicketDialog.ClosePopup();
+                    }
+                    
                     string originFilePath = System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase.Replace("file:///", "");
                     Updater.ExecuteSelf(originFilePath, "-d");
 
@@ -2064,6 +2087,73 @@ namespace Skyticket
             GC.Collect();
         }
         //***********************************//
+        private void AddBarCode(string pngFile, out int receiptHeight)
+        {
+            UpdateLogBox("Agregando codigo de barras");
+
+            receiptHeight = 0;
+            Bitmap newImage = null;
+            int couponHeight = 512;
+            using (Image ticketImage = Image.FromFile(pngFile))
+            {
+                receiptHeight = ticketImage.Height;
+
+                
+                if (File.Exists(Settings.CurrentSettings.OutputPath+"\\barcode.png"))
+                {
+
+                    using (Image barCodeImage = Image.FromFile(Settings.CurrentSettings.OutputPath + "\\barcode.png"))
+                    {
+                        int width = ticketImage.Width;
+                        int height = ticketImage.Height;
+
+                        double proportion = (double)barCodeImage.Width / (double)barCodeImage.Height;
+                        couponHeight = (int)((double)width / proportion);
+                        //string timeStamp = DateTime.Now.ToString("yyyyMMddHHmmssfff");
+                        //string pngfileName = timeStamp + ".png";
+                        //string pngFilePath = Path.Combine(Settings.CurrentSettings.OutputPath, pngfileName);
+                        newImage = new Bitmap(width, height + couponHeight);// couponImage.Height);
+
+                        Graphics g = Graphics.FromImage(newImage);
+
+                        g.Clear(Color.White);
+                        g.DrawImage(ticketImage, 0, 0, ticketImage.Width, ticketImage.Height);
+
+                        g.DrawImage(barCodeImage, 0, ticketImage.Height, ticketImage.Width, couponHeight);// couponImage.Height);
+
+                        g.Dispose();
+                    }
+                }
+
+                ticketImage.Dispose();
+            }
+
+            if (newImage != null)
+            {
+                newImage.Save(pngFile, ImageFormat.Png);
+                File.Delete(Settings.CurrentSettings.OutputPath + "\\barcode.png");
+                receiptHeight = newImage.Height;
+                newImage.Dispose();
+            }
+
+            //if (Settings.CurrentSettings.PoweredLogoEnabled)
+            //{
+            //    string destinationFile = Path.Combine(Settings.ConfigDirectory, "coupons");
+            //    destinationFile = Path.Combine(destinationFile, "power.png");
+
+            //    if (newImage != null)
+            //    {
+
+            //    }
+            //    else
+            //    {
+
+            //    }
+
+            //}
+
+            GC.Collect();
+        }
         private void AddPoweredImage(string pngFile, out int receiptHeight)
         {
             receiptHeight = 0;
@@ -2677,6 +2767,8 @@ namespace Skyticket
             
             bool returnVal = false;
             string ticketText = "";
+            
+
 
             try
             {
@@ -2699,7 +2791,7 @@ namespace Skyticket
 
                     ticketText += line;
 
-                   
+
 
                     if (Settings.CurrentSettings.PosType == POSTypes.Aloha)
                     {
@@ -2710,6 +2802,9 @@ namespace Skyticket
                     Offset = Offset + 25;
                 }
 
+                
+                   
+
 
 
                 var trimmedImage = ImageTrimWhite(ticketImage);
@@ -2717,12 +2812,18 @@ namespace Skyticket
                 ticketImage.Dispose();
 
                 trimmedImage.Save(pngFile, ImageFormat.Png);
-
-                //ticketImage.Save(pngFile, ImageFormat.Png);
-
-                returnVal = true;
                 trimmedImage.Dispose();
                 GC.Collect();
+
+                //ticketImage.Save(pngFile, ImageFormat.Png);
+                barcode = GenerateBarCode.GetCode(ticketText);
+               
+                    
+                
+
+                returnVal = true;
+                
+
             }
             catch (Exception ex)
             {
@@ -2750,7 +2851,7 @@ namespace Skyticket
             {
                 MessageBox.Show(ex.Message+"Mainform", "validacion de proceso lealtad");    
             }
-            alertCreation();
+           
 
 
             return returnVal;
@@ -2914,41 +3015,33 @@ namespace Skyticket
 
         }
 
-        private static bool TicketRequest(Ticket ti)
+        private static async Task<bool> TicketRequestAsync(Ticket ti)
         {
             UpdateLogBox("TicketReq");
             bool result = false;
             try
             {
-                var ticket = new RestClient("https://skyticketapi.azurewebsites.net/");
-                ticket.Timeout = -1;
-                var request = new RestRequest("tickets", Method.POST);
-                request.AddJsonBody(ti);
-
-                IRestResponse response = ticket.Execute(request);
-
-                var ticketr = JsonConvert.DeserializeObject<TicketRes>(response.Content);
-
-                id_ticketr = ticketr.ticket.id;
-
-                if (id_ticketr != 0)
+                var options = new RestClientOptions("https://api-skymanagement.azure-api.net/NewReceipt/")
                 {
+                    MaxTimeout = -1,
+                };
+                var client = new RestClient(options);
+
+                var request = new RestRequest("/tickets", Method.Post)
+
+                    .AddJsonBody(ti);
+
+                RestResponse response = await client.ExecuteAsync(request);
+                string jsonResponse = response.Content.Trim('"').Replace("\\", "");
+
+
+                Ticket ticketr = JsonConvert.DeserializeObject<Ticket>(jsonResponse);
+
+                UpdateLogBox($"Respuesta: {response.StatusCode}");
+
+                id_ticketr = ticketr._id;
+                if (id_ticketr.Length > 0)
                     result = true;
-                    if (hasAlert)
-                    {
-
-                        var client = new RestClient("https://skyticketapi.azurewebsites.net/updateAlert?id_ticket=" + id_ticketr + "&clipBoard=" + clipPhone + "&id_terminal=" + Settings.CurrentSettings.TerminalID);
-                        client.Timeout = -1;
-                        var alertRequest = new RestRequest(Method.POST);
-
-                        IRestResponse alertResponse = client.Execute(alertRequest);
-
-                        Clipboard.Clear();
-                        coupon = false;
-                        hasAlert = false;
-                        clipPhone = "";
-                    }
-                }
 
             }
             catch (Exception ex)
@@ -2959,72 +3052,55 @@ namespace Skyticket
             return result;
 
         }
+        //private static async Task<bool> TicketRequestAsync(Ticket ti)
+        //{
+        //    UpdateLogBox("TicketReq");
+        //    bool result = false;
+        //    try
+        //    {
+        //        var options = new RestClientOptions("https://skyticketapi.azurewebsites.net/")
+        //        {
+        //            MaxTimeout = -1,
+        //        };
+        //        var client = new RestClient(options);
+        //        var request = new RestRequest("/tickets", Method.Post)
+        //            .AddJsonBody(ti);
 
-        public static void FeedRequest( FeedInfo feed)
+        //        RestResponse response = await client.ExecuteAsync(request);
+
+
+
+
+        //        var ticketr = JsonConvert.DeserializeObject<TicketRes>(response.Content);
+
+        //        id_ticketr = ticketr.ticket.id;
+        //        if (id_ticketr != 0)
+        //            result = true;
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        //MessageBox.Show(ex.Message, "modificacion proceso lealtad");
+        //    }
+
+        //    return result;
+
+        //}
+
+        public static async Task FeedRequestAsync( FeedInfo feed)
         {
-            var feedback = new RestClient("https://skyticketapi.azurewebsites.net/");
-            feedback.Timeout = -1;
-            var request = new RestRequest("feedback", Method.POST);
-            request.AddJsonBody(feed);
+            var options = new RestClientOptions("https://skyticketapi.azurewebsites.net/")
+            {
+                MaxTimeout = -1,
+            };
+            var client = new RestClient(options);
+            var request = new RestRequest("/feedback", Method.Post)
+                .AddJsonBody(feed);
 
-            IRestResponse response = feedback.Execute(request);
+            RestResponse response = await client.ExecuteAsync(request);
+
         }
 
-        public static void alertCreation()
-        {
-            string res = "";
-            
-            try
-            {
-
-                
-
-                if (clipPhone.Length < 0 || clipPhone == null)
-                {
-                    clipPhone = "no hay nada copiado";
-                }
-
-                res = clipPhone.Substring(0, 1);
-
-                UpdateLogBox("clip"+clipPhone);
-            }
-            catch (Exception ex)
-            {
-
-            }
-            if (coupon == true && res != "L")
-            {
-                hasAlert = true;
-                //agregamos la alerta de cupon aplicado y no canjeado
-                var client = new RestClient("https://skyticketapi.azurewebsites.net/alert?id=" + Settings.CurrentSettings.TerminalID + "&alerta=Aplico y no canjeo");
-                client.Timeout = -1;
-                var request = new RestRequest(Method.POST);
-
-                IRestResponse response = client.Execute(request);
-                // lealtad MessageBox.Show(new Form { TopMost = true }, "Se ha detectado una anomalia al aplicar el cupon, se notificara al gerente de sucursal", "Alerta Aplico", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-
-            }
-            else if (coupon == false && res == "L")
-            {
-                hasAlert = true;
-                //agregamos la alerta de cupon canjeado y no aplicado
-
-                var client = new RestClient("https://skyticketapi.azurewebsites.net/alert?id=" + Settings.CurrentSettings.TerminalID + "&alerta=Canjeo y no aplico");
-                client.Timeout = -1;
-                var request = new RestRequest(Method.POST);
-
-                IRestResponse response = client.Execute(request);
-
-                //MessageBox.Show(new Form { TopMost = true }, "Se ha detectado una anomalia al aplicar el cupon, se notificara al gerente de sucursal", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-
-            }
-
-            coupon = false;
-            Clipboard.Clear();
-           
-        }
 
 
 

@@ -33,11 +33,6 @@
             this.InputLabel = new System.Windows.Forms.Label();
             this.OKButton = new System.Windows.Forms.Button();
             this.MethodLabel = new System.Windows.Forms.Label();
-            this.EmailButton = new System.Windows.Forms.Button();
-            this.SMSButton = new System.Windows.Forms.Button();
-            this.PaperButton = new System.Windows.Forms.Button();
-            this.WhatsappButton = new System.Windows.Forms.Button();
-            this.BatchButton = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
@@ -55,6 +50,10 @@
             this.CommentsBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.TicketLabel = new System.Windows.Forms.Label();
+            this.BatchButton = new System.Windows.Forms.Button();
+            this.btnNoPrint = new System.Windows.Forms.Button();
+            this.PaperButton = new System.Windows.Forms.Button();
+            this.WhatsappButton = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -83,51 +82,6 @@
             // 
             resources.ApplyResources(this.MethodLabel, "MethodLabel");
             this.MethodLabel.Name = "MethodLabel";
-            // 
-            // EmailButton
-            // 
-            this.EmailButton.BackColor = System.Drawing.Color.White;
-            resources.ApplyResources(this.EmailButton, "EmailButton");
-            this.EmailButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(92)))), ((int)(((byte)(44)))));
-            this.EmailButton.Name = "EmailButton";
-            this.EmailButton.UseVisualStyleBackColor = false;
-            this.EmailButton.Click += new System.EventHandler(this.EmailButton_Click);
-            // 
-            // SMSButton
-            // 
-            this.SMSButton.BackColor = System.Drawing.Color.White;
-            resources.ApplyResources(this.SMSButton, "SMSButton");
-            this.SMSButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(92)))), ((int)(((byte)(44)))));
-            this.SMSButton.Name = "SMSButton";
-            this.SMSButton.UseVisualStyleBackColor = false;
-            this.SMSButton.Click += new System.EventHandler(this.SMSButton_Click);
-            // 
-            // PaperButton
-            // 
-            this.PaperButton.BackColor = System.Drawing.Color.White;
-            resources.ApplyResources(this.PaperButton, "PaperButton");
-            this.PaperButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(92)))), ((int)(((byte)(44)))));
-            this.PaperButton.Name = "PaperButton";
-            this.PaperButton.UseVisualStyleBackColor = false;
-            this.PaperButton.Click += new System.EventHandler(this.PaperButton_Click);
-            // 
-            // WhatsappButton
-            // 
-            this.WhatsappButton.BackColor = System.Drawing.Color.White;
-            resources.ApplyResources(this.WhatsappButton, "WhatsappButton");
-            this.WhatsappButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(92)))), ((int)(((byte)(44)))));
-            this.WhatsappButton.Name = "WhatsappButton";
-            this.WhatsappButton.UseVisualStyleBackColor = false;
-            this.WhatsappButton.Click += new System.EventHandler(this.WhatsappButton_Click);
-            // 
-            // BatchButton
-            // 
-            this.BatchButton.BackColor = System.Drawing.Color.White;
-            resources.ApplyResources(this.BatchButton, "BatchButton");
-            this.BatchButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(92)))), ((int)(((byte)(44)))));
-            this.BatchButton.Name = "BatchButton";
-            this.BatchButton.UseVisualStyleBackColor = false;
-            this.BatchButton.Click += new System.EventHandler(this.BatchButton_Click);
             // 
             // button8
             // 
@@ -266,6 +220,42 @@
             resources.ApplyResources(this.TicketLabel, "TicketLabel");
             this.TicketLabel.Name = "TicketLabel";
             // 
+            // BatchButton
+            // 
+            this.BatchButton.BackColor = System.Drawing.Color.White;
+            resources.ApplyResources(this.BatchButton, "BatchButton");
+            this.BatchButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(92)))), ((int)(((byte)(44)))));
+            this.BatchButton.Name = "BatchButton";
+            this.BatchButton.UseVisualStyleBackColor = false;
+            this.BatchButton.Click += new System.EventHandler(this.BatchButton_Click);
+            // 
+            // btnNoPrint
+            // 
+            this.btnNoPrint.BackColor = System.Drawing.Color.White;
+            resources.ApplyResources(this.btnNoPrint, "btnNoPrint");
+            this.btnNoPrint.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(92)))), ((int)(((byte)(44)))));
+            this.btnNoPrint.Name = "btnNoPrint";
+            this.btnNoPrint.UseVisualStyleBackColor = false;
+            this.btnNoPrint.Click += new System.EventHandler(this.TelegramButton_Click);
+            // 
+            // PaperButton
+            // 
+            this.PaperButton.BackColor = System.Drawing.Color.White;
+            resources.ApplyResources(this.PaperButton, "PaperButton");
+            this.PaperButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(92)))), ((int)(((byte)(44)))));
+            this.PaperButton.Name = "PaperButton";
+            this.PaperButton.UseVisualStyleBackColor = false;
+            this.PaperButton.Click += new System.EventHandler(this.PaperButton_Click);
+            // 
+            // WhatsappButton
+            // 
+            this.WhatsappButton.BackColor = System.Drawing.Color.White;
+            resources.ApplyResources(this.WhatsappButton, "WhatsappButton");
+            this.WhatsappButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(92)))), ((int)(((byte)(44)))));
+            this.WhatsappButton.Name = "WhatsappButton";
+            this.WhatsappButton.UseVisualStyleBackColor = false;
+            this.WhatsappButton.Click += new System.EventHandler(this.WhatsappButton_Click);
+            // 
             // TicketDialog
             // 
             resources.ApplyResources(this, "$this");
@@ -277,8 +267,7 @@
             this.Controls.Add(this.OKButton);
             this.Controls.Add(this.InputBox);
             this.Controls.Add(this.InputLabel);
-            this.Controls.Add(this.EmailButton);
-            this.Controls.Add(this.SMSButton);
+            this.Controls.Add(this.btnNoPrint);
             this.Controls.Add(this.PaperButton);
             this.Controls.Add(this.WhatsappButton);
             this.Controls.Add(this.groupBox1);
@@ -300,8 +289,7 @@
         #endregion
         private System.Windows.Forms.Button WhatsappButton;
         private System.Windows.Forms.Button PaperButton;
-        private System.Windows.Forms.Button SMSButton;
-        private System.Windows.Forms.Button EmailButton;
+        private System.Windows.Forms.Button btnNoPrint;
         private System.Windows.Forms.TextBox InputBox;
         private System.Windows.Forms.Label InputLabel;
         private System.Windows.Forms.Button OKButton;

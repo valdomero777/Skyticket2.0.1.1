@@ -47,8 +47,8 @@
             this.LogBox = new System.Windows.Forms.TextBox();
             this.CouponButton = new System.Windows.Forms.Button();
             this.TestButton = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.versionLabel = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -173,17 +173,17 @@
             this.TestButton.UseVisualStyleBackColor = true;
             this.TestButton.Click += new System.EventHandler(this.TestButton_Click);
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::Skyticket.Properties.Resources.label;
-            resources.ApplyResources(this.pictureBox1, "pictureBox1");
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.TabStop = false;
-            // 
             // versionLabel
             // 
             resources.ApplyResources(this.versionLabel, "versionLabel");
             this.versionLabel.Name = "versionLabel";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::Skyticket.Properties.Resources.YUPIO_IMAGOTIPO_FINAL_color_horizontal;
+            resources.ApplyResources(this.pictureBox1, "pictureBox1");
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.TabStop = false;
             // 
             // MainForm
             // 

@@ -98,6 +98,8 @@ namespace Skyticket
             CustFeedbackCheck.Checked = Settings.CurrentSettings.CustomerFeedback;
 
             cmbTypePos.SelectedItem = Settings.CurrentSettings.PosType.ToString();
+            chckNoPrint.Checked = Settings.CurrentSettings.NoPrint;
+            chckInternational.Checked = Settings.CurrentSettings.InternationlVersion;
 
         }
         //*******************************//
@@ -118,8 +120,12 @@ namespace Skyticket
             {
                 Settings.CurrentSettings.PosType = POSTypes.Others;
             }
+            else if (cmbTypePos.Text == "OPOS")
+            {
+                Settings.CurrentSettings.PosType = POSTypes.OPOS;
+            }
 
-                Settings.CurrentSettings.OutputPath = OutputFolderBox.Text;
+            Settings.CurrentSettings.OutputPath = OutputFolderBox.Text;
 
             if (NetworkRadioButton.Checked)
                 Settings.CurrentSettings.ConnectionType = ConnectionTypes.Network;
@@ -168,6 +174,8 @@ namespace Skyticket
 
             Settings.CurrentSettings.MinimizeToTray = MinimizeTrayBox.Checked;
             Settings.CurrentSettings.CustomerFeedback = CustFeedbackCheck.Checked;
+            Settings.CurrentSettings.NoPrint = chckNoPrint.Checked; 
+            Settings.CurrentSettings.InternationlVersion = chckInternational.Checked;
 
             Settings.SaveSettings();
             this.Close();

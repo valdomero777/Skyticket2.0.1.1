@@ -75,16 +75,16 @@ namespace Skyticket
                     LogError("AddVPrinter", ex.Message, ex);
                 }
 
-                try
-                {
-                    PrinterInstaller installer = new PrinterInstaller();
-                    installer.InstallPrinterWMI();
-                    //bool resultPort = installer.CreatePrinterPort();
-                }
-                catch (Exception ex)
-                {
-                    LogError("AddVPrinter", ex.Message, ex);
-                }
+                //try
+                //{
+                //    PrinterInstaller installer = new PrinterInstaller();
+                //    installer.InstallPrinterWMI();
+                //    //bool resultPort = installer.CreatePrinterPort();
+                //}
+                //catch (Exception ex)
+                //{
+                //    LogError("AddVPrinter", ex.Message, ex);
+                //}
 
                 {
                     var process = new Process();
@@ -100,7 +100,7 @@ namespace Skyticket
                     process.Dispose();
                 }
 
-                LaunchHelper.RunAsDesktopUser("C:\\Program Files\\Skyticket\\SetupSerial.exe");
+               // LaunchHelper.RunAsDesktopUser("C:\\Program Files\\Skyticket\\SetupSerial.exe");
                 LaunchHelper.RunAsDesktopUser("C:\\Program Files\\Skyticket\\Skyticket.exe");
                 //if (IntPtr.Size == 8)
                 //    LaunchHelper.RunAsDesktopUser("C:\\Program Files\\Skyticket\\Skyticket.exe");
