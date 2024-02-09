@@ -1131,7 +1131,7 @@ namespace Skyticket
                         string bytesStr = Converters.ByteArrayToHexString(posBytes);
                         bytesStr = bytesStr.ToUpper().Replace("1D564200", "");
                         bytesStr = bytesStr.ToUpper().Replace("1B69", "");
-                        bytesStr = bytesStr.ToUpper().Replace("�", "");
+                        bytesStr = bytesStr.ToUpper().Replace("65533", "");
                         posBytes = Converters.HexStringToByteArray(bytesStr);
                         printBytes.AddRange(posBytes);
 
