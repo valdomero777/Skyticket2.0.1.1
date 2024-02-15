@@ -1179,8 +1179,14 @@ namespace Skyticket
                             string bytesStr = Converters.ByteArrayToHexString(posBytes);
                             bytesStr = bytesStr.ToUpper().Replace("1D564200", "");
                             bytesStr = bytesStr.ToUpper().Replace("1B69", "");
-                            bytesStr = bytesStr.ToUpper().Replace("U+fffd", "");
+                            bytesStr = bytesStr.Replace("EFBFBD", " "); // Reemplaza el carácter de reemplazo � por un espacio en blanco
+                            bytesStr = Regex.Replace(bytesStr, @"[^\x20-\x7E]", ""); // Elimina los caracteres no ASCII
+                            bytesStr = Regex.Replace(bytesStr, @"\s+", ""); // Elimina los espacios en blanco
+                            bytesStr = bytesStr.Replace("-", ""); // Reemplaza los guiones
+                            bytesStr = bytesStr.Replace(":", ""); // Reemplaza los dos puntos
+                            bytesStr = bytesStr.Replace(",", ""); // Reemplaza las comas
                             posBytes = Converters.HexStringToByteArray(bytesStr);
+
                             printBytes.AddRange(posBytes);
 
                         }
