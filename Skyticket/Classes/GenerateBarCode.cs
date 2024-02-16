@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.UI.WebControls;
+using System.Windows.Forms;
 using ZXing;
 using ZXing.Common;
 using ZXing.QrCode.Internal;
@@ -50,7 +51,7 @@ namespace Skyticket.Classes
             string barcode = "";
             try
             {
-                Regex regex = new Regex(@"\b\d{16}\b"); //ABC
+                Regex regex = new Regex(@"T001-\d{7}\b"); //ABC
                 //Regex regex = new Regex(@"\b\d{24}\b"); //Calimax
                 MatchCollection matches = regex.Matches(ticketText);
 
@@ -66,7 +67,6 @@ namespace Skyticket.Classes
             {
                 MainForm.UpdateLogBox(ex.Message);
             }
-
             return barcode;
 
         }

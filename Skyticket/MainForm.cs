@@ -52,6 +52,8 @@ namespace Skyticket
         static Socket currentClient = null;
         static Thread PortThread;
 
+        static string codebarpath = Settings.CurrentSettings.OutputPath + "\\barcode.png";
+
         //*****
         SerialPort port = new SerialPort(); 
         SerialPort secondport = new SerialPort();
@@ -1177,17 +1179,15 @@ namespace Skyticket
                         else
                         {
                             string bytesStr = Converters.ByteArrayToHexString(posBytes);
+
                             bytesStr = bytesStr.ToUpper().Replace("1D564200", "");
                             bytesStr = bytesStr.ToUpper().Replace("1B69", "");
-                            bytesStr = bytesStr.Replace("EFBFBD", " "); // Reemplaza el carácter de reemplazo � por un espacio en blanco
-                            bytesStr = Regex.Replace(bytesStr, @"[^\x20-\x7E]", ""); // Elimina los caracteres no ASCII
-                            bytesStr = Regex.Replace(bytesStr, @"\s+", ""); // Elimina los espacios en blanco
-                            bytesStr = bytesStr.Replace("-", ""); // Reemplaza los guiones
-                            bytesStr = bytesStr.Replace(":", ""); // Reemplaza los dos puntos
-                            bytesStr = bytesStr.Replace(",", ""); // Reemplaza las comas
-                            posBytes = Converters.HexStringToByteArray(bytesStr);
+                            bytesStr = bytesStr.Replace("EFBFBD", "");
+                            bytesStr = Regex.Replace(bytesStr, @"[\s-:,]", "");
 
+                            posBytes = Converters.HexStringToByteArray(bytesStr);
                             printBytes.AddRange(posBytes);
+
 
                         }
                         printBytes.AddRange(PrintHelper.initBytes);
@@ -1197,11 +1197,34 @@ namespace Skyticket
                     //add coupon, powered logo and customer info to print data
                     {
                         string couponToUse = "";
+
+                        if (ticketType == 1)
+                        {
+                            stopwatch.Stop();
+                            string[] ticketLines = GetESCPOSText(processedJobPath);
+
+                            if (ticketLines.Length > 0)
+                            {
+                                bool result = WriteTextToPng(ticketLines, pngFilePath);
+                            }
+                            UpdateLogBox("(for upload) WriteTextToPng in ms " + stopwatch.ElapsedMilliseconds);
+                            stopwatch.Reset();
+                            stopwatch.Start();
+                        }
+
                         if (File.Exists(couponFileName))
                             couponToUse = couponFileName;
                         else if (File.Exists(previousCouponFileName))
                             couponToUse = previousCouponFileName;
 
+                        
+                        if (File.Exists(codebarpath))
+                        {
+                            Bitmap bitmap = PrintHelper.ConvertToBitmap(codebarpath);
+                            //printBytes.Clear();
+                            //printBytes.AddRange(PrintHelper.initBytes);
+                            printBytes.AddRange(PrintHelper.GetImageBytes(bitmap));
+                        }
 
                         if (File.Exists(couponToUse))
                         {
@@ -1321,19 +1344,7 @@ namespace Skyticket
                     }
                    
 
-                    if (ticketType == 1)
-                    {
-                        stopwatch.Stop();
-                        string[] ticketLines = GetESCPOSText(processedJobPath);
-
-                        if (ticketLines.Length > 0)
-                        {
-                            bool result = WriteTextToPng(ticketLines, pngFilePath);
-                        }
-                        UpdateLogBox("(for upload) WriteTextToPng in ms " + stopwatch.ElapsedMilliseconds);
-                        stopwatch.Reset();
-                        stopwatch.Start();
-                    }
+                    
 
 
                     if (File.Exists(customHeader))
