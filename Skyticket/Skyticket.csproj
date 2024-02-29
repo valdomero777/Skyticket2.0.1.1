@@ -141,6 +141,9 @@
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="NHunspell, Version=1.2.5554.16953, Culture=neutral, PublicKeyToken=1ac793ea843b4366, processorArchitecture=MSIL">
+      <HintPath>..\packages\NHunspell.1.2.5554.16953\lib\net\NHunspell.dll</HintPath>
+    </Reference>
     <Reference Include="Npgsql, Version=4.1.3.1, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
       <HintPath>..\packages\Npgsql.4.1.3.1\lib\net461\Npgsql.dll</HintPath>
     </Reference>
@@ -494,6 +497,8 @@
     <None Include="Connected Services\SkyticketWebService\ws_tickets_in1.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Diccionario\es_MX.aff" />
+    <None Include="Diccionario\es_MX.dic" />
     <None Include="final certificate.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -507,6 +512,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Hunspellx64.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Hunspellx86.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="yupio-logo-32.ico" />
     <None Include="skyticket images\YUPIO_IMAGOTIPO_FINAL_color_horizontal.png" />
     <None Include="Resources\update.png" />
