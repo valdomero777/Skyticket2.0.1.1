@@ -3110,19 +3110,11 @@ namespace Skyticket
             string affFile = @"Diccionario\es_MX.aff";
             string dicFile = @"Diccionario\es_MX.dic";
 
-            // Inicializar Hunspell
             using (Hunspell hunspell = new Hunspell(affFile, dicFile))
             {
-                // Dividir el texto en palabras
                 string[] palabras = text.Split(new[] { ' ', ',', '.', '!', '?' }, StringSplitOptions.RemoveEmptyEntries);
-
-                // Anchura máxima de la línea (ajusta según tus necesidades)
                 int anchuraMaxima = 300;
-
-                // Lista para almacenar las líneas del texto corregido
                 List<string> lineasCorregidas = new List<string>();
-
-                // Inicializar la línea actual
                 string lineaActual = "";
 
                 String palabraActual = "";
@@ -3135,12 +3127,8 @@ namespace Skyticket
                     {
                         // Obtener sugerencias de corrección para la palabra
                         List<string> sugerencias = hunspell.Suggest(palabra);
-
-                        // Usar la primera sugerencia como corrección o mantener la palabra original si no hay sugerencias
                         string correccion = sugerencias.Count > 0 ? sugerencias[0] : palabra;
                         correccion = correctWords(correccion);
-
-                        // Agregar la palabra corregida a la línea actual
                         palabraActual = correccion;
                     }
                     else
@@ -3151,134 +3139,24 @@ namespace Skyticket
                     // Si la palabra cabe en la línea actual, agregarla
                     if (lineaActual.Length + palabraActual.Length + 1 <= anchuraMaxima)
                     {
-                        // Agregar la palabra a la línea actual
                         lineaActual += (lineaActual == "" ? "" : " ") + palabraActual;
                     }
                     else
                     {
-                        // Si la palabra no cabe en la línea actual, agregar la línea actual a la lista de líneas
                         lineasCorregidas.Add(lineaActual);
-
-                        // Iniciar una nueva línea con la palabra actual
                         lineaActual = palabraActual;
                     }
                 }
 
-                // Agregar la última línea al texto corregido
                 lineasCorregidas.Add(lineaActual);
 
                 // Unir las líneas corregidas en una cadena con saltos de línea
+
                 string textoFinal = string.Join("\n", lineasCorregidas);
 
                 return textoFinal;
             }
         }
-
-        /*
-
-        private string CorrectText(string text, String path)
-        {
-            // Ruta de los archivos del diccionario
-            string affFile = @"Diccionario\es_MX.aff";
-            string dicFile = @"Diccionario\es_MX.dic";
-
-            // Inicializar Hunspell
-            using (Hunspell hunspell = new Hunspell(affFile, dicFile))
-            {
-                // Dividir el texto en palabras
-                string[] palabras = text.Split(new[] { ' ', ',', '.', '!', '?' }, StringSplitOptions.RemoveEmptyEntries);
-
-                // Lista para almacenar el texto corregido
-                List<string> textoCorregido = new List<string>();
-
-                // Anchura máxima de la línea (ajusta según tus necesidades)
-                int anchuraMaxima = 400;
-
-                // Lista para almacenar las líneas del texto corregido
-                List<string> lineasCorregidas = new List<string>();
-
-                // Inicializar la línea actual
-                string lineaActual = "";
-
-                // Corregir ortografía de cada palabra que contenga caracteres especiales
-                foreach (string palabra in palabras)
-                {
-                    // Verificar si la palabra contiene caracteres especiales
-                    if (Regex.IsMatch(palabra, @"[\uFFFD]"))
-                    {
-                        // Obtener sugerencias de corrección para la palabra
-                        List<string> sugerencias = hunspell.Suggest(palabra);
-
-                        // Usar la primera sugerencia como corrección o mantener la palabra original si no hay sugerencias
-                        string correccion = sugerencias.Count > 0 ? sugerencias[0] : palabra;
-                        correccion = correctWords(correccion);
-                        textoCorregido.Add(correccion);
-                    }
-                    else
-                    {
-                        // Si la palabra no contiene caracteres especiales, mantenerla sin cambios
-                        textoCorregido.Add(palabra);
-                    }
-                }
-
-                // Unir las palabras corregidas de vuelta en una cadena
-                string textoFinal = string.Join(" ", textoCorregido);
-
-                return textoFinal;
-            }
-        }
-
-        /*
-         * private string CorrectText(string text, string path)
-{
-    // Ruta de los archivos del diccionario
-    string affFile = @"Diccionario\es_MX.aff";
-    string dicFile = @"Diccionario\es_MX.dic";
-
-    // Inicializar Hunspell
-    using (Hunspell hunspell = new Hunspell(affFile, dicFile))
-    {
-        // Dividir el texto en palabras
-        string[] palabras = text.Split(new[] { ' ', ',', '.', '!', '?' });
-
-        // Anchura máxima de la línea (ajusta según tus necesidades)
-        int anchuraMaxima = 400;
-
-        // Lista para almacenar las líneas del texto corregido
-        List<string> lineasCorregidas = new List<string>();
-
-        // Inicializar la línea actual
-        string lineaActual = "";
-
-        // Recorrer cada palabra y construir las líneas del texto corregido
-        foreach (string palabra in palabras)
-        {
-            // Si la palabra cabe en la línea actual, agregarla
-            if (lineaActual.Length + palabra.Length + 1 <= anchuraMaxima)
-            {
-                // Agregar la palabra a la línea actual
-                lineaActual += (lineaActual == "" ? "" : " ") + palabra;
-            }
-            else
-            {
-                // Si la palabra no cabe en la línea actual, agregar la línea actual a la lista de líneas
-                lineasCorregidas.Add(lineaActual);
-
-                // Iniciar una nueva línea con la palabra actual
-                lineaActual = palabra;
-            }
-        }
-
-        // Agregar la última línea al texto corregido
-        lineasCorregidas.Add(lineaActual);
-
-        // Unir las líneas corregidas en una cadena con saltos de línea
-        string textoFinal = string.Join("\n", lineasCorregidas);
-
-        return textoFinal;
-    }
-}
-        */
         private String correctHEX(String bytesStr)
         {
             bytesStr = bytesStr.ToUpper().Replace("1D564200", "");
