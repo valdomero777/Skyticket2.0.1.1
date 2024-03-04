@@ -283,6 +283,8 @@ namespace Skyticket
             }
         }
         //***********************************//
+
+
         private void CouponButton_Click(object sender, EventArgs e)
         {
             LoadCouponAsync();
@@ -2929,6 +2931,8 @@ namespace Skyticket
                     string textLine = (command as TextCommand).GetContent();
 
                     textLine = Regex.Replace(textLine, @"[^\u0020-\u00FE]+", string.Empty);
+                    textLine = Regex.Replace(textLine, @"([a-z])\?([a-z])", "$1ñ$2");
+                    textLine = Regex.Replace(textLine, @"([A-Z])\?([A-Z])", "$1Ñ$2");
                     textLine = textLine.Replace("aF", "");
                     textLine = textLine.Replace("\u001bJ", "\n");
                     textLine = textLine.Replace("\u001b\u001dt", "");
@@ -3091,8 +3095,9 @@ namespace Skyticket
             {
                 // Leer el contenido del archivo utilizando encoding
                 string fileContent = File.ReadAllText(path, Encoding.UTF8);
+                string condition = @"[\uFFFD]";
                 // Corregir caracteres en el texto
-                string correctedText = CorrectText(fileContent, path);
+                string correctedText = CorrectText(fileContent, condition);
 
                 // Escribir el texto corregido de vuelta al archivo
                 File.WriteAllText(path, correctedText, Encoding.UTF8);
@@ -3104,7 +3109,7 @@ namespace Skyticket
             }
         }
 
-        private string CorrectText(string text, string path)
+        private string CorrectText(string text, string condition)
         {
             // Ruta de los archivos del diccionario
             string affFile = @"Diccionario\es_MX.aff";
@@ -3112,7 +3117,7 @@ namespace Skyticket
 
             using (Hunspell hunspell = new Hunspell(affFile, dicFile))
             {
-                string[] palabras = text.Split(new[] { ' ', ',', '.', '!', '?' }, StringSplitOptions.RemoveEmptyEntries);
+                string[] palabras = text.Split(new[] { ' ', ',', '!', '?' }, StringSplitOptions.RemoveEmptyEntries);
                 int anchuraMaxima = 300;
                 List<string> lineasCorregidas = new List<string>();
                 string lineaActual = "";
@@ -3123,7 +3128,7 @@ namespace Skyticket
                 foreach (string palabra in palabras)
                 {
                     // Verificar si la palabra contiene caracteres especiales
-                    if (Regex.IsMatch(palabra, @"[\uFFFD]"))
+                    if (Regex.IsMatch(palabra, condition))
                     {
                         // Obtener sugerencias de corrección para la palabra
                         List<string> sugerencias = hunspell.Suggest(palabra);
