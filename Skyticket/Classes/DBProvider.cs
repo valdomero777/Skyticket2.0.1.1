@@ -17,19 +17,7 @@ namespace Skyticket
         public static object localDBLock = new object();
         public static SQLiteConnection localConnection;
 
-        public static void InitRemoteDB()
-        {
-            try
-            {
-                remoteConnection = new NpgsqlConnection(Settings.DBString);
-                remoteConnection.Open();
-            }
-            catch (Exception ex)
-            {
-                MainForm.UpdateLogBox("InitRemoteDB() " + ex.Message);
-            }
-            Console.WriteLine("remote DB Connection is: " + remoteConnection.State.ToString());
-        }
+        
 
 
         public static void InitLocalDB()

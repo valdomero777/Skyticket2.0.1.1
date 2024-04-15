@@ -1,10 +1,15 @@
-﻿using Npgsql;
+﻿using Newtonsoft.Json;
+using Npgsql;
+using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Skyticket
 {
@@ -13,69 +18,55 @@ namespace Skyticket
         public string nombreSucursal { get; set; }
         public string nombreTerminal { get; set; }
         public bool Estado { get; set; }
-        public int idsucursal { get; set;  }
+        public int idsucursal { get; set; }
         public int idterminal { get; set; }
         public int id_cliente { get; set; }
         //***********************************//
-        public static List<TerminalInfo> LoadTerminals(string licenseKey)
+        public static async Task<List<TerminalInfo>> LoadTerminals(string licenseKey)
         {
             List<TerminalInfo> infos = new List<TerminalInfo>();
 
             #region get Terminals
             try
             {
-                string mainQuery = @"
-                                    SELECT
-                                    nombresucursal,
-                                    nombreterminal,
-                                    estado,
-                                    idsucursal,
-                                    idterminal,
-                                    id_cliente
-                                FROM
-                                    vista_licencias_terminal
-                                WHERE
-                                    keylicencia=@keylicencia
-                                ORDER BY
-                                    idterminal;";
 
-                lock (DBProvider.remoteDBLock)
-                    using (NpgsqlCommand codiCmd = new NpgsqlCommand())
-                    {
-                        codiCmd.CommandType = CommandType.Text;
-                        codiCmd.Connection = DBProvider.remoteConnection;
-                        codiCmd.CommandText = mainQuery;
-                        codiCmd.Parameters.AddWithValue("@keylicencia", licenseKey);
-                        //codiCmd.Parameters.AddWithValue("@idterminal", Convert.ToInt32(Settings.CurrentSettings.TerminalID));
+                var options = new RestClientOptions("https://skyticketapi.azurewebsites.net/")
+                {
+                    MaxTimeout = -1,
+                };
+                var client = new RestClient(options);
+                var request = new RestRequest("/license?keylicense=" + licenseKey, Method.Get);
+                RestResponse response = await client.ExecuteAsync(request);
+                Console.WriteLine(response.Content);
 
-                        using (NpgsqlDataReader reader = codiCmd.ExecuteReader())
-                        {
-                            if (reader.HasRows)
-                            {
-                                while (reader.Read())
-                                {
-                                    try
-                                    {
-                                        TerminalInfo info = new TerminalInfo();
 
-                                        {
-                                            info.nombreSucursal = reader.GetString(0);
-                                            info.nombreTerminal = reader.GetString(1);
-                                            info.Estado = reader.GetBoolean(2);
-                                            info.idsucursal = reader.GetInt32(3);
-                                            info.idterminal = reader.GetInt32(4);
-                                            info.id_cliente = reader.GetInt32(5);
-                                            infos.Add(info);
-                                        }
-                                    }
-                                    catch (Exception ex)
-                                    {
-                                        Console.WriteLine("in LoadTerminals(): " + ex.Message + " **** " + ex.StackTrace + " **** " + ex.InnerException);
-                                    }
-                                }
-                            }
-                        }
-                    }
+
+
+                object[,] datos = JsonConvert.DeserializeObject<object[,]>(response.Content);
+
+                // iterar sobre la matriz y crear un objeto TerminalInfo para cada elemento
+                for (int i = 0; i < datos.GetLength(0); i++)
+                {
+                    // crear un nuevo objeto TerminalInfo
+                    TerminalInfo terminal = new TerminalInfo();
+
+                    // establecer los valores de las propiedades del objeto
+                    terminal.nombreSucursal = datos[i, 0].ToString().Trim();
+                    terminal.nombreTerminal = datos[i, 1].ToString().Trim();
+                    terminal.Estado = (bool)datos[i, 2];
+                    terminal.idsucursal = Convert.ToInt32(datos[i, 3]);
+                    terminal.idterminal = Convert.ToInt32(datos[i, 4]);
+                    terminal.id_cliente = Convert.ToInt32(datos[i, 5]);
+
+
+
+                    // agregar el objeto TerminalInfo a la lista
+                    infos.Add(terminal);
+                }
+
+
+
+
             }
             catch (Exception ex)
             {

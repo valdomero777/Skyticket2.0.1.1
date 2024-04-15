@@ -13,6 +13,7 @@ using System.Data;
 using Skyticket.Classes;
 using System.Linq;
 using RestSharp;
+using System.Threading.Tasks;
 
 namespace Skyticket
 {
@@ -92,8 +93,7 @@ namespace Skyticket
                 InputBox.Text = phone;
                 InputBox.Enabled = false;
                 PaperButton.Enabled = false;
-                SMSButton.Enabled = false;
-                EmailButton.Enabled = false;
+                
                 BatchButton.Enabled = false;
 
             }
@@ -350,13 +350,7 @@ namespace Skyticket
                 contactsInfo = CustomerInfo.LoadCustomerInfo();
             }
 
-            if (MaleButton.Checked)
-                Gender = MaleButton.Tag.ToString();
-            else if (FemaleButton.Checked)
-                Gender = FemaleButton.Tag.ToString();
-            else if (OtherButton.Checked)
-                Gender = OtherButton.Tag.ToString();
-            Comments = CommentsBox.Text;
+           
 
             this.DialogResult = DialogResult.OK;
             this.FormClosing -= TicketDialog_FormClosing;
@@ -469,18 +463,10 @@ namespace Skyticket
                     break;
             }
 
-            button1.BackColor = SystemColors.Control;
-            button2.BackColor = SystemColors.Control;
-            button3.BackColor = SystemColors.Control;
-            button4.BackColor = SystemColors.Control;
-            button5.BackColor = SystemColors.Control;
-            button6.BackColor = SystemColors.Control;
-            button7.BackColor = SystemColors.Control;
-            button8.BackColor = SystemColors.Control;
-            ((Button)sender).BackColor = SystemColors.InactiveCaption;
+         
         }
         //***************************************//
-        public static bool SaveFeedback()
+        public static async Task <bool> SaveFeedback()
         {
 
             FeedInfo feed = new FeedInfo();
@@ -494,7 +480,7 @@ namespace Skyticket
                 feed.gender = Gender;
                 feed.comments = Comments;
 
-                MainForm.FeedRequest(feed);
+                await MainForm.FeedRequestAsync(feed);
 
 
             }
@@ -502,8 +488,7 @@ namespace Skyticket
             {
                 MainForm.UpdateLogBox("SaveFeedback(): " + ex.Message);
 
-                if (DBProvider.remoteConnection.State != ConnectionState.Open)
-                    DBProvider.InitRemoteDB();
+                
             }
 
             return result;

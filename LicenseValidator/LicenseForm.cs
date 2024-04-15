@@ -22,15 +22,16 @@ namespace Skyticket
             this.DialogResult = DialogResult.Cancel;
         }
         //***********************************//
-        private void ValidateButton_Click(object sender, EventArgs e)
+        private async void ValidateButton_Click(object sender, EventArgs e)
         {
             ValidateButton.Enabled = false;
             ProceedButton.Enabled = false;
             try
             {
-                DBProvider.InitRemoteDB();
 
-                infos = TerminalInfo.LoadTerminals(LicenseKeyBox.Text);
+                infos = await TerminalInfo.LoadTerminals(LicenseKeyBox.Text);
+
+
 
                 if (infos.Count > 0)
                 {
@@ -38,6 +39,7 @@ namespace Skyticket
                     {
                         SucursalList.Items.Add(info.nombreSucursal);
                         TerminalList.Items.Add(info.nombreTerminal);
+
                     }
 
                     ProceedButton.Enabled = true;
@@ -52,8 +54,7 @@ namespace Skyticket
 
             }
             ValidateButton.Enabled = true;
-        }
-        //***********************************//
+        }//***********************************//
         private void CloseButton_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;

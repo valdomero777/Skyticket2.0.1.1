@@ -82,59 +82,12 @@ namespace Skyticket
         //***************************************//
         private void OKButton_Click(object sender, EventArgs e)
         {
-            SaveFeedback();
+            
             this.DialogResult = DialogResult.OK;
             this.Close();
         }
         //***************************************//
-        private bool SaveFeedback()
-        {
-            bool result = false;
-            try
-            {
-                int ticketID = DBProvider.GetLastTicketID();
-
-                lock (DBProvider.remoteDBLock)
-                {
-                    using (NpgsqlCommand saveCmd = new NpgsqlCommand())
-                    {
-                        saveCmd.CommandType = CommandType.Text;
-                        saveCmd.Connection = DBProvider.remoteConnection;
-
-                        string query = "INSERT INTO public.feedback(" +
-                                        "\"id_ticket\", \"age_range\", \"gender\", \"comments\")" +
-                                        "VALUES(@id_ticket, @age_range, @gender, @comments)";
-
-                        saveCmd.CommandText = query;
-                        saveCmd.Parameters.AddWithValue("@id_ticket", ticketID);
-                        saveCmd.Parameters.AddWithValue("@age_range", selectedAge);
-
-                        string gender = "";
-                        if (MaleButton.Checked)
-                            gender = MaleButton.Tag.ToString();
-                        else if (FemaleButton.Checked)
-                            gender = FemaleButton.Tag.ToString();
-                        else if (OtherButton.Checked)
-                            gender = OtherButton.Tag.ToString();
-
-                        saveCmd.Parameters.AddWithValue("@gender", gender);
-                        saveCmd.Parameters.AddWithValue("@comments", CommentsBox.Text);
-
-                        int temp = saveCmd.ExecuteNonQuery();
-                        result = true;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MainForm.UpdateLogBox("SaveFeedback(): " + ex.Message);
-
-                if (DBProvider.remoteConnection.State != ConnectionState.Open)
-                    DBProvider.InitRemoteDB();
-            }
-
-            return result;
-        }
+       
         //***************************************//
         private void AgeButton_Click(object sender, EventArgs e)
         {
