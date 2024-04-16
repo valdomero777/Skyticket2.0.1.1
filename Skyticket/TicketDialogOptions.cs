@@ -97,7 +97,7 @@ namespace Skyticket
                             if (string.IsNullOrEmpty(Settings.CurrentSettings.PrinterIP))
                                 PaperButton.Enabled = false;
 
-                        this.Height = 150;
+                        
 
                         string[] arr = contactsInfo.ToArray();
                         InputBox.Invoke(new Action(() =>
@@ -113,6 +113,29 @@ namespace Skyticket
             });
 
             CountDownTimer timer = new CountDownTimer();
+            timer.Start();
+            timer.StepMs = 50;
+            btnBach.Enabled = false;
+            //update label text
+            timer.TimeChanged += () =>
+            {
+                if (language.Contains("es"))
+                    btnBach.Text = TextsSpanish.ReceivingData + " " + timer.TimeLeftStr.Replace("m", "");
+                else
+                    btnBach.Text = Texts.ReceivingData + " " + timer.TimeLeftStr.Replace("m", "");
+            };
+
+            // show messageBox on timer = 00:00.000
+            timer.CountDownFinished += () =>
+            {
+                btnBach.Enabled = true;
+                if (language.Contains("es"))
+                    btnBach.Text = "Corte";
+                else
+                    btnBach.Text = "Corte";
+            };
+
+            
             timer.Start();
             timer.StepMs = 50;
             lblPhone.Visible = false;
@@ -522,6 +545,11 @@ namespace Skyticket
                 InputBox.Text = InputBox.Text.Substring(0, InputBox.Text.Length - 1);
             }
             
+        }
+
+        private void btnBach_Click(object sender, EventArgs e)
+        {
+
         }
         //***************************************//
     }

@@ -52,6 +52,7 @@
             this.PaperButton = new System.Windows.Forms.Button();
             this.WhatsappButton = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btnBach = new System.Windows.Forms.Button();
             this.lblPhone = new System.Windows.Forms.Label();
             this.button10 = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
@@ -289,6 +290,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.btnBach);
             this.groupBox2.Controls.Add(this.lblPhone);
             this.groupBox2.Controls.Add(this.button10);
             this.groupBox2.Controls.Add(this.button9);
@@ -324,6 +326,15 @@
             resources.ApplyResources(this.groupBox2, "groupBox2");
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.TabStop = false;
+            // 
+            // btnBach
+            // 
+            this.btnBach.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(160)))), ((int)(((byte)(255)))));
+            resources.ApplyResources(this.btnBach, "btnBach");
+            this.btnBach.ForeColor = System.Drawing.Color.White;
+            this.btnBach.Name = "btnBach";
+            this.btnBach.UseVisualStyleBackColor = false;
+            this.btnBach.Click += new System.EventHandler(this.btnBach_Click);
             // 
             // lblPhone
             // 
@@ -546,6 +557,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "TicketDialogOptions";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.TicketDialogOptions_FormClosing);
             this.Load += new System.EventHandler(this.TicketDialogOptions_Load);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TicketDialogOptions_KeyPress);
@@ -620,5 +632,6 @@
         private System.Windows.Forms.TextBox txtPrefix;
         private System.Windows.Forms.Button button10;
         private System.Windows.Forms.Label lblPhone;
+        private System.Windows.Forms.Button btnBach;
     }
 }

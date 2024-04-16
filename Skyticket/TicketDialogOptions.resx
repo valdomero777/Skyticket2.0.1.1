@@ -148,7 +148,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;InputBox.ZOrder" xml:space="preserve">
-    <value>30</value>
+    <value>31</value>
   </data>
   <data name="OKButton.Font" type="System.Drawing.Font, System.Drawing">
     <value>Century Gothic, 10.2pt, style=Bold</value>
@@ -181,7 +181,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;OKButton.ZOrder" xml:space="preserve">
-    <value>29</value>
+    <value>30</value>
   </data>
   <data name="button8.Font" type="System.Drawing.Font, System.Drawing">
     <value>Century Gothic, 9pt</value>
@@ -751,7 +751,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;TicketLabel.ZOrder" xml:space="preserve">
-    <value>27</value>
+    <value>28</value>
   </data>
   <data name="btnNoPrint.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -762,7 +762,7 @@
   <data name="btnNoPrint.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
-        DwAACw8BkvkDpQAAA65JREFUaEPtmotR4zAQhlMCHUAJlEAJdHB0cHQAHUAH0MGVQAlXAiVQQvh+s85g
+        DAAACwwBP0AiyAAAA65JREFUaEPtmotR4zAQhlMCHUAJlEAJdHB0cHQAHUAH0MGVQAlXAiVQQvh+s85g
         s7LedpjxN6O5I9r9pbVWDys57Ozs7OwYx+PxinJHeaK8Ud4pH5Tv6DPVyUa2V+b+O6DDF5QHigIpRb7S
         ON/g6dwNRSPVmhfK+QROZzSi6lRvtg+cDtxS5nOyJ0r1O2t+XWhYi0wKSvNnih6OFrELkxiz49rqZJM6
         7x9Moj80pk7G5qpG/ZFyCi4VfPQAXikx/lGy9bNQA5T/ai2AAr038yrQUTbooS2hvvQLGnE91RBdnjia
@@ -788,7 +788,7 @@
     <value>NoControl</value>
   </data>
   <data name="btnNoPrint.Location" type="System.Drawing.Point, System.Drawing">
-    <value>611, 85</value>
+    <value>680, 85</value>
   </data>
   <data name="btnNoPrint.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 5, 4, 5</value>
@@ -815,7 +815,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;btnNoPrint.ZOrder" xml:space="preserve">
-    <value>31</value>
+    <value>32</value>
   </data>
   <data name="PaperButton.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -826,7 +826,7 @@
   <data name="PaperButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
-        DwAACw8BkvkDpQAAAchJREFUaEPt2IFtwjAQheGMwAgdgRE6QkdgBEboCN2gI3QERugIjMAI9Fx+ITmx
+        DAAACwwBP0AiyAAAAchJREFUaEPt2IFtwjAQheGMwAgdgRE6QkdgBEboCN2gI3QERugIjMAI9Fx+ITmx
         csWYh13dJ52E4ss9W0CKOoUQQgj/xPl8fn9GEa9n4U9BvB75csTrkS9HvB75csTrkS9HvB75csTrkS9H
         vB75csTrkS9HvJ5lF38JPbqID6GGfYQ2Vnurg9XJqjdpT2lvO7Zcz4ZsrY5Wo0h7fWH7t0k3WvX4jnrS
         nrcc4+/sppHe2bm09w1H8Vnz7ve2se05js+a00NgdAeO47PmXr+76Y14s3q1+koXVpw4jo8benNke1d2
@@ -844,7 +844,7 @@
     <value>NoControl</value>
   </data>
   <data name="PaperButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>251, 84</value>
+    <value>157, 84</value>
   </data>
   <data name="PaperButton.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 5, 4, 5</value>
@@ -871,7 +871,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;PaperButton.ZOrder" xml:space="preserve">
-    <value>26</value>
+    <value>27</value>
   </data>
   <data name="WhatsappButton.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -882,7 +882,7 @@
   <data name="WhatsappButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
-        DwAACw8BkvkDpQAABEhJREFUaEPtmutVHDEMRimBDkIJlEAJlEAHoQPSQegAOiAdUAIlUAIlkPvNaMPg
+        DAAACwwBP0AiyAAABEhJREFUaEPtmutVHDEMRimBDkIJlEAJlEAHoQPSQegAOiAdUAIlUAIlkPvNaMPg
         kZ9jz27O2XuOfySSJcsPWePl4syZM818fn5e0a5pN4t2ZeL/GwvsnvZCe6fleKNJV32uzcxpw0AvaQ+0
         kgBzyMYd7fR2gAZFe6KNQraPHziDOKzoB20PHsz1/uBcCadk62oytEI6m9qiy4Sldkv7RSs969LZd7Vx
         +HNyHUdBKogb61IMfZTsHmm54PdZbRz9nv25TInGVDcjW2YzxtigcRBLTNOKmlp3ZHvy4vNkan3BsJKT
@@ -910,7 +910,7 @@
     <value>NoControl</value>
   </data>
   <data name="WhatsappButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>431, 85</value>
+    <value>337, 85</value>
   </data>
   <data name="WhatsappButton.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 5, 4, 5</value>
@@ -937,7 +937,63 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;WhatsappButton.ZOrder" xml:space="preserve">
-    <value>28</value>
+    <value>29</value>
+  </data>
+  <data name="btnBach.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="btnBach.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Century Gothic, 10.2pt</value>
+  </data>
+  <data name="btnBach.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
+        EgAACxIB0t1+/AAAAchJREFUaEPt2IFtwjAQheGMwAgdgRE6QkdgBEboCN2gI3QERugIjMAI9Fx+ITmx
+        csWYh13dJ52E4ss9W0CKOoUQQgj/xPl8fn9GEa9n4U9BvB75csTrkS9HvB75csTrkS9HvB75csTrkS9H
+        vB75csTrkS9HvJ5lF38JPbqID6GGfYQ2Vnurg9XJqjdpT2lvO7Zcz4ZsrY5Wo0h7fWH7t0k3WvX4jnrS
+        nrcc4+/sppHe2bm09w1H8Vnz7ve2se05js+a00NgdAeO47PmXr+76Y14s3q1+koXVpw4jo8benNke1d2
+        bfWTSJuP/t4sflKma5elMtp89Pfmg+1d2bXPy1IZbT76e5P9fbXX6Xu8ilYf/b1K39vvy8t1HMdH//A4
+        jo/+4XEcH/3D4zg++ofHcXz0D4/j+Oivtfgf1J1VjeP46K/CiGYYW4URPvqrMKIZxlZhhI/+KoxohrFV
+        GOGjvwojmmFsFUb4rLf08CjVAiOaYexcaS+LYkQ7NnSBpWYYm2FJj/wMS80wNsOSHvkZlpphbIYlPfIz
+        LDXD2AxLeuTPFR8gd9QC8XrkyxGvR74c8XrkyxGvR74c8XqWXXrIPLyIDyGEEMY2TT+G1R7AYnt70wAA
+        AABJRU5ErkJggg==
+</value>
+  </data>
+  <data name="btnBach.ImageAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopCenter</value>
+  </data>
+  <data name="btnBach.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btnBach.Location" type="System.Drawing.Point, System.Drawing">
+    <value>516, 85</value>
+  </data>
+  <data name="btnBach.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="btnBach.Size" type="System.Drawing.Size, System.Drawing">
+    <value>141, 125</value>
+  </data>
+  <data name="btnBach.TabIndex" type="System.Int32, mscorlib">
+    <value>74</value>
+  </data>
+  <data name="btnBach.Text" xml:space="preserve">
+    <value>Corte</value>
+  </data>
+  <data name="btnBach.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>BottomCenter</value>
+  </data>
+  <data name="&gt;&gt;btnBach.Name" xml:space="preserve">
+    <value>btnBach</value>
+  </data>
+  <data name="&gt;&gt;btnBach.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnBach.Parent" xml:space="preserve">
+    <value>groupBox2</value>
+  </data>
+  <data name="&gt;&gt;btnBach.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <metadata name="lblPhone.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -970,7 +1026,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;lblPhone.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="button10.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 12pt, style=Bold</value>
@@ -1003,7 +1059,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;button10.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="button9.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 12pt, style=Bold</value>
@@ -1036,7 +1092,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;button9.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="pictureBox12.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -1081,7 +1137,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;pictureBox12.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="pictureBox11.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -1156,7 +1212,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;pictureBox11.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="pictureBox10.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -1254,7 +1310,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;pictureBox10.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="pictureBox9.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -1327,7 +1383,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;pictureBox9.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="pictureBox8.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -1500,7 +1556,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;pictureBox8.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="pictureBox7.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -1642,7 +1698,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;pictureBox7.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>9</value>
   </data>
   <data name="pictureBox6.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -1711,7 +1767,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;pictureBox6.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>10</value>
   </data>
   <data name="pictureBox5.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -1804,7 +1860,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;pictureBox5.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>11</value>
   </data>
   <data name="pictureBox4.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -1874,7 +1930,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;pictureBox4.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>12</value>
   </data>
   <data name="pictureBox3.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -1938,7 +1994,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;pictureBox3.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>13</value>
   </data>
   <data name="pictureBox2.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -1974,7 +2030,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;pictureBox2.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>14</value>
   </data>
   <data name="button21.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 12pt, style=Bold</value>
@@ -2007,7 +2063,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;button21.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>15</value>
   </data>
   <data name="button22.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 12pt, style=Bold</value>
@@ -2040,7 +2096,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;button22.ZOrder" xml:space="preserve">
-    <value>15</value>
+    <value>16</value>
   </data>
   <data name="button24.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 12pt, style=Bold</value>
@@ -2073,7 +2129,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;button24.ZOrder" xml:space="preserve">
-    <value>16</value>
+    <value>17</value>
   </data>
   <data name="button25.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 12pt, style=Bold</value>
@@ -2106,7 +2162,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;button25.ZOrder" xml:space="preserve">
-    <value>17</value>
+    <value>18</value>
   </data>
   <data name="button26.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 12pt, style=Bold</value>
@@ -2139,7 +2195,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;button26.ZOrder" xml:space="preserve">
-    <value>18</value>
+    <value>19</value>
   </data>
   <data name="button27.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 12pt, style=Bold</value>
@@ -2172,7 +2228,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;button27.ZOrder" xml:space="preserve">
-    <value>19</value>
+    <value>20</value>
   </data>
   <data name="button28.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 12pt, style=Bold</value>
@@ -2205,7 +2261,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;button28.ZOrder" xml:space="preserve">
-    <value>20</value>
+    <value>21</value>
   </data>
   <data name="button29.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 12pt, style=Bold</value>
@@ -2238,7 +2294,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;button29.ZOrder" xml:space="preserve">
-    <value>21</value>
+    <value>22</value>
   </data>
   <data name="button30.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 12pt, style=Bold</value>
@@ -2271,7 +2327,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;button30.ZOrder" xml:space="preserve">
-    <value>22</value>
+    <value>23</value>
   </data>
   <data name="button31.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 12pt, style=Bold</value>
@@ -2304,7 +2360,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;button31.ZOrder" xml:space="preserve">
-    <value>23</value>
+    <value>24</value>
   </data>
   <data name="button32.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 12pt, style=Bold</value>
@@ -2337,7 +2393,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;button32.ZOrder" xml:space="preserve">
-    <value>24</value>
+    <value>25</value>
   </data>
   <data name="txtPrefix.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -2367,7 +2423,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;txtPrefix.ZOrder" xml:space="preserve">
-    <value>25</value>
+    <value>26</value>
   </data>
   <data name="groupBox2.Location" type="System.Drawing.Point, System.Drawing">
     <value>26, 125</value>
@@ -2436,7 +2492,7 @@
     <value>9, 20</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>1100, 930</value>
+    <value>733, 620</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
