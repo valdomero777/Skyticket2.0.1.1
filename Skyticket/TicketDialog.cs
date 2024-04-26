@@ -91,10 +91,7 @@ namespace Skyticket
             if (MainForm.clipPhone.Length == 11 && res == "L")
             {
                 InputBox.Text = phone;
-                InputBox.Enabled = false;
-                PaperButton.Enabled = false;
                 
-                BatchButton.Enabled = false;
 
             }
 
@@ -335,12 +332,7 @@ namespace Skyticket
                     return;
                 }
 
-                if (CheckPhoneBlacklist(choice.targetInput))
-                {
-                    choice.printMethod = TicketMethod.Paper;
-                    choice.targetInput = "";
-                }
-                else
+               
                     choice.targetInput = input;
             }
 
@@ -350,8 +342,9 @@ namespace Skyticket
                 contactsInfo = CustomerInfo.LoadCustomerInfo();
             }
 
-           
 
+            Clipboard.Clear();
+           
             this.DialogResult = DialogResult.OK;
             this.FormClosing -= TicketDialog_FormClosing;
             this.Close();
