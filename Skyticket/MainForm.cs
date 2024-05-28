@@ -337,7 +337,7 @@ namespace Skyticket
             {
                 string destinationFile = Path.Combine(Settings.ConfigDirectory, "coupons");
 
-                if (FTP.FTPDownload(fileName, destinationFile))
+                if (Azure.DownloadImage(fileName, destinationFile))
                 {
                     destinationFile = Path.Combine(destinationFile, Path.GetFileName(fileName));
                     couponFileName = destinationFile;
@@ -399,7 +399,7 @@ namespace Skyticket
             {
                 string destinationFile = Path.Combine(Settings.ConfigDirectory, "headers");
 
-                if (FTP.FTPDownload(fileName, destinationFile))
+                if (Azure.DownloadImage(fileName, destinationFile))
                 {
                     destinationFile = Path.Combine(destinationFile, Path.GetFileName(fileName));
                     customHeader = destinationFile;
@@ -461,7 +461,7 @@ namespace Skyticket
 
                     try
                     {
-                        serialProcessTimer.Interval = 4000;
+                        serialProcessTimer.Interval = 5000;
                         serialProcessTimer.Elapsed += SerialProcessTimer_Elapsed;
                         port = new SerialPort(Settings.CurrentSettings.SerialPort);
                         port.BaudRate = 9600;
@@ -1106,18 +1106,15 @@ namespace Skyticket
 
                         for (int i = 0; i < ticketLines.Length; i++)
                         {
-                            while (ticketLines[i].Length > 46)
+                            while (ticketLines[i].Length > 43)
                             {
-                                if (ticketLines[i].Contains("   "))
-                                    ticketLines[i] = ticketLines[i].Replace("   ", "  ");
+                                if (ticketLines[i].Contains("           "))
+                                    ticketLines[i] = ticketLines[i].Replace("           ", "       ");
                                 else
                                     break;
                             }
 
-                            
-                                
-
-                                if (ticketLines[i].Replace("\r", "").Length <= 1)
+                            if (ticketLines[i].Replace("\r", "").Length <= 1)
                                 continue;
                             ticketLines[i] = ticketLines[i].Replace("\r", "");
                             printBytes.AddRange(Encoding.ASCII.GetBytes(ticketLines[i]));
@@ -1741,7 +1738,7 @@ namespace Skyticket
                         else
                         {
                             byte[] imageBytes = File.ReadAllBytes(pngFilePath);
-                            if (FTP.FTPUpload(job.ticketImage, imageBytes))
+                            if (await Azure.UploadImageAsync(pngFilePath))
                             {
 
                                 bool remoteResult = false;

@@ -46,27 +46,28 @@ namespace Skyticket
             // 
             // LicenseKeyBox
             // 
-            this.LicenseKeyBox.Location = new System.Drawing.Point(13, 64);
-            this.LicenseKeyBox.Margin = new System.Windows.Forms.Padding(4);
+            this.LicenseKeyBox.Location = new System.Drawing.Point(10, 52);
             this.LicenseKeyBox.Name = "LicenseKeyBox";
-            this.LicenseKeyBox.Size = new System.Drawing.Size(293, 22);
+            this.LicenseKeyBox.Size = new System.Drawing.Size(221, 20);
             this.LicenseKeyBox.TabIndex = 4;
             this.LicenseKeyBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(10, 43);
+            this.label1.Location = new System.Drawing.Point(8, 35);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(258, 17);
+            this.label1.Size = new System.Drawing.Size(193, 13);
             this.label1.TabIndex = 5;
             this.label1.Text = "Por favor escriba su número de licencia";
             // 
             // ValidateButton
             // 
-            this.ValidateButton.Location = new System.Drawing.Point(318, 51);
+            this.ValidateButton.Location = new System.Drawing.Point(238, 41);
+            this.ValidateButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.ValidateButton.Name = "ValidateButton";
-            this.ValidateButton.Size = new System.Drawing.Size(100, 48);
+            this.ValidateButton.Size = new System.Drawing.Size(75, 39);
             this.ValidateButton.TabIndex = 6;
             this.ValidateButton.Text = "Load";
             this.ValidateButton.UseVisualStyleBackColor = true;
@@ -74,9 +75,10 @@ namespace Skyticket
             // 
             // CloseButton
             // 
-            this.CloseButton.Location = new System.Drawing.Point(318, 390);
+            this.CloseButton.Location = new System.Drawing.Point(238, 317);
+            this.CloseButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.CloseButton.Name = "CloseButton";
-            this.CloseButton.Size = new System.Drawing.Size(100, 48);
+            this.CloseButton.Size = new System.Drawing.Size(75, 39);
             this.CloseButton.TabIndex = 7;
             this.CloseButton.Text = "Cancel";
             this.CloseButton.UseVisualStyleBackColor = true;
@@ -86,26 +88,29 @@ namespace Skyticket
             // 
             this.SucursalList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.SucursalList.FormattingEnabled = true;
-            this.SucursalList.Location = new System.Drawing.Point(12, 181);
+            this.SucursalList.Location = new System.Drawing.Point(9, 147);
+            this.SucursalList.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.SucursalList.Name = "SucursalList";
-            this.SucursalList.Size = new System.Drawing.Size(169, 24);
+            this.SucursalList.Size = new System.Drawing.Size(172, 21);
             this.SucursalList.TabIndex = 8;
             // 
             // SucursalLbl
             // 
             this.SucursalLbl.AutoSize = true;
-            this.SucursalLbl.Location = new System.Drawing.Point(10, 161);
+            this.SucursalLbl.Location = new System.Drawing.Point(8, 131);
+            this.SucursalLbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.SucursalLbl.Name = "SucursalLbl";
-            this.SucursalLbl.Size = new System.Drawing.Size(63, 17);
+            this.SucursalLbl.Size = new System.Drawing.Size(48, 13);
             this.SucursalLbl.TabIndex = 9;
             this.SucursalLbl.Text = "Sucursal";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(10, 236);
+            this.label3.Location = new System.Drawing.Point(8, 192);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(63, 17);
+            this.label3.Size = new System.Drawing.Size(47, 13);
             this.label3.TabIndex = 11;
             this.label3.Text = "Terminal";
             // 
@@ -113,18 +118,20 @@ namespace Skyticket
             // 
             this.TerminalList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.TerminalList.FormattingEnabled = true;
-            this.TerminalList.Location = new System.Drawing.Point(12, 256);
+            this.TerminalList.Location = new System.Drawing.Point(9, 208);
+            this.TerminalList.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.TerminalList.Name = "TerminalList";
-            this.TerminalList.Size = new System.Drawing.Size(169, 24);
+            this.TerminalList.Size = new System.Drawing.Size(172, 21);
             this.TerminalList.TabIndex = 10;
             // 
             // SupportLink
             // 
             this.SupportLink.AutoSize = true;
             this.SupportLink.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SupportLink.Location = new System.Drawing.Point(8, 418);
+            this.SupportLink.Location = new System.Drawing.Point(6, 340);
+            this.SupportLink.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.SupportLink.Name = "SupportLink";
-            this.SupportLink.Size = new System.Drawing.Size(209, 20);
+            this.SupportLink.Size = new System.Drawing.Size(175, 17);
             this.SupportLink.TabIndex = 12;
             this.SupportLink.TabStop = true;
             this.SupportLink.Text = "soporte@skyticket.com.mx";
@@ -133,18 +140,20 @@ namespace Skyticket
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(10, 134);
+            this.label2.Location = new System.Drawing.Point(8, 109);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(315, 17);
+            this.label2.Size = new System.Drawing.Size(235, 13);
             this.label2.TabIndex = 13;
             this.label2.Text = "Por favor seleccione una sucursal y una terminal";
             // 
             // ProceedButton
             // 
             this.ProceedButton.Enabled = false;
-            this.ProceedButton.Location = new System.Drawing.Point(318, 282);
+            this.ProceedButton.Location = new System.Drawing.Point(238, 229);
+            this.ProceedButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.ProceedButton.Name = "ProceedButton";
-            this.ProceedButton.Size = new System.Drawing.Size(100, 48);
+            this.ProceedButton.Size = new System.Drawing.Size(75, 39);
             this.ProceedButton.TabIndex = 14;
             this.ProceedButton.Text = "Proceed";
             this.ProceedButton.UseVisualStyleBackColor = true;
@@ -152,9 +161,10 @@ namespace Skyticket
             // 
             // SkipButton
             // 
-            this.SkipButton.Location = new System.Drawing.Point(318, 336);
+            this.SkipButton.Location = new System.Drawing.Point(238, 273);
+            this.SkipButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.SkipButton.Name = "SkipButton";
-            this.SkipButton.Size = new System.Drawing.Size(100, 48);
+            this.SkipButton.Size = new System.Drawing.Size(75, 39);
             this.SkipButton.TabIndex = 15;
             this.SkipButton.Text = "Skip";
             this.SkipButton.UseVisualStyleBackColor = true;
@@ -162,9 +172,9 @@ namespace Skyticket
             // 
             // LicenseForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(430, 450);
+            this.ClientSize = new System.Drawing.Size(322, 366);
             this.Controls.Add(this.SkipButton);
             this.Controls.Add(this.ProceedButton);
             this.Controls.Add(this.label2);
@@ -178,6 +188,7 @@ namespace Skyticket
             this.Controls.Add(this.label1);
             this.Controls.Add(this.LicenseKeyBox);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "LicenseForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Skyticket";
