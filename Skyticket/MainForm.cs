@@ -1760,7 +1760,7 @@ namespace Skyticket
             return text;
         }
         //******************************//
-        private void UploadJobsThreadFunction()
+        private async void UploadJobsThreadFunction()
         {
             int JobWithoutPng;
             while (isRunning)
@@ -1783,7 +1783,7 @@ namespace Skyticket
                         else
                         {
                             byte[] imageBytes = File.ReadAllBytes(pngFilePath);
-                            if (FTP.FTPUpload(job.ticketImage, imageBytes))
+                            if (await Azure.UploadImageAsync(pngFilePath))
                             {
 
                                 bool remoteResult = false;
