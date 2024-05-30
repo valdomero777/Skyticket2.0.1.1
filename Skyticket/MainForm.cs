@@ -1568,7 +1568,7 @@ namespace Skyticket
             }
         }
         //******************************//
-        private static async Task<bool> SaveJobRemoteDB(string ticketFileName, string jobFileName, TicketMethod method, string target)
+        private static async Task<bool> SaveJobRemoteDB(string ticketFileName, string jobFileName, TicketMethod method, string target, string filePath)
         {
             bool result = false;
             try
@@ -1589,11 +1589,12 @@ namespace Skyticket
                     ti.mobilephone = target;
                 }
 
-                ti.sent = true;
+                ti.sent = false;
                 ti.datesent = DateTime.Now;
                 ti.details = SaveJobTextDB(jobFileName);
+                
 
-                result = await TicketRequestAsync(ti);
+                result = await TicketRequestAsync(ti, filePath);
 
                 if (Settings.CurrentSettings.CustomerFeedback)
                     TicketDialog.SaveFeedback();
@@ -1682,7 +1683,7 @@ namespace Skyticket
         //******************************//
         private static string SaveJobTextDB(string psFileName)
         {
-            string text = "";
+            string text = "  ";
 
             try
             {
@@ -1691,7 +1692,7 @@ namespace Skyticket
 
                 string psFileText = File.ReadAllText(psFileName);
                 if (psFileText.ToLower().Contains("%%targetdevice") || psFileText.ToLower().Contains("%!ps-adobe"))
-                    return "";
+                    return "  ";
 
                 string[] ticketLines = GetESCPOSText(psFileName);
 
@@ -1738,15 +1739,14 @@ namespace Skyticket
                         else
                         {
                             byte[] imageBytes = File.ReadAllBytes(pngFilePath);
-                            if (await Azure.UploadImageAsync(pngFilePath))
-                            {
+                            
 
                                 bool remoteResult = false;
                                 //save to remote DB
                                 if (job.printMethod == TicketMethod.Email.ToString())
-                                    remoteResult = await SaveJobRemoteDB(job.ticketImage, job.jobFileName, Converters.ParseEnum<TicketMethod>(job.printMethod), job.email);
+                                    remoteResult = await SaveJobRemoteDB(job.ticketImage, job.jobFileName, Converters.ParseEnum<TicketMethod>(job.printMethod), job.email, pngFilePath);
                                 else
-                                    remoteResult = await SaveJobRemoteDB(job.ticketImage, job.jobFileName, Converters.ParseEnum<TicketMethod>(job.printMethod), job.mobilePhone);
+                                    remoteResult = await SaveJobRemoteDB(job.ticketImage, job.jobFileName, Converters.ParseEnum<TicketMethod>(job.printMethod), job.mobilePhone, pngFilePath);
 
                                 //mark as sent in local DB
                                 if (remoteResult)
@@ -1762,7 +1762,7 @@ namespace Skyticket
                                             SaveJobService(imageBytes, job.jobFileName, Converters.ParseEnum<TicketMethod>(job.printMethod), job.mobilePhone);
                                     }
                                 }
-                            }
+                            
                         }
                     }
                 }
@@ -2873,24 +2873,31 @@ namespace Skyticket
 
         }
 
-        private static async Task<bool> TicketRequestAsync(Ticket ti)
+        private static async Task<bool> TicketRequestAsync(Ticket ti, string filePath)
         {
             UpdateLogBox("TicketReq");
             bool result = false;
             try
             {
-                var options = new RestClientOptions("https://skyticketapi.azurewebsites.net/")
+                var options = new RestClientOptions("https://apidigitalreceipt.azurewebsites.net/api")
                 {
                     MaxTimeout = -1,
                 };
                 var client = new RestClient(options);
-                var request = new RestRequest("/tickets", Method.Post)
-                    .AddJsonBody(ti);
-
+                var request = new RestRequest("/ticket", Method.Post);
+                request.AddParameter("id_terminal", ti.id_terminal);
+                request.AddParameter("id_client", ti.id_client);
+                request.AddParameter("ticketimagepath", ti.ticketimagepath);
+                request.AddParameter("printmethod", ti.printmethod);
+                request.AddParameter("email", "pending");
+                request.AddParameter("mobilephone", ti.mobilephone);
+                request.AddParameter("sent", ti.sent);
+                request.AddFile("TicketImage", filePath, "multipart/form-data");
                 RestResponse response = await client.ExecuteAsync(request);
-                var ticketr = JsonConvert.DeserializeObject<TicketRes>(response.Content);
+                var ticketr = JsonConvert.DeserializeObject<Ticket>(response.Content);
 
-                id_ticketr = ticketr.ticket.id;
+                id_ticketr = ticketr.id;
+                UpdateLogBox(ticketr.ticketimagepath);
                 if (id_ticketr != 0)
                     result = true;
 

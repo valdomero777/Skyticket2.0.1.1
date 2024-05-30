@@ -18,6 +18,7 @@ namespace Skyticket.Classes
         public bool sent { get; set; }
         public DateTime datesent { get; set; }
         public string details { get; set; }
+       
     }
 
     public class TicketRes
